@@ -1,0 +1,155 @@
+{
+  "name": "register_link",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "1Wdswe7lGrQnpNLE54B7NS",
+    "node": "123:165",
+    "version": "5190574319",
+    "component-id": "74b78dfe7fb9420683edc35d3e5be64e9571624d"
+  },
+  "default": "RegisterLink",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "text",
+        "id": "Dont have an account?"
+      },
+      {
+        "type": "text",
+        "id": "Register"
+      }
+    ],
+    "modes": {
+      "RegisterLink": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": "false",
+            "children": [
+              "Dont have an account?",
+              "Register"
+            ]
+          },
+          {
+            "id": "Dont have an account?",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "1.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "11.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "165.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "18.0"
+              }
+            },
+            "color": {
+              "alpha": "0.6274509803921569",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.0"
+            },
+            "text-content": "Dont have an account? ",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align": "left",
+            "text-size": "15.0",
+            "line-height": "1.2102272033691406",
+            "typeface": "Inter"
+          },
+          {
+            "id": "Register",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "166.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "11.0"
+              }
+            },
+            "tap-handler": "$RegisterButton",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "67.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "18.0"
+              }
+            },
+            "color": {
+              "alpha": "0.6274509803921569",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.0"
+            },
+            "annotated-text-content": {
+              "text": " Register",
+              "annotated-text-span-list": [
+                {
+                  "span-start": "0",
+                  "span-length": "1"
+                },
+                {
+                  "span-start": "1",
+                  "span-length": "8",
+                  "annotated-text-style": {
+                    "color": {
+                      "alpha": "0.9490196078431372",
+                      "hue": "0.0",
+                      "saturation": "0.0",
+                      "value": "0.0"
+                    }
+                  }
+                }
+              ]
+            },
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align": "left",
+            "text-size": "15.0",
+            "line-height": "1.2102272033691406",
+            "typeface": "Inter"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "RegisterButton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "RegisterLink",
+      "size": {
+        "width": 232.0,
+        "height": 39.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

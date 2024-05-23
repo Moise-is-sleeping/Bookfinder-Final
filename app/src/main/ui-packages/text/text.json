@@ -1,0 +1,77 @@
+{
+  "name": "text",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "1Wdswe7lGrQnpNLE54B7NS",
+    "node": "174:191",
+    "version": "5229087400",
+    "component-id": "097d0e1e0a1085445228af63ef92fd45db8d15aa"
+  },
+  "default": "text",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "text",
+        "id": "It is a long established fact that a reader will be"
+      }
+    ],
+    "modes": {
+      "text": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": "false",
+            "children": [
+              "It is a long established fact that a reader will be"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "It is a long established fact that a reader will be",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.0"
+            },
+            "text-content": "It is a long established fact that a reader will be ",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align": "left",
+            "text-size": "15.0",
+            "line-height": "1.2930000305175782",
+            "typeface": "Baskervville"
+          }
+        ]
+      }
+    }
+  },
+  "previews": [
+    {
+      "design": "text",
+      "size": {
+        "width": 322.0,
+        "height": 292.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

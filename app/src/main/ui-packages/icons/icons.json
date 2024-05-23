@@ -1,0 +1,146 @@
+{
+  "name": "icons",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "1Wdswe7lGrQnpNLE54B7NS",
+    "node": "262:597",
+    "version": "5369886014",
+    "component-id": "2fa2cbb1f694aa560241945a5526308130a95af4"
+  },
+  "default": "icons",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "group",
+        "id": "Name"
+      },
+      {
+        "type": "adin_component",
+        "id": "User",
+        "key": "user"
+      },
+      {
+        "type": "image",
+        "id": "User-Face-Male--Streamline-Plump 1"
+      }
+    ],
+    "modes": {
+      "icons": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": "5.0",
+            "drop-shadow": {
+              "color": {
+                "alpha": "0.24705882352941178",
+                "hue": "0.0",
+                "saturation": "0.0",
+                "value": "0.0"
+              },
+              "blur": "10.0",
+              "offset-x": "0.0",
+              "offset-y": "0.0",
+              "spread": "4.0",
+              "blend-mode": "normal"
+            },
+            "is-structured": "false",
+            "children": [
+              "Name",
+              "User"
+            ],
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            }
+          },
+          {
+            "id": "Name",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "215.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "13.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "41.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "41.0"
+              }
+            },
+            "is-structured": "false",
+            "children": [
+              "User-Face-Male--Streamline-Plump 1"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "User",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "45.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "13.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "41.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "41.0"
+              }
+            }
+          },
+          {
+            "id": "User-Face-Male--Streamline-Plump 1",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "image-content": "user_face_male_streamline_plump_1.png",
+            "scale": "cover"
+          }
+        ]
+      }
+    }
+  },
+  "previews": [
+    {
+      "design": "icons",
+      "size": {
+        "width": 312.0,
+        "height": 67.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

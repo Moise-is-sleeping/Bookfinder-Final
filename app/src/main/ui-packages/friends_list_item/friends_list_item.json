@@ -1,0 +1,382 @@
+{
+  "name": "friends_list_item",
+  "version": 33,
+  "source-key": {
+    "type": "figma",
+    "file": "1Wdswe7lGrQnpNLE54B7NS",
+    "node": "278:472",
+    "version": "5835940620",
+    "component-id": "706c614d309fa6d4f8172010a3e0c28fe65d6504"
+  },
+  "default": "Property 1=Default",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "text",
+        "id": "Julio Fernandez"
+      },
+      {
+        "type": "group",
+        "id": "Close"
+      },
+      {
+        "type": "adin_component",
+        "id": "User",
+        "key": "user"
+      },
+      {
+        "type": "image",
+        "id": "Keyboard-Asterisk-2--Streamline-Freehand 1"
+      },
+      {
+        "type": "group",
+        "id": "Frame 15"
+      }
+    ],
+    "modes": {
+      "Property 1=Default": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": 5.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.24705882352941178,
+                "hue": 0.0,
+                "saturation": 0.0,
+                "value": 0.0
+              },
+              "blur": 10.0,
+              "offset-x": 0.0,
+              "offset-y": 0.0,
+              "spread": 4.0,
+              "blend-mode": "normal"
+            },
+            "is-structured": false,
+            "children": [
+              "Julio Fernandez",
+              "Close",
+              "User"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            }
+          },
+          {
+            "id": "Julio Fernandez",
+            "margin": {
+              "left": 58.0,
+              "top": 1.5,
+              "right": 55.0,
+              "bottom": 0.5
+            },
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.24705882352941178,
+                "hue": 0.0,
+                "saturation": 0.0,
+                "value": 0.0
+              },
+              "blur": 4.0,
+              "offset-x": 0.0,
+              "offset-y": 4.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "tap-handler": "$SelectFriend",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "color": {
+              "alpha": 0.6470588235294118,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 0.0
+            },
+            "text-content": "$Username",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "text-align-vertical": "center",
+            "text-size": 20.0,
+            "line-height": 1.347900390625,
+            "typeface": "Linden Hill"
+          },
+          {
+            "id": "Close",
+            "alignment": {
+              "horizontal": {
+                "attachment": "end",
+                "offset": -15.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 14.0
+              }
+            },
+            "tap-handler": "$removeFriendButton",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 31.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 31.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "Keyboard-Asterisk-2--Streamline-Freehand 1"
+            ]
+          },
+          {
+            "id": "User",
+            "margin": {
+              "left": 10.0,
+              "top": 11.0,
+              "right": 271.0,
+              "bottom": 9.0
+            }
+          },
+          {
+            "id": "Keyboard-Asterisk-2--Streamline-Freehand 1",
+            "margin": {
+              "left": 0.73809814453125,
+              "top": 0.73809814453125,
+              "right": 0.7380905151367188,
+              "bottom": 0.7380905151367188
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "image-content": "keyboard_asterisk_2_streamline_freehand_1.png",
+            "scale": "cover"
+          }
+        ]
+      },
+      "Property 1=Variant2": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": 5.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.24705882352941178,
+                "hue": 0.0,
+                "saturation": 0.0,
+                "value": 0.0
+              },
+              "blur": 10.0,
+              "offset-x": 0.0,
+              "offset-y": 0.0,
+              "spread": 4.0,
+              "blend-mode": "normal"
+            },
+            "is-structured": false,
+            "children": [
+              "Julio Fernandez",
+              "Close",
+              "Frame 15"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            }
+          },
+          {
+            "id": "Julio Fernandez",
+            "margin": {
+              "left": 80.0,
+              "right": 52.0
+            },
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.24705882352941178,
+                "hue": 0.0,
+                "saturation": 0.0,
+                "value": 0.0
+              },
+              "blur": 4.0,
+              "offset-x": 0.0,
+              "offset-y": 4.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "tap-handler": "$SelectFriend",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "color": {
+              "alpha": 0.6470588235294118,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 0.0
+            },
+            "text-content": "$Username",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "text-align-vertical": "center",
+            "text-size": 20.0,
+            "line-height": 1.347900390625,
+            "typeface": "Linden Hill"
+          },
+          {
+            "id": "Close",
+            "alignment": {
+              "horizontal": {
+                "attachment": "end",
+                "offset": -14.0
+              },
+              "vertical": {
+                "attachment": "center",
+                "offset": 0.0
+              }
+            },
+            "tap-handler": "$removeFriendButton",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 31.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 31.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "Keyboard-Asterisk-2--Streamline-Freehand 1"
+            ]
+          },
+          {
+            "id": "Frame 15",
+            "border-radius": 119.0,
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 2.0
+              },
+              "vertical": {
+                "attachment": "center",
+                "offset": -0.5
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 48.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 48.0
+              }
+            },
+            "is-structured": false,
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.024489795918367373,
+              "value": 0.9607843137254902
+            }
+          },
+          {
+            "id": "Keyboard-Asterisk-2--Streamline-Freehand 1",
+            "margin": {
+              "left": 0.73809814453125,
+              "top": 0.73809814453125,
+              "right": 0.7380905151367188,
+              "bottom": 0.7380905151367188
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "image-content": "keyboard_asterisk_2_streamline_freehand_1.png",
+            "scale": "cover"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "Username": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "SelectFriend": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "removeFriendButton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "Property 1=Default",
+      "size": {
+        "width": 320.0,
+        "height": 59.0
+      },
+      "parameters": {
+        "Username": "Julio Fernandez"
+      }
+    },
+    {
+      "design": "Property 1=Variant2",
+      "size": {
+        "width": 319.0,
+        "height": 57.0
+      },
+      "parameters": {
+        "Username": "Julio Fernandez"
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

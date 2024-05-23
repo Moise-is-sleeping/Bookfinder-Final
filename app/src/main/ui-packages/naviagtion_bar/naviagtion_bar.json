@@ -1,0 +1,437 @@
+{
+  "name": "naviagtion_bar",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "1Wdswe7lGrQnpNLE54B7NS",
+    "node": "37:82",
+    "version": "5361655504",
+    "component-id": "93b5950946566c4b7b9740dae83d0fa124398bf0"
+  },
+  "default": "Naviagtion Bar",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "group",
+        "id": "HomeButton"
+      },
+      {
+        "type": "group",
+        "id": "searchButton"
+      },
+      {
+        "type": "group",
+        "id": "HomeButton1"
+      },
+      {
+        "type": "group",
+        "id": "moreButton"
+      },
+      {
+        "type": "image",
+        "id": "homeButton"
+      },
+      {
+        "type": "text",
+        "id": "Home"
+      },
+      {
+        "type": "group",
+        "id": "SavedButton"
+      },
+      {
+        "type": "image",
+        "id": "searchButton1"
+      },
+      {
+        "type": "vector",
+        "id": "savedButton"
+      },
+      {
+        "type": "text",
+        "id": "Saved"
+      },
+      {
+        "type": "image",
+        "id": "savedButton1"
+      },
+      {
+        "type": "text",
+        "id": "Saved1"
+      },
+      {
+        "type": "text",
+        "id": "More"
+      },
+      {
+        "type": "image",
+        "id": "Menu-Navigation--Streamline-Freehand 1"
+      }
+    ],
+    "modes": {
+      "Naviagtion Bar": {
+        "rules": [
+          {
+            "id": "top_level",
+            "padding": {
+              "left": "26.0",
+              "top": "8.0",
+              "right": "26.0",
+              "bottom": "8.0"
+            },
+            "arrangement": "row",
+            "main-axis-align": "space-between",
+            "children": [
+              "HomeButton",
+              "searchButton",
+              "HomeButton1",
+              "moreButton"
+            ],
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "50.84745762711865",
+              "saturation": "0.23505976095617526",
+              "value": "0.984313725490196"
+            }
+          },
+          {
+            "id": "HomeButton",
+            "tap-handler": "$homebutton",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "38.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "51.0"
+              }
+            },
+            "is-structured": "false",
+            "children": [
+              "homeButton",
+              "Home"
+            ]
+          },
+          {
+            "id": "searchButton",
+            "tap-handler": "$searchButton",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "38.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "51.0"
+              }
+            },
+            "is-structured": "false",
+            "children": [
+              "SavedButton",
+              "searchButton1"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "HomeButton1",
+            "tap-handler": "$savedButton",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "38.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "51.0"
+              }
+            },
+            "is-structured": "false",
+            "children": [
+              "savedButton1",
+              "Saved1"
+            ]
+          },
+          {
+            "id": "moreButton",
+            "tap-handler": "$moreButton",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "38.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "51.0"
+              }
+            },
+            "is-structured": "false",
+            "children": [
+              "More",
+              "Menu-Navigation--Streamline-Freehand 1"
+            ]
+          },
+          {
+            "id": "homeButton",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "38.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "38.0"
+              }
+            },
+            "image-content": "home_button.png",
+            "scale": "cover"
+          },
+          {
+            "id": "Home",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "0.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "38.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "38.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "13.0"
+              }
+            },
+            "color": {
+              "alpha": "1.0",
+              "hue": "30.000000000000007",
+              "saturation": "0.4166666666666667",
+              "value": "0.2823529411764706"
+            },
+            "text-content": "Home",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "line-height": "1.347900390625",
+            "typeface": "Linden Hill"
+          },
+          {
+            "id": "SavedButton",
+            "is-structured": "false",
+            "children": [
+              "savedButton",
+              "Saved"
+            ]
+          },
+          {
+            "id": "searchButton1",
+            "margin": {
+              "bottom": "13.0"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "image-content": "search_button1.png",
+            "scale": "cover"
+          },
+          {
+            "id": "savedButton",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "38.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "38.0"
+              }
+            }
+          },
+          {
+            "id": "Saved",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "0.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "38.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "38.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "13.0"
+              }
+            },
+            "color": {
+              "alpha": "1.0",
+              "hue": "30.000000000000007",
+              "saturation": "0.4166666666666667",
+              "value": "0.2823529411764706"
+            },
+            "text-content": "Search",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "line-height": "1.347900390625",
+            "typeface": "Linden Hill"
+          },
+          {
+            "id": "savedButton1",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "38.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "38.0"
+              }
+            },
+            "image-content": "saved_button1.png",
+            "scale": "cover"
+          },
+          {
+            "id": "Saved1",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "0.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "38.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "38.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "13.0"
+              }
+            },
+            "color": {
+              "alpha": "1.0",
+              "hue": "30.000000000000007",
+              "saturation": "0.4166666666666667",
+              "value": "0.2823529411764706"
+            },
+            "text-content": "Saved",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "line-height": "1.347900390625",
+            "typeface": "Linden Hill"
+          },
+          {
+            "id": "More",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "0.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "38.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "38.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "13.0"
+              }
+            },
+            "color": {
+              "alpha": "1.0",
+              "hue": "30.000000000000007",
+              "saturation": "0.4166666666666667",
+              "value": "0.2823529411764706"
+            },
+            "text-content": "More",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "line-height": "1.347900390625",
+            "typeface": "Linden Hill"
+          },
+          {
+            "id": "Menu-Navigation--Streamline-Freehand 1",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "37.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "37.0"
+              }
+            },
+            "image-content": "menu_navigation_streamline_freehand_1.png",
+            "scale": "cover"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "homebutton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "searchButton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "savedButton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "moreButton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "Naviagtion Bar",
+      "size": {
+        "width": 360.0,
+        "height": 69.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

@@ -1,0 +1,151 @@
+{
+  "name": "search_field",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "1Wdswe7lGrQnpNLE54B7NS",
+    "node": "156:156",
+    "version": "5220067900",
+    "component-id": "00a500541361adc1f2f812c6bee24a63c64007a2"
+  },
+  "default": "SearchField",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "image",
+        "id": "searchButton"
+      },
+      {
+        "type": "group",
+        "id": "Frame 5"
+      }
+    ],
+    "modes": {
+      "SearchField": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": "30.0",
+            "drop-shadow": {
+              "color": {
+                "alpha": "0.24705882352941178",
+                "hue": "0.0",
+                "saturation": "0.0",
+                "value": "0.0"
+              },
+              "blur": "10.0",
+              "offset-x": "0.0",
+              "offset-y": "0.0",
+              "spread": "3.0",
+              "blend-mode": "normal"
+            },
+            "is-structured": "false",
+            "children": [
+              "searchButton",
+              "Frame 5"
+            ],
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            }
+          },
+          {
+            "id": "searchButton",
+            "drop-shadow": {
+              "color": {
+                "alpha": "0.24705882352941178",
+                "hue": "0.0",
+                "saturation": "0.0",
+                "value": "0.0"
+              },
+              "blur": "4.0",
+              "offset-x": "0.0",
+              "offset-y": "4.0",
+              "spread": "0.0",
+              "blend-mode": "normal"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "253.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "7.0"
+              }
+            },
+            "tap-handler": "$ searchButton ",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "27.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "27.0"
+              }
+            },
+            "image-content": "search_button.png",
+            "scale": "cover"
+          },
+          {
+            "id": "Frame 5",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "20.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "7.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "227.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "26.0"
+              }
+            },
+            "is-structured": "false",
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    " searchButton ": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "SearchField",
+      "size": {
+        "width": 311.0,
+        "height": 40.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

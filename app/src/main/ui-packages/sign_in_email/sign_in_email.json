@@ -1,0 +1,124 @@
+{
+  "name": "sign_in_email",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "1Wdswe7lGrQnpNLE54B7NS",
+    "node": "123:143",
+    "version": "5182058586",
+    "component-id": "2f1232540bb9f65f0a3c33aba79382adb0c4be47"
+  },
+  "default": "SignInEmail",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "image",
+        "id": "emailIcon"
+      },
+      {
+        "type": "group",
+        "id": "email"
+      }
+    ],
+    "modes": {
+      "SignInEmail": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": "5.0",
+            "drop-shadow": {
+              "color": {
+                "alpha": "0.24705882352941178",
+                "hue": "0.0",
+                "saturation": "0.0",
+                "value": "0.0"
+              },
+              "blur": "10.0",
+              "offset-x": "0.0",
+              "offset-y": "0.0",
+              "spread": "3.0",
+              "blend-mode": "normal"
+            },
+            "is-structured": "false",
+            "children": [
+              "emailIcon",
+              "email"
+            ],
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            }
+          },
+          {
+            "id": "emailIcon",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "15.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "13.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "41.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "41.0"
+              }
+            },
+            "image-content": "email_icon.png",
+            "scale": "cover"
+          },
+          {
+            "id": "email",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "60.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "0.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "250.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "67.0"
+              }
+            },
+            "is-structured": "false"
+          }
+        ]
+      }
+    }
+  },
+  "previews": [
+    {
+      "design": "SignInEmail",
+      "size": {
+        "width": 312.0,
+        "height": 67.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

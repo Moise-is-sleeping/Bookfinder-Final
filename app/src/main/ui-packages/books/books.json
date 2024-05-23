@@ -1,0 +1,131 @@
+{
+  "name": "books",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "1Wdswe7lGrQnpNLE54B7NS",
+    "node": "39:27",
+    "version": "5227644718",
+    "component-id": "16d60861346a7249a51ac7c36693b42c63b85046"
+  },
+  "default": "Property 1=Default",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "image",
+        "id": "cover 1"
+      }
+    ],
+    "modes": {
+      "Property 1=Default": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": "5.0",
+            "drop-shadow": {
+              "color": {
+                "alpha": "0.24705882352941178",
+                "hue": "0.0",
+                "saturation": "0.0",
+                "value": "0.0"
+              },
+              "blur": "10.0",
+              "offset-x": "0.0",
+              "offset-y": "0.0",
+              "spread": "4.0",
+              "blend-mode": "normal"
+            },
+            "tap-handler": "$bookButton",
+            "stroke-alignment": "outside",
+            "is-structured": "false",
+            "children": [
+              "cover 1"
+            ],
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            }
+          },
+          {
+            "id": "cover 1",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "160.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "230.0"
+              }
+            },
+            "image-content": "cover_1.jpeg",
+            "scale": "cover"
+          }
+        ]
+      },
+      "Property 1=Variant2": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": "5.0",
+            "drop-shadow": {
+              "color": {
+                "alpha": "0.24705882352941178",
+                "hue": "0.0",
+                "saturation": "0.0",
+                "value": "0.0"
+              },
+              "blur": "10.0",
+              "offset-x": "0.0",
+              "offset-y": "0.0",
+              "spread": "3.0",
+              "blend-mode": "normal"
+            },
+            "tap-handler": "$bookButton",
+            "stroke-alignment": "outside",
+            "is-structured": "false",
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "bookButton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "Property 1=Default",
+      "size": {
+        "width": 158.0,
+        "height": 230.0
+      }
+    },
+    {
+      "design": "Property 1=Variant2",
+      "size": {
+        "width": 158.0,
+        "height": 230.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

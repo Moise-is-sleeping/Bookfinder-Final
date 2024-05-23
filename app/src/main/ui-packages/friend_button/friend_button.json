@@ -1,0 +1,111 @@
+{
+  "name": "friend_button",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "1Wdswe7lGrQnpNLE54B7NS",
+    "node": "264:469",
+    "version": "5378198959",
+    "component-id": "4e54097ca6c5daff8995f325fa6a37753032bcb7"
+  },
+  "default": "friendButton",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "text",
+        "id": "Find Friends"
+      }
+    ],
+    "modes": {
+      "friendButton": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": "5.0",
+            "drop-shadow": {
+              "color": {
+                "alpha": "0.24705882352941178",
+                "hue": "0.0",
+                "saturation": "0.0",
+                "value": "0.0"
+              },
+              "blur": "10.0",
+              "offset-x": "0.0",
+              "offset-y": "0.0",
+              "spread": "5.0",
+              "blend-mode": "normal"
+            },
+            "is-structured": "false",
+            "children": [
+              "Find Friends"
+            ],
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.8549019607843137"
+            }
+          },
+          {
+            "id": "Find Friends",
+            "margin": {
+              "left": "6.0",
+              "top": "5.0",
+              "right": "7.0",
+              "bottom": "4.0"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.0"
+            },
+            "text-content": "$ButtonName",
+            "overflow": "visible",
+            "text-align-vertical": "center",
+            "text-size": "17.0",
+            "line-height": "1.347900390625",
+            "typeface": "Linden Hill"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "ButtonName": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "friendButton",
+      "size": {
+        "width": 95.0,
+        "height": 32.0
+      },
+      "parameters": {
+        "ButtonName": "Find Friends"
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

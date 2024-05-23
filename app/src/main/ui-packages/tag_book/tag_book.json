@@ -1,0 +1,138 @@
+{
+  "name": "tag_book",
+  "version": 33,
+  "source-key": {
+    "type": "figma",
+    "file": "1Wdswe7lGrQnpNLE54B7NS",
+    "node": "531:1407",
+    "version": "5836015437",
+    "component-id": "e6884a1482d2366562a6533225e412077d24054d"
+  },
+  "default": "TagBook",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "vector",
+        "id": "Vector"
+      },
+      {
+        "type": "text",
+        "id": "Tag Book"
+      }
+    ],
+    "modes": {
+      "TagBook": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": 5.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.24705882352941178,
+                "hue": 0.0,
+                "saturation": 0.0,
+                "value": 0.0
+              },
+              "blur": 10.0,
+              "offset-x": 0.0,
+              "offset-y": 0.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "tap-handler": "$TagButton",
+            "is-structured": false,
+            "children": [
+              "Vector",
+              "Tag Book"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 50.84745762711865,
+              "saturation": 0.23505976095617526,
+              "value": 0.984313725490196
+            }
+          },
+          {
+            "id": "Vector",
+            "alignment": {
+              "horizontal": {
+                "attachment": "end",
+                "offset": -22.0
+              },
+              "vertical": {
+                "attachment": "center",
+                "offset": -2.5
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 27.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 27.0
+              }
+            },
+            "vector-content": "vector.svg"
+          },
+          {
+            "id": "Tag Book",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 24.0
+              },
+              "vertical": {
+                "attachment": "center",
+                "offset": 0.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 83.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 42.0
+              }
+            },
+            "text-content": "Tag Book",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "text-align-vertical": "center",
+            "text-size": 20.0,
+            "line-height": 1.347900390625,
+            "typeface": "Linden Hill"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "TagButton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "TagBook",
+      "size": {
+        "width": 165.0,
+        "height": 42.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

@@ -1,0 +1,561 @@
+{
+  "name": "more_buttons",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "1Wdswe7lGrQnpNLE54B7NS",
+    "node": "256:560",
+    "version": "5361825058",
+    "component-id": "c158555cf19ff5f586f1b00b4a9b6205fb2aa74f"
+  },
+  "default": "MoreButtons",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "group",
+        "id": "BackgroundGroup"
+      },
+      {
+        "type": "group",
+        "id": "BackgroundPost"
+      },
+      {
+        "type": "group",
+        "id": "BackgroundFriend"
+      },
+      {
+        "type": "group",
+        "id": "Close"
+      },
+      {
+        "type": "group",
+        "id": "Group"
+      },
+      {
+        "type": "text",
+        "id": "Groups"
+      },
+      {
+        "type": "image",
+        "id": "Programming-Team-Chat-3--Streamline-Freehand 1"
+      },
+      {
+        "type": "group",
+        "id": "AddPost"
+      },
+      {
+        "type": "text",
+        "id": "Post"
+      },
+      {
+        "type": "image",
+        "id": "Add-Square--Streamline-Freehand 1"
+      },
+      {
+        "type": "group",
+        "id": "addFriend"
+      },
+      {
+        "type": "text",
+        "id": "Friends"
+      },
+      {
+        "type": "image",
+        "id": "Logout-User--Streamline-Freehand 1"
+      },
+      {
+        "type": "image",
+        "id": "Add-Sign-Bold--Streamline-Freehand 1"
+      },
+      {
+        "type": "image",
+        "id": "Keyboard-Asterisk-2--Streamline-Freehand 1"
+      }
+    ],
+    "modes": {
+      "MoreButtons": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": "false",
+            "children": [
+              "BackgroundGroup",
+              "BackgroundPost",
+              "BackgroundFriend",
+              "Close"
+            ],
+            "background-color": {
+              "alpha": "0.0",
+              "hue": "28.571428571428537",
+              "saturation": "0.091703056768559",
+              "value": "0.8980392156862745"
+            }
+          },
+          {
+            "id": "BackgroundGroup",
+            "border-radius": "109.0",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "17.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "125.0"
+              }
+            },
+            "tap-handler": "$groupsButton",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "65.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "65.0"
+              }
+            },
+            "is-structured": "false",
+            "children": [
+              "Group",
+              "Groups"
+            ],
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "50.84745762711865",
+              "saturation": "0.23505976095617526",
+              "value": "0.984313725490196"
+            }
+          },
+          {
+            "id": "BackgroundPost",
+            "border-radius": "109.0",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "56.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "58.0"
+              }
+            },
+            "tap-handler": "$postsButton",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "65.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "64.0"
+              }
+            },
+            "is-structured": "false",
+            "children": [
+              "AddPost",
+              "Post"
+            ],
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "50.84745762711865",
+              "saturation": "0.23505976095617526",
+              "value": "0.984313725490196"
+            }
+          },
+          {
+            "id": "BackgroundFriend",
+            "border-radius": "134.0",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "125.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "13.0"
+              }
+            },
+            "tap-handler": "$friendsButton",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "65.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "65.0"
+              }
+            },
+            "is-structured": "false",
+            "children": [
+              "addFriend",
+              "Friends"
+            ],
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "50.84745762711865",
+              "saturation": "0.23505976095617526",
+              "value": "0.984313725490196"
+            }
+          },
+          {
+            "id": "Close",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "136.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "136.0"
+              }
+            },
+            "tap-handler": "$closeButton",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "42.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "42.0"
+              }
+            },
+            "is-structured": "false",
+            "children": [
+              "Keyboard-Asterisk-2--Streamline-Freehand 1"
+            ]
+          },
+          {
+            "id": "Group",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "11.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "5.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "42.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "42.0"
+              }
+            },
+            "is-structured": "false",
+            "children": [
+              "Programming-Team-Chat-3--Streamline-Freehand 1"
+            ]
+          },
+          {
+            "id": "Groups",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "11.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "43.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "42.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "13.0"
+              }
+            },
+            "color": {
+              "alpha": "1.0",
+              "hue": "30.000000000000007",
+              "saturation": "0.4166666666666667",
+              "value": "0.2823529411764706"
+            },
+            "text-content": "Groups",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "line-height": "1.347900390625",
+            "typeface": "Linden Hill"
+          },
+          {
+            "id": "Programming-Team-Chat-3--Streamline-Freehand 1",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "0.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "10.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "42.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "22.0"
+              }
+            },
+            "image-content": "programming_team_chat_3_streamline_freehand_1.png",
+            "scale": "cover"
+          },
+          {
+            "id": "AddPost",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "12.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "7.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "40.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "40.0"
+              }
+            },
+            "is-structured": "false",
+            "children": [
+              "Add-Square--Streamline-Freehand 1"
+            ]
+          },
+          {
+            "id": "Post",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "13.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "46.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "38.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "13.0"
+              }
+            },
+            "color": {
+              "alpha": "1.0",
+              "hue": "30.000000000000007",
+              "saturation": "0.4166666666666667",
+              "value": "0.2823529411764706"
+            },
+            "text-content": "Post",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "line-height": "1.347900390625",
+            "typeface": "Linden Hill"
+          },
+          {
+            "id": "Add-Square--Streamline-Freehand 1",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "0.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "1.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "39.0476188659668"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "38.095237731933594"
+              }
+            },
+            "image-content": "add_square_streamline_freehand_1.png",
+            "scale": "cover"
+          },
+          {
+            "id": "addFriend",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "14.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "8.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "36.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "36.0"
+              }
+            },
+            "is-structured": "false",
+            "children": [
+              "Logout-User--Streamline-Freehand 1",
+              "Add-Sign-Bold--Streamline-Freehand 1"
+            ]
+          },
+          {
+            "id": "Friends",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "11.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "44.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "42.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "13.0"
+              }
+            },
+            "color": {
+              "alpha": "1.0",
+              "hue": "30.000000000000007",
+              "saturation": "0.4166666666666667",
+              "value": "0.2823529411764706"
+            },
+            "text-content": "Friends",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "line-height": "1.347900390625",
+            "typeface": "Linden Hill"
+          },
+          {
+            "id": "Logout-User--Streamline-Freehand 1",
+            "margin": {
+              "left": "8.571533203125",
+              "right": "8.57132339477539"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "image-content": "logout_user_streamline_freehand_1.png",
+            "scale": "cover"
+          },
+          {
+            "id": "Add-Sign-Bold--Streamline-Freehand 1",
+            "margin": {
+              "left": "24.857177734375",
+              "bottom": "24.85714340209961"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "image-content": "add_sign_bold_streamline_freehand_1.png",
+            "scale": "cover"
+          },
+          {
+            "id": "Keyboard-Asterisk-2--Streamline-Freehand 1",
+            "margin": "1.0",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "image-content": "keyboard_asterisk_2_streamline_freehand_1.png",
+            "scale": "cover"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "groupsButton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "postsButton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "friendsButton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "closeButton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "MoreButtons",
+      "size": {
+        "width": 193.0,
+        "height": 193.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

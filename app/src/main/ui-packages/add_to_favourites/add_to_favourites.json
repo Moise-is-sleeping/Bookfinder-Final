@@ -1,0 +1,237 @@
+{
+  "name": "add_to_favourites",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "1Wdswe7lGrQnpNLE54B7NS",
+    "node": "179:186",
+    "version": "5238137436",
+    "component-id": "ff664ca2756dedf8e6506e50bde0c69bb6d0b362"
+  },
+  "default": "Property 1=Default",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "text",
+        "id": "Add to favorites"
+      },
+      {
+        "type": "image",
+        "id": "Bookmark--Streamline-Platinum (1) 1"
+      },
+      {
+        "type": "image",
+        "id": "Bookmark--Streamline-Micro (1) 1"
+      }
+    ],
+    "modes": {
+      "Property 1=Default": {
+        "rules": [
+          {
+            "id": "top_level",
+            "padding": {
+              "left": "49.0",
+              "right": "50.0"
+            },
+            "border-radius": "5.0",
+            "drop-shadow": {
+              "color": {
+                "alpha": "0.24705882352941178",
+                "hue": "0.0",
+                "saturation": "0.0",
+                "value": "0.0"
+              },
+              "blur": "10.0",
+              "offset-x": "0.0",
+              "offset-y": "0.0",
+              "spread": "4.0",
+              "blend-mode": "normal"
+            },
+            "tap-handler": "$addToFavourites",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "arrangement": "row",
+            "main-axis-align": "space-between",
+            "children": [
+              "Add to favorites",
+              "Bookmark--Streamline-Platinum (1) 1"
+            ],
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "50.84745762711865",
+              "saturation": "0.23505976095617526",
+              "value": "0.984313725490196"
+            }
+          },
+          {
+            "id": "Add to favorites",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "162.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "49.0"
+              }
+            },
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.0"
+            },
+            "text-content": "Add to favorites",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align-vertical": "center",
+            "text-size": "25.0",
+            "line-height": "1.347900390625",
+            "typeface": "Linden Hill"
+          },
+          {
+            "id": "Bookmark--Streamline-Platinum (1) 1",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "27.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "27.0"
+              }
+            },
+            "image-content": "bookmark_streamline_platinum_1_1.png",
+            "scale": "cover"
+          }
+        ]
+      },
+      "Property 1=Variant2": {
+        "rules": [
+          {
+            "id": "top_level",
+            "padding": {
+              "left": "49.0",
+              "right": "50.0"
+            },
+            "border-radius": "5.0",
+            "drop-shadow": {
+              "color": {
+                "alpha": "0.24705882352941178",
+                "hue": "0.0",
+                "saturation": "0.0",
+                "value": "0.0"
+              },
+              "blur": "10.0",
+              "offset-x": "0.0",
+              "offset-y": "0.0",
+              "spread": "4.0",
+              "blend-mode": "normal"
+            },
+            "tap-handler": "$addToFavourites",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "arrangement": "row",
+            "main-axis-align": "space-between",
+            "children": [
+              "Add to favorites",
+              "Bookmark--Streamline-Micro (1) 1"
+            ],
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "50.84745762711865",
+              "saturation": "0.23505976095617526",
+              "value": "0.984313725490196"
+            }
+          },
+          {
+            "id": "Add to favorites",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "162.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "49.0"
+              }
+            },
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.0"
+            },
+            "text-content": "Add to favorites",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align-vertical": "center",
+            "text-size": "25.0",
+            "line-height": "1.347900390625",
+            "typeface": "Linden Hill"
+          },
+          {
+            "id": "Bookmark--Streamline-Micro (1) 1",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "27.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "27.0"
+              }
+            },
+            "image-content": "bookmark_streamline_micro_1_1.png",
+            "scale": "cover"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "addToFavourites": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "Property 1=Default",
+      "size": {
+        "width": 326.0,
+        "height": 49.0
+      }
+    },
+    {
+      "design": "Property 1=Variant2",
+      "size": {
+        "width": 326.0,
+        "height": 49.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

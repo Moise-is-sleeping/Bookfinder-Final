@@ -1,0 +1,66 @@
+{
+  "name": "user",
+  "version": 33,
+  "source-key": {
+    "type": "figma",
+    "file": "1Wdswe7lGrQnpNLE54B7NS",
+    "node": "220:565",
+    "version": "5836025663",
+    "component-id": "6d25d296cdcb6c4eb3de0865e8209b23881e1b51"
+  },
+  "default": "User",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "vector",
+        "id": "Vector"
+      }
+    ],
+    "modes": {
+      "User": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": 20.0,
+            "stroke-alignment": "outside",
+            "is-structured": false,
+            "children": [
+              "Vector"
+            ]
+          },
+          {
+            "id": "Vector",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector.svg"
+          }
+        ]
+      }
+    }
+  },
+  "previews": [
+    {
+      "design": "User",
+      "size": {
+        "width": 39.0,
+        "height": 39.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

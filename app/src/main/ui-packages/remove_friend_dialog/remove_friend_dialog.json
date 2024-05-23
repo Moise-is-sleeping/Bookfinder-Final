@@ -1,0 +1,210 @@
+{
+  "name": "remove_friend_dialog",
+  "version": 33,
+  "source-key": {
+    "type": "figma",
+    "file": "1Wdswe7lGrQnpNLE54B7NS",
+    "node": "466:727",
+    "version": "5730513073",
+    "component-id": "dc43f7d481842a0ee865c4fdbf5bb714735aede7"
+  },
+  "default": "RemoveFriendDialog",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "text",
+        "id": "Are you sure you want to remove “ “ from your friend list."
+      },
+      {
+        "type": "adin_component",
+        "id": "RemoveButton",
+        "key": "account_buttons"
+      },
+      {
+        "type": "group",
+        "id": "CancelButton"
+      },
+      {
+        "type": "text",
+        "id": "Cancel"
+      }
+    ],
+    "modes": {
+      "RemoveFriendDialog": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": 5.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.24705882352941178,
+                "hue": 0.0,
+                "saturation": 0.0,
+                "value": 0.0
+              },
+              "blur": 27.100000381469727,
+              "offset-x": 0.0,
+              "offset-y": 0.0,
+              "spread": 1.0,
+              "blend-mode": "normal"
+            },
+            "is-structured": false,
+            "children": [
+              "Are you sure you want to remove “ “ from your friend list.",
+              "RemoveButton",
+              "CancelButton"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            }
+          },
+          {
+            "id": "Are you sure you want to remove “ “ from your friend list.",
+            "margin": {
+              "left": 30.0,
+              "top": 23.0,
+              "right": 28.0,
+              "bottom": 108.0
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "text-content": "$TextButton",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align-vertical": "center",
+            "text-size": 20.0,
+            "line-height": 1.347900390625,
+            "typeface": "Linden Hill"
+          },
+          {
+            "id": "RemoveButton",
+            "margin": {
+              "left": 30.0,
+              "top": 114.0,
+              "right": 188.0,
+              "bottom": 34.0
+            },
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.24705882352941178,
+                "hue": 0.0,
+                "saturation": 0.0,
+                "value": 0.0
+              },
+              "blur": 10.0,
+              "offset-x": 0.0,
+              "offset-y": 0.0,
+              "spread": 3.0,
+              "blend-mode": "normal"
+            },
+            "tap-handler": "$RemoveButton",
+            "design": "Property 1=Variant6",
+            "buttonName": "Remove"
+          },
+          {
+            "id": "CancelButton",
+            "margin": {
+              "left": 182.0,
+              "top": 114.0,
+              "right": 36.0,
+              "bottom": 34.0
+            },
+            "border-radius": 5.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.24705882352941178,
+                "hue": 0.0,
+                "saturation": 0.0,
+                "value": 0.0
+              },
+              "blur": 10.0,
+              "offset-x": 0.0,
+              "offset-y": 0.0,
+              "spread": 3.0,
+              "blend-mode": "normal"
+            },
+            "tap-handler": "$CancelButton ",
+            "is-structured": false,
+            "children": [
+              "Cancel"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 50.84745762711865,
+              "saturation": 0.23505976095617526,
+              "value": 0.984313725490196
+            }
+          },
+          {
+            "id": "Cancel",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "text-content": "Cancel",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align-vertical": "center",
+            "text-size": 20.0,
+            "line-height": 1.347900390625,
+            "typeface": "Linden Hill"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "TextButton": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "RemoveButton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "CancelButton ": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "RemoveFriendDialog",
+      "size": {
+        "width": 328.0,
+        "height": 184.0
+      },
+      "parameters": {
+        "TextButton": "Are you sure you want to remove “                          “ from your friend list."
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

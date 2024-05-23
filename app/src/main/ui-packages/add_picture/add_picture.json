@@ -1,0 +1,102 @@
+{
+  "name": "add_picture",
+  "version": 33,
+  "source-key": {
+    "type": "figma",
+    "file": "1Wdswe7lGrQnpNLE54B7NS",
+    "node": "531:1408",
+    "version": "5836017575",
+    "component-id": "277814ae4214c03f2f015ae6b5d4c0927fbadf1e"
+  },
+  "default": "AddPicture",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "vector",
+        "id": "Vector"
+      }
+    ],
+    "modes": {
+      "AddPicture": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": 5.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.24705882352941178,
+                "hue": 0.0,
+                "saturation": 0.0,
+                "value": 0.0
+              },
+              "blur": 10.0,
+              "offset-x": 0.0,
+              "offset-y": 0.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "tap-handler": "$AddPicture",
+            "is-structured": false,
+            "children": [
+              "Vector"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 50.84745762711865,
+              "saturation": 0.23505976095617526,
+              "value": 0.984313725490196
+            }
+          },
+          {
+            "id": "Vector",
+            "alignment": {
+              "horizontal": {
+                "attachment": "center",
+                "offset": 0.0000782012939453125
+              },
+              "vertical": {
+                "attachment": "center",
+                "offset": -0.00005817413330078125
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 36.36734390258789
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 31.1219539642334
+              }
+            },
+            "vector-content": "vector.svg"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "AddPicture": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "AddPicture",
+      "size": {
+        "width": 54.0,
+        "height": 44.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

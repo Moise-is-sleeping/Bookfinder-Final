@@ -1,0 +1,295 @@
+{
+  "name": "friend_requests",
+  "version": 33,
+  "source-key": {
+    "type": "figma",
+    "file": "1Wdswe7lGrQnpNLE54B7NS",
+    "node": "388:617",
+    "version": "5835930913",
+    "component-id": "4badd26534f6f95f90f55dab8c38311cb1759222"
+  },
+  "default": "FriendRequests",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "text",
+        "id": "Julio Antelo"
+      },
+      {
+        "type": "group",
+        "id": "Frame 14"
+      },
+      {
+        "type": "group",
+        "id": "x"
+      },
+      {
+        "type": "group",
+        "id": "Frame 20"
+      },
+      {
+        "type": "group",
+        "id": "Accept"
+      },
+      {
+        "type": "image",
+        "id": "Form-Validation-Check-Double-1--Streamline-Freehand 1"
+      },
+      {
+        "type": "group",
+        "id": "Close"
+      },
+      {
+        "type": "image",
+        "id": "Keyboard-Asterisk-2--Streamline-Freehand 1"
+      }
+    ],
+    "modes": {
+      "FriendRequests": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": 5.0,
+            "is-structured": false,
+            "children": [
+              "Julio Antelo",
+              "Frame 14",
+              "x",
+              "Frame 20"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            }
+          },
+          {
+            "id": "Julio Antelo",
+            "margin": {
+              "left": 72.6748046875,
+              "top": 18.16943359375,
+              "right": 115.8251953125,
+              "bottom": 19.305143356323242
+            },
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.24705882352941178,
+                "hue": 0.0,
+                "saturation": 0.0,
+                "value": 0.0
+              },
+              "blur": 4.0,
+              "offset-x": 0.0,
+              "offset-y": 4.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "color": {
+              "alpha": 0.6470588235294118,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 0.0
+            },
+            "text-content": "$Username",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "text-align-vertical": "center",
+            "text-size": 20.0,
+            "line-height": 1.347900390625,
+            "typeface": "Linden Hill"
+          },
+          {
+            "id": "Frame 14",
+            "margin": {
+              "left": 271.39453125,
+              "top": 14.7626953125,
+              "right": 68.13257598876953,
+              "bottom": 14.76272964477539
+            },
+            "border-radius": 6.0,
+            "tap-handler": "$acceptButton",
+            "is-structured": false,
+            "children": [
+              "Accept"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 50.84745762711865,
+              "saturation": 0.23505976095617526,
+              "value": 0.984313725490196
+            }
+          },
+          {
+            "id": "x",
+            "margin": {
+              "left": 325.900634765625,
+              "top": 14.7626953125,
+              "right": 13.626472473144531,
+              "bottom": 14.76272964477539
+            },
+            "border-radius": 6.0,
+            "tap-handler": "$declineButton",
+            "is-structured": false,
+            "children": [
+              "Close"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 0.8549019607843137
+            }
+          },
+          {
+            "id": "Frame 20",
+            "border-radius": 105.0,
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 8.0
+              },
+              "vertical": {
+                "attachment": "center",
+                "offset": 0.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 51.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 51.0
+              }
+            },
+            "is-structured": false,
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.012048192771084295,
+              "value": 0.9764705882352941
+            }
+          },
+          {
+            "id": "Accept",
+            "margin": {
+              "left": 4.542236328125,
+              "top": 4.5423583984375,
+              "right": 4.54210090637207,
+              "bottom": 4.542387008666992
+            },
+            "is-structured": false,
+            "children": [
+              "Form-Validation-Check-Double-1--Streamline-Freehand 1"
+            ]
+          },
+          {
+            "id": "Form-Validation-Check-Double-1--Streamline-Freehand 1",
+            "margin": {
+              "left": 0.676025390625,
+              "top": 0.6759033203125,
+              "right": 0.675811767578125,
+              "bottom": 0.675994873046875
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "image-content": "form_validation_check_double_1_streamline_freehand_1.png",
+            "scale": "cover"
+          },
+          {
+            "id": "Close",
+            "margin": {
+              "left": 4.542236328125,
+              "top": 4.5423583984375,
+              "right": 4.54210090637207,
+              "bottom": 4.542387008666992
+            },
+            "is-structured": false,
+            "children": [
+              "Keyboard-Asterisk-2--Streamline-Freehand 1"
+            ]
+          },
+          {
+            "id": "Keyboard-Asterisk-2--Streamline-Freehand 1",
+            "margin": {
+              "left": 0.676025390625,
+              "top": 0.6759033203125,
+              "right": 0.675811767578125,
+              "bottom": 0.675994873046875
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "image-content": "keyboard_asterisk_2_streamline_freehand_1.png",
+            "scale": "cover"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "Username": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "acceptButton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "declineButton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "FriendRequests",
+      "size": {
+        "width": 377.0,
+        "height": 67.0
+      },
+      "parameters": {
+        "Username": "Julio Antelo"
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

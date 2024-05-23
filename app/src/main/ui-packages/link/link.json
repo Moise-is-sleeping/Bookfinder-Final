@@ -1,0 +1,255 @@
+{
+  "name": "link",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "1Wdswe7lGrQnpNLE54B7NS",
+    "node": "150:163",
+    "version": "5217009478",
+    "component-id": "1731b4b3c4447b1fc73c83eb458b206a94a6e2d0"
+  },
+  "default": "Property 1=Default",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "text",
+        "id": "Dont have an account?"
+      },
+      {
+        "type": "text",
+        "id": "Register"
+      },
+      {
+        "type": "text",
+        "id": "Already have an account?"
+      },
+      {
+        "type": "text",
+        "id": "Sign-In"
+      }
+    ],
+    "modes": {
+      "Property 1=Default": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": "false",
+            "children": [
+              "Dont have an account?",
+              "Register"
+            ]
+          },
+          {
+            "id": "Dont have an account?",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "1.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "11.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "165.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "18.0"
+              }
+            },
+            "color": {
+              "alpha": "0.6274509803921569",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.0"
+            },
+            "text-content": "Dont have an account? ",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align": "left",
+            "text-size": "15.0",
+            "line-height": "1.2102272033691406",
+            "typeface": "Inter"
+          },
+          {
+            "id": "Register",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "166.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "11.0"
+              }
+            },
+            "tap-handler": "$RegisterButton",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "67.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "18.0"
+              }
+            },
+            "color": {
+              "alpha": "0.6274509803921569",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.0"
+            },
+            "annotated-text-content": {
+              "text": " Register",
+              "annotated-text-span-list": [
+                {
+                  "span-start": "0",
+                  "span-length": "1"
+                },
+                {
+                  "span-start": "1",
+                  "span-length": "8",
+                  "annotated-text-style": {
+                    "color": {
+                      "alpha": "0.9490196078431372",
+                      "hue": "0.0",
+                      "saturation": "0.0",
+                      "value": "0.0"
+                    }
+                  }
+                }
+              ]
+            },
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align": "left",
+            "text-size": "15.0",
+            "line-height": "1.2102272033691406",
+            "typeface": "Inter"
+          }
+        ]
+      },
+      "Property 1=Variant2": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": "false",
+            "children": [
+              "Already have an account?",
+              "Sign-In"
+            ]
+          },
+          {
+            "id": "Already have an account?",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "1.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "11.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "189.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "18.0"
+              }
+            },
+            "color": {
+              "alpha": "0.6274509803921569",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.0"
+            },
+            "text-content": "Already have an account?",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align": "left",
+            "text-size": "15.0",
+            "line-height": "1.2102272033691406",
+            "typeface": "Inter"
+          },
+          {
+            "id": "Sign-In",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "190.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "11.0"
+              }
+            },
+            "tap-handler": "$RegisterButton",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "67.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "18.0"
+              }
+            },
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.0"
+            },
+            "text-content": "Sign-In",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align": "left",
+            "text-size": "15.0",
+            "line-height": "1.2102272033691406",
+            "typeface": "Inter"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "RegisterButton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "Property 1=Default",
+      "size": {
+        "width": 232.0,
+        "height": 39.0
+      }
+    },
+    {
+      "design": "Property 1=Variant2",
+      "size": {
+        "width": 278.0,
+        "height": 39.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

@@ -1,0 +1,232 @@
+{
+  "name": "remember_me",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "1Wdswe7lGrQnpNLE54B7NS",
+    "node": "123:160",
+    "version": "5182243582",
+    "component-id": "859ef33230b56f634c1686d66c80f93c48d90dc7"
+  },
+  "default": "Property 1=Default",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "vector",
+        "id": "Ellipse 1"
+      },
+      {
+        "type": "vector",
+        "id": "Ellipse 2"
+      },
+      {
+        "type": "text",
+        "id": "Rememeber me"
+      }
+    ],
+    "modes": {
+      "Property 1=Default": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": "false",
+            "children": [
+              "Ellipse 1",
+              "Ellipse 2",
+              "Rememeber me"
+            ]
+          },
+          {
+            "id": "Ellipse 1",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "14.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "0.0"
+              }
+            },
+            "tap-handler": "$RemeberMeButton",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "20.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "20.0"
+              }
+            },
+            "vector-content": "ellipse_1.svg"
+          },
+          {
+            "id": "Ellipse 2",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "30.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "15.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "14.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "14.0"
+              }
+            },
+            "vector-content": "ellipse_2.svg"
+          },
+          {
+            "id": "Rememeber me",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "60.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "13.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "108.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "17.0"
+              }
+            },
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.0"
+            },
+            "text-content": "Rememeber me",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align": "left",
+            "text-size": "16.0",
+            "line-height": "1.347900390625",
+            "typeface": "Linden Hill"
+          }
+        ]
+      },
+      "Property 1=Variant2": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": "false",
+            "children": [
+              "Ellipse 1",
+              "Rememeber me"
+            ]
+          },
+          {
+            "id": "Ellipse 1",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "14.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "0.0"
+              }
+            },
+            "tap-handler": "$RemeberMeButton",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "20.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "20.0"
+              }
+            },
+            "vector-content": "ellipse_3.svg"
+          },
+          {
+            "id": "Rememeber me",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "60.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "13.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "108.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "17.0"
+              }
+            },
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.0"
+            },
+            "text-content": "Rememeber me",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align": "left",
+            "text-size": "16.0",
+            "line-height": "1.347900390625",
+            "typeface": "Linden Hill"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "RemeberMeButton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "Property 1=Default",
+      "size": {
+        "width": 360.0,
+        "height": 43.0
+      }
+    },
+    {
+      "design": "Property 1=Variant2",
+      "size": {
+        "width": 360.0,
+        "height": 43.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

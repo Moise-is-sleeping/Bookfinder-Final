@@ -1,0 +1,321 @@
+{
+  "name": "frame_8",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "1Wdswe7lGrQnpNLE54B7NS",
+    "node": "170:195",
+    "version": "5227644718",
+    "component-id": "2e18b156246ddeaabcfd34886eb8ed2e9836367f"
+  },
+  "default": "Frame 8",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "adin_component",
+        "id": "Books",
+        "key": "books"
+      },
+      {
+        "type": "text",
+        "id": "Book Title"
+      },
+      {
+        "type": "text",
+        "id": "by author"
+      },
+      {
+        "type": "text",
+        "id": "(1999)"
+      },
+      {
+        "type": "text",
+        "id": "Rating"
+      },
+      {
+        "type": "group",
+        "id": "Frame 9"
+      }
+    ],
+    "modes": {
+      "Frame 8": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": "false",
+            "children": [
+              "Books",
+              "Book Title",
+              "by author",
+              "(1999)",
+              "Rating",
+              "Frame 9"
+            ],
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            }
+          },
+          {
+            "id": "Books",
+            "drop-shadow": {
+              "color": {
+                "alpha": "0.24705882352941178",
+                "hue": "0.0",
+                "saturation": "0.0",
+                "value": "0.0"
+              },
+              "blur": "10.0",
+              "offset-x": "0.0",
+              "offset-y": "0.0",
+              "spread": "3.0",
+              "blend-mode": "normal"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "9.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "7.0"
+              }
+            },
+            "design": "Property 1=Variant2",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "144.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "206.0"
+              }
+            }
+          },
+          {
+            "id": "Book Title",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "177.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "7.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "101.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "34.0"
+              }
+            },
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.0"
+            },
+            "text-content": "$BookTitle ",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align": "left",
+            "text-size": "25.0",
+            "line-height": "1.347900390625",
+            "typeface": "Linden Hill"
+          },
+          {
+            "id": "by author",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "178.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "51.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "59.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "20.0"
+              }
+            },
+            "color": {
+              "alpha": "0.7176470588235294",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.0"
+            },
+            "text-content": "$author",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align": "left",
+            "text-size": "15.0",
+            "line-height": "1.347900390625",
+            "typeface": "Linden Hill"
+          },
+          {
+            "id": "(1999)",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "283.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "6.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "59.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "34.0"
+              }
+            },
+            "color": {
+              "alpha": "0.7176470588235294",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.0"
+            },
+            "text-content": "$date",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align": "left",
+            "text-size": "20.0",
+            "line-height": "1.347900390625",
+            "typeface": "Linden Hill"
+          },
+          {
+            "id": "Rating",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "180.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "146.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "59.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "20.0"
+              }
+            },
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.0"
+            },
+            "text-content": "$Rating",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align": "left",
+            "text-size": "15.0",
+            "line-height": "1.347900390625",
+            "typeface": "Linden Hill"
+          },
+          {
+            "id": "Frame 9",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "171.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "177.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "160.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "34.0"
+              }
+            },
+            "is-structured": "false",
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "BookTitle ": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "author": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "date": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "Rating": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "Frame 8",
+      "size": {
+        "width": 342.0,
+        "height": 219.0
+      },
+      "parameters": {
+        "BookTitle ": "Book Title",
+        "author": "by author",
+        "date": " (1999)",
+        "Rating": "Rating"
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

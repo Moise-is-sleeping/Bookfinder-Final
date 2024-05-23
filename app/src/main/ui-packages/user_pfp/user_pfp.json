@@ -1,0 +1,186 @@
+{
+  "name": "user_pfp",
+  "version": 33,
+  "source-key": {
+    "type": "figma",
+    "file": "1Wdswe7lGrQnpNLE54B7NS",
+    "node": "502:792",
+    "version": "5836025663",
+    "component-id": "70d81cc3d7dcea2811630c92d566803df1f83509"
+  },
+  "default": "Property 1=Default",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "adin_component",
+        "id": "User_1",
+        "key": "user"
+      },
+      {
+        "type": "group",
+        "id": "AddProfilePictureButton"
+      },
+      {
+        "type": "vector",
+        "id": "Vector"
+      },
+      {
+        "type": "group",
+        "id": "BlankPfp"
+      }
+    ],
+    "modes": {
+      "Property 1=Default": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": false,
+            "children": [
+              "User_1",
+              "AddProfilePictureButton"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "User_1"
+          },
+          {
+            "id": "AddProfilePictureButton",
+            "margin": {
+              "left": 106.0,
+              "top": 104.25531005859375,
+              "bottom": 0.00000762939453125
+            },
+            "border-radius": 122.0,
+            "tap-handler": "$ChangePfpButton",
+            "is-structured": false,
+            "children": [
+              "Vector"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 50.84745762711865,
+              "saturation": 0.23505976095617526,
+              "value": 0.984313725490196
+            }
+          },
+          {
+            "id": "Vector",
+            "margin": {
+              "left": 10.41015625,
+              "top": 12.18890380859375,
+              "right": 10.41015625,
+              "bottom": 12.021951675415039
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector1.svg"
+          }
+        ]
+      },
+      "Property 1=Variant2": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": false,
+            "children": [
+              "BlankPfp",
+              "AddProfilePictureButton"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "BlankPfp",
+            "border-radius": 105.0,
+            "is-structured": false,
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            }
+          },
+          {
+            "id": "AddProfilePictureButton",
+            "margin": {
+              "left": 106.0,
+              "top": 104.25531005859375,
+              "bottom": 0.00000762939453125
+            },
+            "border-radius": 122.0,
+            "tap-handler": "$ChangePfpButton",
+            "is-structured": false,
+            "children": [
+              "Vector"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 50.84745762711865,
+              "saturation": 0.23505976095617526,
+              "value": 0.984313725490196
+            }
+          },
+          {
+            "id": "Vector",
+            "margin": {
+              "left": 10.41015625,
+              "top": 12.18890380859375,
+              "right": 10.41015625,
+              "bottom": 12.021951675415039
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector2.svg"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "ChangePfpButton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "Property 1=Default",
+      "size": {
+        "width": 147.0,
+        "height": 147.0
+      }
+    },
+    {
+      "design": "Property 1=Variant2",
+      "size": {
+        "width": 147.0,
+        "height": 147.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}
