@@ -80,7 +80,10 @@ fun HomeScreen(bookViewModel: BookViewModel,navController:NavController,bookData
         .background(color = Color(0xFFE5DBD0))){
         Header(modifier = Modifier
             .fillMaxWidth()
-            .height(60.dp))
+            .height(60.dp),
+            userAccountButton = {
+                navController.navigate(Routes.SettingsScreen.route)
+            })
         Row(
             Modifier
                 .padding(top = 15.dp)
@@ -160,7 +163,9 @@ fun HomeScreen(bookViewModel: BookViewModel,navController:NavController,bookData
                 ) {
                 MoreButtons(
                     groupsButton = {},
-                    postsButton = {},
+                    postsButton = {
+                        navController.navigate(Routes.PostScreen.route)
+                    },
                     friendsButton = {
                         navController.navigate(Routes.FriendsScreen.route)
                         userInteractionViewmodel.getUsernames()

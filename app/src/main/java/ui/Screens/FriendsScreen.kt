@@ -209,7 +209,9 @@ fun FriendsScreen(bookViewModel: BookViewModel, navController: NavController, bo
             ) {
                 MoreButtons(
                     groupsButton = {},
-                    postsButton = {},
+                    postsButton = {
+                        navController.navigate(Routes.PostScreen.route)
+                    },
                     friendsButton = {
                         navController.navigate(Routes.FriendsScreen.route)
                         userInteractionViewmodel.getUsernames()

@@ -191,7 +191,9 @@ fun SettingsScreen(userInteractionViewmodel: UserInteractionViewmodel, bookDatab
             ) {
                 MoreButtons(
                     groupsButton = {},
-                    postsButton = {},
+                    postsButton = {
+                        navController.navigate(Routes.PostScreen.route)
+                    },
                     friendsButton = {
                         navController.navigate(Routes.FriendsScreen.route)
                         userInteractionViewmodel.getUsernames()

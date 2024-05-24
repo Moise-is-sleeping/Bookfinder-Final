@@ -155,7 +155,9 @@ fun SavedScreen(userInteractionViewmodel: UserInteractionViewmodel, bookDatabase
             ) {
                 MoreButtons(
                     groupsButton = {},
-                    postsButton = {},
+                    postsButton = {
+                        navController.navigate(Routes.PostScreen.route)
+                    },
                     friendsButton = {
                         navController.navigate(Routes.FriendsScreen.route)
                         userInteractionViewmodel.getUsernames()

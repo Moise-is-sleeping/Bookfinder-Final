@@ -87,7 +87,10 @@ fun SearchScreen(bookDatabaseViewModel: BookDatabaseViewModel,bookViewModel: Boo
         if (!hasSearched){
             Header(modifier = Modifier
                 .fillMaxWidth()
-                .height(60.dp))
+                .height(60.dp),
+                userAccountButton = {
+                    navController.navigate(Routes.SettingsScreen.route)
+                })
         }
         Spacer(modifier = Modifier.fillMaxHeight(0.025f))
         SearchBar(modifier = Modifier
@@ -143,7 +146,7 @@ fun SearchScreen(bookDatabaseViewModel: BookDatabaseViewModel,bookViewModel: Boo
             ) {
                 MoreButtons(
                     groupsButton = {},
-                    postsButton = {},
+                    postsButton = {navController.navigate(Routes.PostScreen.route)},
                     friendsButton = {
                         navController.navigate(Routes.FriendsScreen.route)
                         userInteractionViewmodel.getUsernames()
