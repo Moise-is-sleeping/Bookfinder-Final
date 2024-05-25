@@ -23,7 +23,7 @@ import kotlin.Exception
 /**
  * View model responsible for managing the data received from tha api and the information displayed in the ui
  */
-class B
+
 class BookDatabaseViewModel(): ViewModel() {
     // Firebase authentication instance
     private val auth: FirebaseAuth = Firebase.auth

@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
                     val userInteractionViewmodel = UserInteractionViewmodel()
 
                     val navController = rememberNavController()
-                    NavHost(navController = navController , startDestination = Routes.PostScreen.route ){
+                    NavHost(navController = navController , startDestination = Routes.LoginScreen.route ){
                         composable(Routes.LoginScreen.route){
                             LoginScreen(loginViewModel,navController,bookDatabaseViewModel)
                         }
@@ -88,18 +88,3 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    BookFinderTheme {
-        Greeting("Android")
-    }
-}

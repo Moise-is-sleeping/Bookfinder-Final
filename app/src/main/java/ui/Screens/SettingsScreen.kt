@@ -242,7 +242,7 @@ fun UserProfilePicture(modifier: Modifier, changePfpButton:()->Unit, userInterac
             .rowWeight(1.0f)
             .columnWeight(1.0f)
             .background(
-                Color(0xFFE5DBD0)
+                Color(0x0AFFFFFF)
             )) {
             LoadPfp(userInteractionViewmodel, userName )
         }

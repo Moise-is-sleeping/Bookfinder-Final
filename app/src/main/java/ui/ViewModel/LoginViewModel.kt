@@ -131,24 +131,33 @@ class LoginViewModel:ViewModel(){
                 .addOnFailureListener { Log.d("ERROR AL GUARDAR", "ERROR al guardar en Firestore") }
         }
     }
-
-     fun checkUserName(onSuccess: () -> Unit){
+    /**
+     * Checks if the given username is available.
+     *
+     * @param onSuccess A lambda expression that will be executed if the username is available.
+    */
+    fun checkUserName(onSuccess: () -> Unit){
         viewModelScope.launch(Dispatchers.IO) {
+            /// Query the Firestore collection "Users" to find documents where the "username" field matches the given username
             firestore.collection("Users")
                 .whereEqualTo("username",username)
                 .get()
                 .addOnSuccessListener {
                     Log.d("username",it.documents.toString())
+
+                    /// If there are any matching documents, it means the username is already in use
                     if (it.documents.size > 0){
                         _wrongInfo.value = true
                         _displayErrorMessage.value = true
                         _errorMessage.value = "Username already in use"
                     }
+                    /// Otherwise, the username is available, so create the user
                     else{
                         createUser { onSuccess() }
                     }
 
                 }
+                /// Ifthere is an error querying the Firestore collection, log the error
                 .addOnFailureListener {
 
                 }
@@ -177,14 +186,27 @@ class LoginViewModel:ViewModel(){
         this.password = password
     }
 
+    /**
+     * Changes the name of the user.
+     *
+     * @param name The new name for the user.
+     */
     fun changeName(name: String) {
         this.name = name
     }
 
+    /**
+     * Changes the username of the user.
+     *
+     * @param username The new username for the user.
+     */
     fun changeUsername(username: String) {
         this.username = username
     }
 
+    /**
+     * Resets all the fields of the user to empty strings.
+     */
     fun reset(){
         name = ""
         username = ""
