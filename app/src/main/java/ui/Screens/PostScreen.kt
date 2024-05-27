@@ -53,7 +53,9 @@ fun PostScreen(navController: NavController){
                 .fillMaxHeight(0.07f),
             backButton = {
                 navController.popBackStack()
-            })
+            },
+            property1 = com.calculator.bookfinder.postheader.Property1.Default,
+            text = "Posts")
         Spacer(modifier = Modifier.height(30.dp))
         TextField(
             modifier = Modifier.fillMaxWidth(),

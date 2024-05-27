@@ -4,11 +4,11 @@
   "source-key": {
     "type": "figma",
     "file": "1Wdswe7lGrQnpNLE54B7NS",
-    "node": "531:1402",
-    "version": "5835972251",
-    "component-id": "2a6856fbd37fb20115aef49f86124ec771a5b8de"
+    "node": "557:829",
+    "version": "5858722828",
+    "component-id": "8afcd4df24163d6bb02ea661b22526f7a1bffcb7"
   },
-  "default": "PostHeader",
+  "default": "Property 1=Default",
   "design": {
     "atoms": [
       {
@@ -23,10 +23,18 @@
       {
         "type": "image",
         "id": "Vector1 1"
+      },
+      {
+        "type": "group",
+        "id": "LogOutIcon"
+      },
+      {
+        "type": "vector",
+        "id": "Vector"
       }
     ],
     "modes": {
-      "PostHeader": {
+      "Property 1=Default": {
         "rules": [
           {
             "id": "top_level",
@@ -77,7 +85,7 @@
                 "value": 54.12796401977539
               }
             },
-            "text-content": "Create Post",
+            "text-content": "$Text",
             "overflow": "visible",
             "max-lines": -1,
             "text-align": "left",
@@ -113,11 +121,153 @@
             "scale": "cover"
           }
         ]
+      },
+      "Property 1=Variant2": {
+        "rules": [
+          {
+            "id": "top_level",
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.24705882352941178,
+                "hue": 0.0,
+                "saturation": 0.0,
+                "value": 0.0
+              },
+              "blur": 10.0,
+              "offset-x": 0.0,
+              "offset-y": 0.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "is-structured": false,
+            "children": [
+              "Create Post",
+              "Vector1 1",
+              "LogOutIcon"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            }
+          },
+          {
+            "id": "Create Post",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 52.6829833984375
+              },
+              "vertical": {
+                "attachment": "center",
+                "offset": 0.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 111.95121765136719
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 54.12796401977539
+              }
+            },
+            "text-content": "$Text",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "text-align-vertical": "center",
+            "text-size": 20.0,
+            "line-height": 1.347900390625,
+            "typeface": "Linden Hill"
+          },
+          {
+            "id": "Vector1 1",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 13.0
+              },
+              "vertical": {
+                "attachment": "center",
+                "offset": -2.0639820098876953
+              }
+            },
+            "tap-handler": "$backButton",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 26.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 24.0
+              }
+            },
+            "image-content": "vector1_1.png",
+            "scale": "cover"
+          },
+          {
+            "id": "LogOutIcon",
+            "padding": 7.0,
+            "alignment": {
+              "horizontal": {
+                "attachment": "end",
+                "offset": -12.0
+              },
+              "vertical": {
+                "attachment": "center",
+                "offset": 0.1414203643798828
+              }
+            },
+            "tap-handler": "$logOutButton",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 40.0
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "arrangement": "row",
+            "main-axis-align": "space-between",
+            "children": [
+              "Vector"
+            ]
+          },
+          {
+            "id": "Vector",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 26.66666603088379
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 26.66666603088379
+              }
+            },
+            "vector-content": "vector.svg"
+          }
+        ]
       }
     }
   },
   "parameters": {
+    "Text": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
     "backButton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "logOutButton": {
       "data-type": "void-callback",
       "required": false,
       "description": ""
@@ -125,10 +275,23 @@
   },
   "previews": [
     {
-      "design": "PostHeader",
+      "design": "Property 1=Default",
       "size": {
         "width": 360.0,
         "height": 54.12796401977539
+      },
+      "parameters": {
+        "Text": "Create Post"
+      }
+    },
+    {
+      "design": "Property 1=Variant2",
+      "size": {
+        "width": 360.0,
+        "height": 54.12796401977539
+      },
+      "parameters": {
+        "Text": "Create Post"
       }
     }
   ],

@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -36,12 +38,15 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.calculator.bookfinder.accountbuttons.AccountButtons
 import com.calculator.bookfinder.accountbuttons.lindenHill
-import com.calculator.bookfinder.friendslistitem.TopLevelProperty1Variant2
+
 import com.calculator.bookfinder.header.Header
 import com.calculator.bookfinder.morebuttons.MoreButtons
 import com.calculator.bookfinder.naviagtionbar.NaviagtionBar
+import com.calculator.bookfinder.postheader.PostHeader
+import com.calculator.bookfinder.postheader.Property1
 import com.calculator.bookfinder.userpfp.AddProfilePictureButtonProperty1Variant2
 import com.calculator.bookfinder.userpfp.BlankPfpProperty1Variant2
+import com.calculator.bookfinder.userpfp.TopLevelProperty1Variant2
 import com.calculator.bookfinder.userpfp.VectorProperty1Variant2
 import com.google.relay.compose.BoxScopeInstance.columnWeight
 import com.google.relay.compose.BoxScopeInstance.rowWeight
@@ -58,27 +63,31 @@ import ui.ViewModel.UserInteractionViewmodel
  */
 @Composable
 fun SettingsScreen(userInteractionViewmodel: UserInteractionViewmodel, bookDatabaseViewModel: BookDatabaseViewModel, bookViewModel: BookViewModel, navController: NavController){
-    val bookDetailsList by bookDatabaseViewModel.bookDetailsList.collectAsState()
-    var moreButton by remember { mutableStateOf(false) }
     var forcedRefresh by remember { mutableIntStateOf(0) }
     val userName by remember { mutableStateOf(userInteractionViewmodel.myUserName()) }
     var oldFullName by remember { mutableStateOf("") }
     var oldDescription by remember { mutableStateOf("") }
+    var dialogOpen by remember { mutableStateOf(false) }
 
 
     Text(text = forcedRefresh.toString())
     Column (modifier= Modifier
         .fillMaxSize()
-        .background(color = Color(bookViewModel.backgroundColor())),
+        .background(color = Color(0xFFFFFFFF)),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top){
-        Header(modifier = Modifier
-            .fillMaxWidth()
-            .height(60.dp))
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.915f)){
+                .fillMaxSize()){
+            PostHeader(
+                Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.07f),
+                property1 = Property1.Variant2,
+                backButton = {
+                    navController.popBackStack()
+                },
+                text = "Settings")
             Row(
                 modifier = Modifier
                     .padding(top = 40.dp)
@@ -146,7 +155,7 @@ fun SettingsScreen(userInteractionViewmodel: UserInteractionViewmodel, bookDatab
                 horizontalArrangement = Arrangement.Center){
                 AccountButtons(
                     buttonPressed = {
-
+                        dialogOpen = true
                     },
                     buttonName = "Sign out",
                     property1 = com.calculator.bookfinder.accountbuttons.Property1.Variant3,
@@ -160,56 +169,15 @@ fun SettingsScreen(userInteractionViewmodel: UserInteractionViewmodel, bookDatab
 
 
         }
-
-
-        NaviagtionBar(
-
-            homebutton = {navController.navigate(Routes.HomeScreen.route)},
-            searchButton = {navController.navigate(Routes.SearchScreen.route)},
-            savedButton = {},
-            moreButton = {moreButton=true},
-            modifier = Modifier
-                .rowWeight(1.0f)
-                .columnWeight(1.0f)
-                .fillMaxWidth()
-        )
-    }
-
-    if (moreButton){
-        Box(modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.BottomEnd
-        ){
-            Box(
-                modifier = Modifier
-                    .width(205.dp)
-                    .height(190.dp)
-
-                    .background(
-                        shape = RoundedCornerShape(topStart = 200.dp),
-                        color = Color(0xFFE5DBD0)
-                    ),
-            ) {
-                MoreButtons(
-                    groupsButton = {},
-                    postsButton = {
-                        navController.navigate(Routes.PostScreen.route)
-                    },
-                    friendsButton = {
-                        navController.navigate(Routes.FriendsScreen.route)
-                        userInteractionViewmodel.getUsernames()
-                    },
-                    closeButton = {moreButton=false},
-                    modifier = Modifier
-                        .rowWeight(1.0f)
-                        .columnWeight(1.0f)
-                        .height(193.dp)
-                        .width(193.dp)
-
-                )
-            }
+        if (dialogOpen){
+            SignOutDialog(
+                dialogClose = {
+                    dialogOpen = false
+                }
+            )
         }
-
     }
+
     forcedRefresh += 1
     forcedRefresh -= 1
 }
@@ -238,13 +206,15 @@ fun UserProfilePicture(modifier: Modifier, changePfpButton:()->Unit, userInterac
             userInteractionViewmodel.uploadImageToFirebase(it)
         })
     TopLevelProperty1Variant2(modifier = modifier) {
-        BlankPfpProperty1Variant2(modifier = Modifier
-            .rowWeight(1.0f)
-            .columnWeight(1.0f)
-            .background(
-                Color(0x0AFFFFFF)
-            )) {
-            LoadPfp(userInteractionViewmodel, userName )
+        BlankPfpProperty1Variant2(
+            modifier = Modifier
+                .rowWeight(1.0f)
+                .columnWeight(1.0f)
+                .background(
+                    Color(0x0AFFFFFF)
+                )
+        ) {
+            LoadPfp(userInteractionViewmodel, userName)
         }
         AddProfilePictureButtonProperty1Variant2(
             changePfpButton = {
@@ -258,11 +228,39 @@ fun UserProfilePicture(modifier: Modifier, changePfpButton:()->Unit, userInterac
                 .rowWeight(1.0f)
                 .columnWeight(1.0f)
         ) {
-            VectorProperty1Variant2(modifier = Modifier
-                .rowWeight(1.0f)
-                .columnWeight(1.0f))
+            VectorProperty1Variant2(
+                modifier = Modifier
+                    .rowWeight(1.0f)
+                    .columnWeight(1.0f)
+            )
         }
     }
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SignOutDialog(dialogClose:()->Unit,){
+
+    AlertDialog(
+        onDismissRequest = { dialogClose() },
+        modifier = Modifier
+            .background(Color(0xC2C1BF))
+
+    ) {
+        com.calculator.bookfinder.removefrienddialog.RemoveFriendDialog(
+            textButton = "Are you sure you want to sign out?",
+            removeButton = {
+                dialogClose()
+            },
+            cancelButton = {
+                dialogClose()
+            },
+            modifier = Modifier.height(184.dp).width(330.dp),
+            text = "Sign Out"
+        )
+    }
+
 
 }
 

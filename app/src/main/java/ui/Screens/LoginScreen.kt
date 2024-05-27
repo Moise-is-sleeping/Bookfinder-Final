@@ -65,6 +65,7 @@ import com.google.relay.compose.BoxScopeInstance.rowWeight
 import data.Routes.Routes
 import ui.ViewModel.BookDatabaseViewModel
 import ui.ViewModel.LoginViewModel
+import ui.ViewModel.UserInteractionViewmodel
 
 /**
  * Function that displays the information on the login screen
@@ -72,7 +73,7 @@ import ui.ViewModel.LoginViewModel
  *   @param navController controller that allows navigation between screens
  */
 @Composable
-fun LoginScreen(loginViewModel: LoginViewModel,navController: NavController,bookDatabaseViewModel: BookDatabaseViewModel){
+fun LoginScreen(UserInteractionViewmodel: UserInteractionViewmodel,loginViewModel: LoginViewModel,navController: NavController,bookDatabaseViewModel: BookDatabaseViewModel){
     val errorMessage by loginViewModel.errorMessage.collectAsState()
     val errorMessageBool by loginViewModel.displayErrorMessage.collectAsState()
     Column(
@@ -111,7 +112,10 @@ fun LoginScreen(loginViewModel: LoginViewModel,navController: NavController,book
             buttonPressed = {
 
                             bookDatabaseViewModel.fetchBooks()
-                            loginViewModel.login { navController.navigate(Routes.HomeScreen.route) }
+                            loginViewModel.login {
+                                navController.navigate(Routes.HomeScreen.route)
+                                UserInteractionViewmodel.getUsersInfo()
+                            }
             },
             buttonName = "   Login",
             property1 = com.calculator.bookfinder.accountbuttons.Property1.Default,

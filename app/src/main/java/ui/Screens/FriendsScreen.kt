@@ -346,6 +346,7 @@ fun RemoveFriendDialog(userInteractionViewmodel: UserInteractionViewmodel,dialog
                 dialogClose()
             },
             modifier = Modifier.height(184.dp).width(330.dp)
+            ,text = "Remove"
         )
     }
 
