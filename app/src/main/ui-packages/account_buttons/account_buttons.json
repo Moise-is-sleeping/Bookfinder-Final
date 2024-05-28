@@ -5,7 +5,7 @@
     "type": "figma",
     "file": "1Wdswe7lGrQnpNLE54B7NS",
     "node": "141:154",
-    "version": "5730513073",
+    "version": "5868269285",
     "component-id": "4635071f746e65d7aea00bba3279b8af44fc45ef"
   },
   "default": "Property 1=Default",
@@ -95,19 +95,20 @@
               "spread": 0.0,
               "blend-mode": "normal"
             },
-            "alignment": {
-              "horizontal": {
-                "attachment": "start",
-                "offset": 121.0
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
               },
-              "vertical": {
-                "attachment": "start",
-                "offset": 13.0
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
               }
             },
             "text-content": "$buttonName",
             "overflow": "visible",
-            "text-align": "left",
+            "max-lines": -1,
+            "text-align-vertical": "center",
             "text-size": 32.0,
             "line-height": 1.347900390625,
             "typeface": "Linden Hill"
@@ -289,30 +290,20 @@
               "spread": 0.0,
               "blend-mode": "normal"
             },
-            "alignment": {
-              "horizontal": {
-                "attachment": "center",
-                "offset": 0.0
-              },
-              "vertical": {
-                "attachment": "center",
-                "offset": 0.5
-              }
-            },
             "size-constraints": {
               "width-constraints": {
-                "sizing-mode": "fixed",
-                "value": 110.0
+                "sizing-mode": "proportional",
+                "value": 1.0
               },
               "height-constraints": {
-                "sizing-mode": "fixed",
-                "value": 34.0
+                "sizing-mode": "proportional",
+                "value": 1.0
               }
             },
             "text-content": "Register",
             "overflow": "visible",
             "max-lines": -1,
-            "text-align": "left",
+            "text-align-vertical": "center",
             "text-size": 32.0,
             "line-height": 1.347900390625,
             "typeface": "Linden Hill"
@@ -482,30 +473,20 @@
               "spread": 0.0,
               "blend-mode": "normal"
             },
-            "alignment": {
-              "horizontal": {
-                "attachment": "center",
-                "offset": 0.5
-              },
-              "vertical": {
-                "attachment": "center",
-                "offset": -0.5
-              }
-            },
             "size-constraints": {
               "width-constraints": {
-                "sizing-mode": "fixed",
-                "value": 115.0
+                "sizing-mode": "proportional",
+                "value": 1.0
               },
               "height-constraints": {
-                "sizing-mode": "fixed",
-                "value": 26.0
+                "sizing-mode": "proportional",
+                "value": 1.0
               }
             },
             "text-content": "$add/removeRequest",
             "overflow": "visible",
             "max-lines": -1,
-            "text-align": "left",
+            "text-align-vertical": "center",
             "text-size": 25.0,
             "line-height": 1.347900390625,
             "typeface": "Linden Hill"
@@ -546,7 +527,7 @@
     {
       "design": "Property 1=Variant5",
       "size": {
-        "width": 110.0,
+        "width": 102.48898315429688,
         "height": 36.0
       },
       "parameters": {
@@ -557,7 +538,7 @@
     {
       "design": "Property 1=Variant6",
       "size": {
-        "width": 110.0,
+        "width": 102.48898315429688,
         "height": 36.0
       },
       "parameters": {

@@ -48,8 +48,15 @@ class MainActivity : ComponentActivity() {
                     val bookDatabaseViewModel = BookDatabaseViewModel()
                     val userInteractionViewmodel = UserInteractionViewmodel()
 
+                    val startDestination = if(loginViewModel.userIsLoggedIn()){
+                        userInteractionViewmodel.getUsersInfo()
+                        Routes.HomeScreen.route
+                        }else{
+                            Routes.LoginScreen.route
+                    }
+
                     val navController = rememberNavController()
-                    NavHost(navController = navController , startDestination = Routes.LoginScreen.route ){
+                    NavHost(navController = navController , startDestination = startDestination ){
                         composable(Routes.LoginScreen.route){
                             LoginScreen(userInteractionViewmodel,loginViewModel,navController,bookDatabaseViewModel)
                         }
@@ -75,7 +82,7 @@ class MainActivity : ComponentActivity() {
                             UsersProfileScreen(bookDatabaseViewModel,bookViewModel, navController,userInteractionViewmodel)
                         }
                         composable(Routes.SettingsScreen.route){
-                            SettingsScreen(userInteractionViewmodel,bookDatabaseViewModel,bookViewModel, navController)
+                            SettingsScreen(userInteractionViewmodel,loginViewModel, navController)
                         }
                         composable(Routes.PostScreen.route){
                             PostScreen(/*userInteractionViewmodel,bookDatabaseViewModel,bookViewModel, */navController)

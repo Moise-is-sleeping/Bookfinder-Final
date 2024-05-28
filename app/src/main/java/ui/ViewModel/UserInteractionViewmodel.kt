@@ -522,6 +522,8 @@ class UserInteractionViewmodel : ViewModel(){
 
 
 
+
+
     /**
      * Updates the search value with the value of the latest search value given by the user.
      *
@@ -552,5 +554,32 @@ class UserInteractionViewmodel : ViewModel(){
 
     fun myUserName(): String {
         return myUsername
+    }
+
+
+    fun updateUserInfo(fullname: String,about: String, succes:(Boolean)->Unit){
+        val db = FirebaseFirestore.getInstance()
+        /// Query the Firestore collection "Users" to find the document that matches the current user's username
+        firestore.collection("Users")
+            .whereEqualTo("username",myUsername)
+            .get()
+            .addOnSuccessListener {
+                val doc = it.documents[0]
+
+                /// Get a reference to the current user's document
+                val info = db.collection("Users").document(doc.id)
+                if (fullname.isNotEmpty()){
+                    info.update("fullname", fullname)
+                }
+                if (about.isNotEmpty()){
+                    info.update("bio",about)
+                }
+                if (fullname.isNotEmpty() || about.isNotEmpty()){
+                    succes(true)
+                }
+            }
+            .addOnFailureListener{
+                Log.d("error",it.toString())
+            }
     }
 }

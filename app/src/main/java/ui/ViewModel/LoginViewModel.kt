@@ -214,6 +214,15 @@ class LoginViewModel:ViewModel(){
         password = ""
     }
 
+    fun userIsLoggedIn(): Boolean {
+        return auth.currentUser != null
+    }
+
+    fun logOut(){
+        auth.signOut()
+
+    }
+
 
 
     fun displayError(){

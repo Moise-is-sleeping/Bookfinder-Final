@@ -1,6 +1,7 @@
 package ui.Screens
 
 import android.net.Uri
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -32,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -53,6 +55,7 @@ import com.google.relay.compose.BoxScopeInstance.rowWeight
 import data.Routes.Routes
 import ui.ViewModel.BookDatabaseViewModel
 import ui.ViewModel.BookViewModel
+import ui.ViewModel.LoginViewModel
 import ui.ViewModel.UserInteractionViewmodel
 /**
  * Displays information for  the screen with the books that have been saved to favourites
@@ -62,12 +65,13 @@ import ui.ViewModel.UserInteractionViewmodel
  * @param navController Controller for navigation between screens
  */
 @Composable
-fun SettingsScreen(userInteractionViewmodel: UserInteractionViewmodel, bookDatabaseViewModel: BookDatabaseViewModel, bookViewModel: BookViewModel, navController: NavController){
+fun SettingsScreen(userInteractionViewmodel: UserInteractionViewmodel, loginViewModel: LoginViewModel, navController: NavController){
     var forcedRefresh by remember { mutableIntStateOf(0) }
     val userName by remember { mutableStateOf(userInteractionViewmodel.myUserName()) }
     var oldFullName by remember { mutableStateOf("") }
     var oldDescription by remember { mutableStateOf("") }
     var dialogOpen by remember { mutableStateOf(false) }
+    var displayMessage by remember { mutableStateOf(false) }
 
 
     Text(text = forcedRefresh.toString())
@@ -87,7 +91,10 @@ fun SettingsScreen(userInteractionViewmodel: UserInteractionViewmodel, bookDatab
                 backButton = {
                     navController.popBackStack()
                 },
-                text = "Settings")
+                text = "Settings",
+                logOutButton = {
+                    dialogOpen = true
+                })
             Row(
                 modifier = Modifier
                     .padding(top = 40.dp)
@@ -155,10 +162,16 @@ fun SettingsScreen(userInteractionViewmodel: UserInteractionViewmodel, bookDatab
                 horizontalArrangement = Arrangement.Center){
                 AccountButtons(
                     buttonPressed = {
-                        dialogOpen = true
+                        userInteractionViewmodel.updateUserInfo(oldFullName,oldDescription,
+                            succes = {
+                                if (it){
+                                    displayMessage = it
+                                }
+                            })
                     },
                     buttonName = "Sign out",
-                    property1 = com.calculator.bookfinder.accountbuttons.Property1.Variant3,
+                    property1 = com.calculator.bookfinder.accountbuttons.Property1.Variant4,
+                    addRemoveRequest = "Update Profile",
                     modifier = Modifier
                         .rowWeight(1.0f)
                         .columnWeight(1.0f)
@@ -173,9 +186,12 @@ fun SettingsScreen(userInteractionViewmodel: UserInteractionViewmodel, bookDatab
             SignOutDialog(
                 dialogClose = {
                     dialogOpen = false
-                }
+                },navController,loginViewModel
             )
         }
+    }
+    if (displayMessage){
+        Message(text = "Profile Updated")
     }
 
     forcedRefresh += 1
@@ -196,6 +212,10 @@ fun LoadPfp(userInteractionViewmodel: UserInteractionViewmodel, userName:String)
     }
     AsyncImage(model =oldImageUri , contentDescription ="test" ,modifier= Modifier.fillMaxSize(),contentScale = ContentScale.Crop)
 
+}
+@Composable
+fun Message(text:String){
+    Toast.makeText(LocalContext.current,text, Toast.LENGTH_SHORT).show()
 }
 
 @Composable
@@ -240,7 +260,7 @@ fun UserProfilePicture(modifier: Modifier, changePfpButton:()->Unit, userInterac
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignOutDialog(dialogClose:()->Unit,){
+fun SignOutDialog(dialogClose:()->Unit,navController: NavController,loginViewModel: LoginViewModel){
 
     AlertDialog(
         onDismissRequest = { dialogClose() },
@@ -252,6 +272,8 @@ fun SignOutDialog(dialogClose:()->Unit,){
             textButton = "Are you sure you want to sign out?",
             removeButton = {
                 dialogClose()
+                navController.navigate(Routes.LoginScreen.route)
+
             },
             cancelButton = {
                 dialogClose()
