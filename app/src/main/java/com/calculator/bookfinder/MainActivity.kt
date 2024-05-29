@@ -30,6 +30,7 @@ import ui.Screens.SettingsScreen
 import ui.Screens.UsersProfileScreen
 import ui.ViewModel.BookDatabaseViewModel
 import ui.ViewModel.LoginViewModel
+import ui.ViewModel.PostsGroupsViewmodel
 import ui.ViewModel.UserInteractionViewmodel
 
 
@@ -47,6 +48,7 @@ class MainActivity : ComponentActivity() {
                     val loginViewModel = LoginViewModel()
                     val bookDatabaseViewModel = BookDatabaseViewModel()
                     val userInteractionViewmodel = UserInteractionViewmodel()
+                    val postsGroupsViewmodel = PostsGroupsViewmodel()
 
                     val startDestination = if(loginViewModel.userIsLoggedIn()){
                         userInteractionViewmodel.getUsersInfo()
@@ -85,7 +87,7 @@ class MainActivity : ComponentActivity() {
                             SettingsScreen(userInteractionViewmodel,loginViewModel, navController)
                         }
                         composable(Routes.PostScreen.route){
-                            PostScreen(/*userInteractionViewmodel,bookDatabaseViewModel,bookViewModel, */navController)
+                            PostScreen(navController,postsGroupsViewmodel)
                         }
 
                     }
