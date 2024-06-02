@@ -87,7 +87,7 @@ class MainActivity : ComponentActivity() {
                             SettingsScreen(userInteractionViewmodel,loginViewModel, navController)
                         }
                         composable(Routes.PostScreen.route){
-                            PostScreen(navController,postsGroupsViewmodel)
+                            PostScreen(bookDatabaseViewModel, navController,postsGroupsViewmodel,bookViewModel)
                         }
 
                     }

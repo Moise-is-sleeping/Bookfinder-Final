@@ -58,6 +58,7 @@ import com.google.relay.compose.RelayContainerScope
 import com.google.relay.compose.RelayImage
 import com.google.relay.compose.relayDropShadow
 import com.google.relay.compose.tappable
+import data.Models.Doc
 import data.Routes.Routes
 import ui.ViewModel.BookDatabaseViewModel
 import ui.ViewModel.BookViewModel
@@ -105,7 +106,7 @@ fun SearchScreen(bookDatabaseViewModel: BookDatabaseViewModel,bookViewModel: Boo
             bookViewModel)
         // once they search a different function is shown
         if (hasSearched){
-            Searchresults(bookDatabaseViewModel,bookViewModel,navController)
+            Searchresults(1, book = {},bookDatabaseViewModel,bookViewModel,navController)
 
         }
         // the navigation bar is also removed as well as the default categories
@@ -174,7 +175,7 @@ fun SearchScreen(bookDatabaseViewModel: BookDatabaseViewModel,bookViewModel: Boo
  * @param navController Controller for navigation between screens
  */
 @Composable
-fun Searchresults(bookDatabaseViewModel: BookDatabaseViewModel,bookViewModel: BookViewModel,navController: NavController) {
+fun Searchresults(number:Int, book: (Doc)->Unit, bookDatabaseViewModel: BookDatabaseViewModel, bookViewModel: BookViewModel, navController: NavController) {
     val searchResults by bookViewModel.bookList.collectAsState()
 
     Column(modifier = Modifier
@@ -194,9 +195,17 @@ fun Searchresults(bookDatabaseViewModel: BookDatabaseViewModel,bookViewModel: Bo
                     },
                     supportingContent = { Text(bookViewModel.nullDates(it?.first_publish_year ?:"")) },
                     modifier = Modifier.clickable {
-                        bookViewModel.getBooks(it!!.key.substring(7))
-                        navController.navigate(Routes.BookDescriptionScreen.route)
-                        bookDatabaseViewModel.hasSavedDefaultValue(it.key.substring(7))
+                        if (number == 1){
+                            bookViewModel.getBooks(it!!.key.substring(7))
+                            navController.navigate(Routes.BookDescriptionScreen.route)
+                            bookDatabaseViewModel.hasSavedDefaultValue(it.key.substring(7))
+                        }
+                        else{
+                            if (it != null) {
+                                book(it)
+                            }
+                        }
+
                     })
             }
         }

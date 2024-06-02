@@ -5,7 +5,7 @@
     "type": "figma",
     "file": "1Wdswe7lGrQnpNLE54B7NS",
     "node": "531:1407",
-    "version": "5836015437",
+    "version": "5900824692",
     "component-id": "e6884a1482d2366562a6533225e412077d24054d"
   },
   "default": "TagBook",
@@ -62,11 +62,11 @@
             "alignment": {
               "horizontal": {
                 "attachment": "end",
-                "offset": -22.0
+                "offset": -21.0
               },
               "vertical": {
                 "attachment": "center",
-                "offset": -2.5
+                "offset": 0.5
               }
             },
             "size-constraints": {

@@ -1,11 +1,11 @@
 {
   "name": "books",
-  "version": 32,
+  "version": 33,
   "source-key": {
     "type": "figma",
     "file": "1Wdswe7lGrQnpNLE54B7NS",
     "node": "39:27",
-    "version": "5227644718",
+    "version": "5901916845",
     "component-id": "16d60861346a7249a51ac7c36693b42c63b85046"
   },
   "default": "Property 1=Default",
@@ -19,6 +19,38 @@
       {
         "type": "image",
         "id": "cover 1"
+      },
+      {
+        "type": "image",
+        "id": "158044-px258ea-1818400 1"
+      },
+      {
+        "type": "image",
+        "id": "s-l400 1"
+      },
+      {
+        "type": "image",
+        "id": "PERCY-CHALICE-FINALcover2 1"
+      },
+      {
+        "type": "image",
+        "id": "71FI6wiHG3L 1"
+      },
+      {
+        "type": "image",
+        "id": "9781419741999 1"
+      },
+      {
+        "type": "image",
+        "id": "9781447279990 1"
+      },
+      {
+        "type": "image",
+        "id": "91WN6a6F3RL 1"
+      },
+      {
+        "type": "image",
+        "id": "33 1"
       }
     ],
     "modes": {
@@ -26,43 +58,43 @@
         "rules": [
           {
             "id": "top_level",
-            "border-radius": "5.0",
+            "border-radius": 5.0,
             "drop-shadow": {
               "color": {
-                "alpha": "0.24705882352941178",
-                "hue": "0.0",
-                "saturation": "0.0",
-                "value": "0.0"
+                "alpha": 0.24705882352941178,
+                "hue": 0.0,
+                "saturation": 0.0,
+                "value": 0.0
               },
-              "blur": "10.0",
-              "offset-x": "0.0",
-              "offset-y": "0.0",
-              "spread": "4.0",
+              "blur": 10.0,
+              "offset-x": 0.0,
+              "offset-y": 0.0,
+              "spread": 4.0,
               "blend-mode": "normal"
             },
             "tap-handler": "$bookButton",
             "stroke-alignment": "outside",
-            "is-structured": "false",
+            "is-structured": false,
             "children": [
               "cover 1"
             ],
             "background-color": {
-              "alpha": "1.0",
-              "hue": "0.0",
-              "saturation": "0.0",
-              "value": "1.0"
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
             }
           },
           {
             "id": "cover 1",
             "size-constraints": {
               "width-constraints": {
-                "sizing-mode": "fixed",
-                "value": "160.0"
+                "sizing-mode": "proportional",
+                "value": 1.0
               },
               "height-constraints": {
-                "sizing-mode": "fixed",
-                "value": "230.0"
+                "sizing-mode": "proportional",
+                "value": 1.0
               }
             },
             "image-content": "cover_1.jpeg",
@@ -74,29 +106,386 @@
         "rules": [
           {
             "id": "top_level",
-            "border-radius": "5.0",
+            "border-radius": 5.0,
             "drop-shadow": {
               "color": {
-                "alpha": "0.24705882352941178",
-                "hue": "0.0",
-                "saturation": "0.0",
-                "value": "0.0"
+                "alpha": 0.24705882352941178,
+                "hue": 0.0,
+                "saturation": 0.0,
+                "value": 0.0
               },
-              "blur": "10.0",
-              "offset-x": "0.0",
-              "offset-y": "0.0",
-              "spread": "3.0",
+              "blur": 10.0,
+              "offset-x": 0.0,
+              "offset-y": 0.0,
+              "spread": 3.0,
               "blend-mode": "normal"
             },
             "tap-handler": "$bookButton",
             "stroke-alignment": "outside",
-            "is-structured": "false",
+            "is-structured": false,
+            "children": [
+              "158044-px258ea-1818400 1"
+            ],
             "background-color": {
-              "alpha": "1.0",
-              "hue": "0.0",
-              "saturation": "0.0",
-              "value": "1.0"
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.05701754385964917,
+              "value": 0.8941176470588236
             }
+          },
+          {
+            "id": "158044-px258ea-1818400 1",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "image-content": "158044_px258ea_1818400_1.jpeg",
+            "scale": "cover"
+          }
+        ]
+      },
+      "Property 1=Variant3": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": 5.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.24705882352941178,
+                "hue": 0.0,
+                "saturation": 0.0,
+                "value": 0.0
+              },
+              "blur": 10.0,
+              "offset-x": 0.0,
+              "offset-y": 0.0,
+              "spread": 3.0,
+              "blend-mode": "normal"
+            },
+            "tap-handler": "$bookButton",
+            "stroke-alignment": "outside",
+            "is-structured": false,
+            "children": [
+              "s-l400 1"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.05701754385964917,
+              "value": 0.8941176470588236
+            }
+          },
+          {
+            "id": "s-l400 1",
+            "margin": {
+              "left": 2.0
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "image-content": "s_l400_1.jpeg",
+            "scale": "cover"
+          }
+        ]
+      },
+      "Property 1=Variant4": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": 5.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.24705882352941178,
+                "hue": 0.0,
+                "saturation": 0.0,
+                "value": 0.0
+              },
+              "blur": 10.0,
+              "offset-x": 0.0,
+              "offset-y": 0.0,
+              "spread": 3.0,
+              "blend-mode": "normal"
+            },
+            "tap-handler": "$bookButton",
+            "stroke-alignment": "outside",
+            "is-structured": false,
+            "children": [
+              "PERCY-CHALICE-FINALcover2 1"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.05701754385964917,
+              "value": 0.8941176470588236
+            }
+          },
+          {
+            "id": "PERCY-CHALICE-FINALcover2 1",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "image-content": "percy_chalice_finalcover2_1.jpeg",
+            "scale": "cover"
+          }
+        ]
+      },
+      "Property 1=Variant5": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": 5.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.24705882352941178,
+                "hue": 0.0,
+                "saturation": 0.0,
+                "value": 0.0
+              },
+              "blur": 10.0,
+              "offset-x": 0.0,
+              "offset-y": 0.0,
+              "spread": 3.0,
+              "blend-mode": "normal"
+            },
+            "tap-handler": "$bookButton",
+            "stroke-alignment": "outside",
+            "is-structured": false,
+            "children": [
+              "71FI6wiHG3L 1"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.05701754385964917,
+              "value": 0.8941176470588236
+            }
+          },
+          {
+            "id": "71FI6wiHG3L 1",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "image-content": "71fi6wi_hg3l_1.jpeg",
+            "scale": "cover"
+          }
+        ]
+      },
+      "Property 1=Variant6": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": 5.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.24705882352941178,
+                "hue": 0.0,
+                "saturation": 0.0,
+                "value": 0.0
+              },
+              "blur": 10.0,
+              "offset-x": 0.0,
+              "offset-y": 0.0,
+              "spread": 3.0,
+              "blend-mode": "normal"
+            },
+            "tap-handler": "$bookButton",
+            "stroke-alignment": "outside",
+            "is-structured": false,
+            "children": [
+              "9781419741999 1"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.05701754385964917,
+              "value": 0.8941176470588236
+            }
+          },
+          {
+            "id": "9781419741999 1",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "image-content": "9781419741999_1.jpeg",
+            "scale": "cover"
+          }
+        ]
+      },
+      "Property 1=Variant7": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": 5.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.24705882352941178,
+                "hue": 0.0,
+                "saturation": 0.0,
+                "value": 0.0
+              },
+              "blur": 10.0,
+              "offset-x": 0.0,
+              "offset-y": 0.0,
+              "spread": 3.0,
+              "blend-mode": "normal"
+            },
+            "tap-handler": "$bookButton",
+            "stroke-alignment": "outside",
+            "is-structured": false,
+            "children": [
+              "9781447279990 1"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.05701754385964917,
+              "value": 0.8941176470588236
+            }
+          },
+          {
+            "id": "9781447279990 1",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "image-content": "9781447279990_1.png",
+            "scale": "cover"
+          }
+        ]
+      },
+      "Property 1=Variant8": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": 5.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.24705882352941178,
+                "hue": 0.0,
+                "saturation": 0.0,
+                "value": 0.0
+              },
+              "blur": 10.0,
+              "offset-x": 0.0,
+              "offset-y": 0.0,
+              "spread": 3.0,
+              "blend-mode": "normal"
+            },
+            "tap-handler": "$bookButton",
+            "stroke-alignment": "outside",
+            "is-structured": false,
+            "children": [
+              "91WN6a6F3RL 1"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.05701754385964917,
+              "value": 0.8941176470588236
+            }
+          },
+          {
+            "id": "91WN6a6F3RL 1",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "image-content": "91wn6a6f3rl_1.jpeg",
+            "scale": "cover"
+          }
+        ]
+      },
+      "Property 1=Variant9": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": 5.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.24705882352941178,
+                "hue": 0.0,
+                "saturation": 0.0,
+                "value": 0.0
+              },
+              "blur": 10.0,
+              "offset-x": 0.0,
+              "offset-y": 0.0,
+              "spread": 3.0,
+              "blend-mode": "normal"
+            },
+            "tap-handler": "$bookButton",
+            "stroke-alignment": "outside",
+            "is-structured": false,
+            "children": [
+              "33 1"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.05701754385964917,
+              "value": 0.8941176470588236
+            }
+          },
+          {
+            "id": "33 1",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "image-content": "33_1.jpeg",
+            "scale": "cover"
           }
         ]
       }
@@ -119,6 +508,55 @@
     },
     {
       "design": "Property 1=Variant2",
+      "size": {
+        "width": 158.0,
+        "height": 230.0
+      }
+    },
+    {
+      "design": "Property 1=Variant3",
+      "size": {
+        "width": 158.0,
+        "height": 230.0
+      }
+    },
+    {
+      "design": "Property 1=Variant4",
+      "size": {
+        "width": 158.0,
+        "height": 230.0
+      }
+    },
+    {
+      "design": "Property 1=Variant5",
+      "size": {
+        "width": 158.0,
+        "height": 230.0
+      }
+    },
+    {
+      "design": "Property 1=Variant6",
+      "size": {
+        "width": 158.0,
+        "height": 230.0
+      }
+    },
+    {
+      "design": "Property 1=Variant7",
+      "size": {
+        "width": 158.0,
+        "height": 230.0
+      }
+    },
+    {
+      "design": "Property 1=Variant8",
+      "size": {
+        "width": 158.0,
+        "height": 230.0
+      }
+    },
+    {
+      "design": "Property 1=Variant9",
       "size": {
         "width": 158.0,
         "height": 230.0
