@@ -1,6 +1,9 @@
 package ui.Screens
 
 import android.net.Uri
+import android.util.Log
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -13,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredWidth
@@ -20,9 +24,15 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cancel
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardControlKey
+import androidx.compose.material.icons.filled.ModeComment
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.outlined.ChatBubbleOutline
 import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.ModeComment
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -42,13 +52,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
+import com.calculator.bookfinder.R
 import com.calculator.bookfinder.accountbuttons.AccountButtons
 import com.calculator.bookfinder.accountbuttons.Property1
 import com.calculator.bookfinder.accountbuttons.lindenHill
@@ -271,18 +286,25 @@ fun PostScreen(bookDatabaseViewModel: BookDatabaseViewModel, navController: NavC
 
 }
 
-@Preview(showBackground = true)
+
 @Composable
-fun UserPost(){
+fun UserPost(name:String, date:String, title:String, description:String, rating:Int,likes:Int, comments:Int){
+    val vm = PostsGroupsViewmodel()
+    var icontype by remember {
+        mutableStateOf(false)
+    }
+
     Column(modifier = Modifier
-        .padding(start = 10.dp, end = 10.dp)){
+        .background(Color.White)
+        .padding(start = 10.dp, end = 10.dp)
+        .fillMaxWidth()){
         UserPostHeader()
         Row (modifier = Modifier
             .background(Color.Black)
             .height(1.dp)
             .fillMaxWidth()){
         }
-        Text(text = "Best sci-fi book ever", fontFamily = lindenHill, fontSize = 25.sp,
+        Text(text = title, fontFamily = lindenHill, fontSize = 25.sp,
             color = Color(
                 alpha = 255,
                 red = 0,
@@ -304,22 +326,74 @@ fun UserPost(){
                     green = 0,
                     blue = 0
                 ),modifier = Modifier.padding(start = 5.dp,top = 7.dp, end = 10.dp))
-            for (i in 1..5){
-                Icon(
+            Row(modifier = Modifier.fillMaxWidth(0.8f)) {
+                for (i in 1..rating){
+                    Icon(
+                        modifier = Modifier
+                            .size(40.dp),
+                        imageVector = Icons.Outlined.Star,
+                        contentDescription = "Localized description",
+                        tint = Color(0xFFF7F772)
+                    )
+                }
+            }
+            DropDownInfo( buttonPressed = {
+                icontype = !icontype
+            })
+        }
+        if (icontype){
+            Row (modifier = Modifier.padding(bottom = 27.dp)){
+                BooksEdit(
                     modifier = Modifier
-                        .size(40.dp),
-                    imageVector = Icons.Outlined.Star,
-                    contentDescription = "Localized description",
-                    tint = Color(0xFFF7F772)
-                )
+                        .height(95.dp)
+                        .width(70.dp)
+                        .padding(start = 7.dp)
+                        .offset(y = 7.dp)
+                ) {
+                    //if the function returns empty, the place holder for the cover photo is left
+/*                    if (bookDatabaseViewModel.gotCovers(it) != "empty"){
+                        AsyncImage(
+                            model = "https://covers.openlibrary.org/b/id/${it.covers?.get(0)}-M.jpg",
+                            contentDescription = "test",
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }*/
+                }
             }
         }
+        Row (modifier = Modifier
+            .background(Color.Black)
+            .height(1.dp)
+            .fillMaxWidth()){
+        }
+        Row {
+            Column(modifier = Modifier
+                .padding(end = 5.dp)) {
+                IconButton(onClick = {
+
+                }) {
+                    Icon(
+                        Icons.Filled.Favorite,
+                        contentDescription = "Localized description",
+                        Modifier.size(42.dp)
+                    )
+                }
+            }
+            Column (modifier = Modifier
+                .padding(start = 5.dp)){
+                IconButton(onClick = {
+
+                }) {
+                    Image(modifier = Modifier.size(34.dp), painter = painterResource(id = R.drawable.postcomments), contentDescription ="" )
+                }
+            }
+        }
+
     }
 
 
 
 }
-
 
 
 @Composable
@@ -426,14 +500,24 @@ fun HeaderContainer(
     )
 }
 
-@Preview
-@Composable
-fun test(){
-    Row (modifier = Modifier
-        .background(Color.Black)
-        .height(10.dp)
-        .fillMaxWidth()
-        .padding(start = 10.dp, end = 10.dp, top = 30.dp)){
 
+@Composable
+fun DropDownInfo(buttonPressed:()->Unit){
+    var icon by remember {
+        mutableStateOf(Icons.Filled.KeyboardArrowDown)
+    }
+    IconButton(onClick = {
+        if (icon == Icons.Filled.KeyboardArrowDown){
+            icon = Icons.Filled.KeyboardControlKey
+        }else{
+            icon = Icons.Filled.KeyboardArrowDown
+        }
+        buttonPressed()
+    }) {
+        Icon(
+            icon,
+            contentDescription = "Localized description",
+            Modifier.size(38.dp)
+        )
     }
 }

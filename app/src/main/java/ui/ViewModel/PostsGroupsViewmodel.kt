@@ -3,7 +3,11 @@ package ui.ViewModel
 
 import android.net.Uri
 import android.util.Log
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardControlKey
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
@@ -28,8 +32,15 @@ class PostsGroupsViewmodel : ViewModel(){
     private var  _rating = MutableStateFlow(0)
     var rating: StateFlow<Int> = _rating.asStateFlow()
 
+
+    private var  _dropDownArrow = MutableStateFlow(Icons.Filled.KeyboardArrowDown)
+    var dropDownArrow: StateFlow<ImageVector> = _dropDownArrow.asStateFlow()
+
     private var  _book = MutableStateFlow(Doc("","",""))
     var book: StateFlow<Doc> = _book.asStateFlow()
+
+    private var  _iconType = MutableStateFlow(false)
+    var iconType: StateFlow<Boolean> = _iconType.asStateFlow()
 
     private var  _starColor = MutableStateFlow(listOf(0xFFF8F8E3,0xFFF8F8E3,0xFFF8F8E3,0xFFF8F8E3,0xFFF8F8E3))
     var starColor: StateFlow<List<Long>> = _starColor.asStateFlow()
@@ -58,6 +69,14 @@ class PostsGroupsViewmodel : ViewModel(){
             }
         }
     }
+
+
+
+
+    fun getIcontype(): Boolean {
+        return _iconType.value
+    }
+
 
     fun setBook(book: Doc){
         _book.value = book

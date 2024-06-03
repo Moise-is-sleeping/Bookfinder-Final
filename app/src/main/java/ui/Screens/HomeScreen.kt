@@ -77,7 +77,8 @@ fun HomeScreen(bookViewModel: BookViewModel,navController:NavController,bookData
     Text(text = counter.toString())
     Column (modifier= Modifier
         .fillMaxSize()
-        .background(color = Color(0xFFE5DBD0))){
+        .background(color = Color(0xFFE5DBD0)),
+        horizontalAlignment = Alignment.CenterHorizontally){
         Header(modifier = Modifier
             .fillMaxWidth()
             .height(60.dp),
@@ -226,11 +227,15 @@ fun YourFeed(bookViewModel: BookViewModel){
     }
 
     LazyColumn(modifier= Modifier
-        .fillMaxWidth()
-        .fillMaxHeight(0.915f),horizontalAlignment = Alignment.CenterHorizontally){
-        items(list){book ->
+        .fillMaxWidth(0.9f)
+        .fillMaxHeight(0.915f)
 
+        ,horizontalAlignment = Alignment.CenterHorizontally){
+        items(list){book ->
+            UserPost("","","The best sci fi book ever","The Three-Body Problem by Liu Cixin is a masterful blend of science fiction and historical drama, offering a unique narrative that captivates from the very beginning. Set against the backdrop of China's Cultural Revolution, the story follows Ye Wenjie, a disillusioned scientist who makes contact with an alien civilization, the Trisolarans. Liu seamlessly intertwines historical events with speculative science, particularly the complex concept of the three-body problem in celestial mechanics, which serves as a powerful metaphor for chaos and unpredictability. The novel excels in its exploration of humanity's varied responses to the potential alien invasion, from collaboration to resistance, posing profound questions about trust, survival, and the essence of human nature. While the dense scientific exposition may challenge some readers, the intricate plot and philosophical depth make it a rewarding read. Liu's ability to craft a story that is both intellectually stimulating and emotionally engaging solidifies The Three-Body Problem as a landmark work in modern science fiction.",5,0,0)
+            Spacer(modifier = Modifier.height(25.dp))
         }
+
     }
 }
 
