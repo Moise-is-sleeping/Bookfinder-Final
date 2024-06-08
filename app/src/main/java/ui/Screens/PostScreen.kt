@@ -209,8 +209,12 @@ fun PostScreen(bookDatabaseViewModel: BookDatabaseViewModel, navController: NavC
                 }else{
                     InputChip(
                         selected = tagBook,
-                        onClick = { tagBook = !tagBook },
-                        label = { Text(postsGroupsViewmodel.bookNameLength(book.title), fontFamily = lancelot, fontSize = 23.sp) },
+                        onClick = {
+                            tagBook = !tagBook
+                                  },
+                        label = {
+                            Text(postsGroupsViewmodel.bookNameLength(book.title), fontFamily = lancelot, fontSize = 23.sp)
+                                },
                         trailingIcon = {
                             Icon(
                                 Icons.Filled.Cancel,
@@ -239,7 +243,7 @@ fun PostScreen(bookDatabaseViewModel: BookDatabaseViewModel, navController: NavC
                 property1 = Property1.Variant5,
                 buttonName = "Create Post",
                 buttonPressed = {
-                    postsGroupsViewmodel.uploadPost(postTitle,postDescription,book, Uri.EMPTY, succes = {
+                    postsGroupsViewmodel.uploadPost(postTitle,postDescription,book, "", succes = {
                         message = true
                         navController.popBackStack()
                     })
@@ -289,7 +293,6 @@ fun PostScreen(bookDatabaseViewModel: BookDatabaseViewModel, navController: NavC
 
 @Composable
 fun UserPost(name:String, date:String, title:String, description:String, rating:Int,likes:Int, comments:Int){
-    val vm = PostsGroupsViewmodel()
     var icontype by remember {
         mutableStateOf(false)
     }
@@ -298,7 +301,7 @@ fun UserPost(name:String, date:String, title:String, description:String, rating:
         .background(Color.White)
         .padding(start = 10.dp, end = 10.dp)
         .fillMaxWidth()){
-        UserPostHeader()
+        UserPostHeader(name,date)
         Row (modifier = Modifier
             .background(Color.Black)
             .height(1.dp)
@@ -311,7 +314,7 @@ fun UserPost(name:String, date:String, title:String, description:String, rating:
                 green = 0,
                 blue = 0
             ),modifier = Modifier.padding(top = 15.dp,bottom = 15.dp, start = 5.dp))
-        Text(text = "The Three-Body Problem by Liu Cixin is a masterful blend of science fiction and historical drama, offering a unique narrative that captivates from the very beginning. Set against the backdrop of China's Cultural Revolution, the story follows Ye Wenjie, a disillusioned scientist who makes contact with an alien civilization, the Trisolarans. Liu seamlessly intertwines historical events with speculative science, particularly the complex concept of the three-body problem in celestial mechanics, which serves as a powerful metaphor for chaos and unpredictability. The novel excels in its exploration of humanity's varied responses to the potential alien invasion, from collaboration to resistance, posing profound questions about trust, survival, and the essence of human nature. While the dense scientific exposition may challenge some readers, the intricate plot and philosophical depth make it a rewarding read. Liu's ability to craft a story that is both intellectually stimulating and emotionally engaging solidifies The Three-Body Problem as a landmark work in modern science fiction.", fontFamily = lindenHill, fontSize = 18.sp,
+        Text(text = description, fontFamily = lindenHill, fontSize = 18.sp,
             color = Color(
                 alpha = 255,
                 red = 0,
@@ -397,7 +400,7 @@ fun UserPost(name:String, date:String, title:String, description:String, rating:
 
 
 @Composable
-fun UserPostHeader(){
+fun UserPostHeader(name:String, date: String){
     Row(modifier = Modifier
 
         .fillMaxWidth()
@@ -409,7 +412,7 @@ fun UserPostHeader(){
                 .height(65.dp)
         ) {
             Username(
-                username = "Moise Brenes",
+                username = name,
                 modifier = Modifier.boxAlign(
                     alignment = Alignment.TopStart,
                     offset = DpOffset(
@@ -437,7 +440,7 @@ fun UserPostHeader(){
                 )
             }
             Date(
-                date = "Jan 19 2022",
+                date = date,
                 modifier = Modifier.boxAlign(
                     alignment = Alignment.TopStart,
                     offset = DpOffset(
@@ -446,6 +449,7 @@ fun UserPostHeader(){
                     )
                 )
             )
+            Log.d("dates",date)
             com.calculator.bookfinder.reviewpostvariant2.Line3(
                 modifier = Modifier.boxAlign(
                     alignment = Alignment.BottomEnd,

@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -55,8 +56,10 @@ import com.calculator.bookfinder.ratings.Ratings
 import com.google.relay.compose.BoxScopeInstance.columnWeight
 import com.google.relay.compose.BoxScopeInstance.rowWeight
 import data.Routes.Routes
+import kotlinx.coroutines.delay
 import ui.ViewModel.BookDatabaseViewModel
 import ui.ViewModel.BookViewModel
+import ui.ViewModel.PostsGroupsViewmodel
 import ui.ViewModel.UserInteractionViewmodel
 
 
@@ -67,12 +70,13 @@ import ui.ViewModel.UserInteractionViewmodel
  *   @param navController controller that allows navigation between screens
  */
 @Composable
-fun HomeScreen(bookViewModel: BookViewModel,navController:NavController,bookDatabaseViewModel: BookDatabaseViewModel,userInteractionViewmodel: UserInteractionViewmodel){
+fun HomeScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: BookViewModel,navController:NavController,bookDatabaseViewModel: BookDatabaseViewModel,userInteractionViewmodel: UserInteractionViewmodel){
     var moreButton by remember { mutableStateOf(false) }
     var counter by remember { mutableIntStateOf(0) }
     val currentScreen by userInteractionViewmodel.currentFriendsButton.collectAsState()
     LaunchedEffect(Unit){
         bookDatabaseViewModel.fetchBooks()
+        postsGroupsViewmodel.getPosts()
     }
     Text(text = counter.toString())
     Column (modifier= Modifier
@@ -121,7 +125,7 @@ fun HomeScreen(bookViewModel: BookViewModel,navController:NavController,bookData
         //if the list is empty, it shows the loading icon
         when(currentScreen){
             1->{
-                YourFeed(bookViewModel)
+                YourFeed(postsGroupsViewmodel)
             }
             2->{
 
@@ -166,6 +170,7 @@ fun HomeScreen(bookViewModel: BookViewModel,navController:NavController,bookData
                     groupsButton = {},
                     postsButton = {
                         navController.navigate(Routes.PostScreen.route)
+                        postsGroupsViewmodel.getUsersInfo()
                     },
                     friendsButton = {
                         navController.navigate(Routes.FriendsScreen.route)
@@ -194,7 +199,6 @@ fun Discover(bookViewModel: BookViewModel,navController: NavController,bookDatab
     if (list.isEmpty()){
         Loading(120,90)
     }
-
     LazyColumn(modifier= Modifier
         .fillMaxWidth()
         .fillMaxHeight(0.915f),horizontalAlignment = Alignment.CenterHorizontally){
@@ -220,19 +224,31 @@ fun Discover(bookViewModel: BookViewModel,navController: NavController,bookDatab
 
 
 @Composable
-fun YourFeed(bookViewModel: BookViewModel){
-    val list by bookViewModel.homeBookList.collectAsState()
-    if (list.isEmpty()){
+fun YourFeed(postsGroupsViewmodel: PostsGroupsViewmodel){
+    val postlist by postsGroupsViewmodel.postsList.collectAsState()
+    if (postlist.isEmpty()){
         Loading(120,90)
     }
+    var feedRefresh by remember {
+        mutableStateOf(0)
+    }
+
+    LaunchedEffect(key1 = feedRefresh) {
+        while (true) {
+            delay(3000)
+            postsGroupsViewmodel.getPosts()
+        }
+    }
+
+    Text(text = feedRefresh.toString(),Modifier.size(0.1.dp))
 
     LazyColumn(modifier= Modifier
         .fillMaxWidth(0.9f)
         .fillMaxHeight(0.915f)
 
         ,horizontalAlignment = Alignment.CenterHorizontally){
-        items(list){book ->
-            UserPost("","","The best sci fi book ever","The Three-Body Problem by Liu Cixin is a masterful blend of science fiction and historical drama, offering a unique narrative that captivates from the very beginning. Set against the backdrop of China's Cultural Revolution, the story follows Ye Wenjie, a disillusioned scientist who makes contact with an alien civilization, the Trisolarans. Liu seamlessly intertwines historical events with speculative science, particularly the complex concept of the three-body problem in celestial mechanics, which serves as a powerful metaphor for chaos and unpredictability. The novel excels in its exploration of humanity's varied responses to the potential alien invasion, from collaboration to resistance, posing profound questions about trust, survival, and the essence of human nature. While the dense scientific exposition may challenge some readers, the intricate plot and philosophical depth make it a rewarding read. Liu's ability to craft a story that is both intellectually stimulating and emotionally engaging solidifies The Three-Body Problem as a landmark work in modern science fiction.",5,0,0)
+        items(postlist){post ->
+            UserPost(post.userName,post.date,post.title,post.description,post.ratings,0,0)
             Spacer(modifier = Modifier.height(25.dp))
         }
 

@@ -12,9 +12,11 @@ data class SearchByName(
     @SerialName("num_found") val numFound: Int,
 )
 
-@Serializable
+
 data class Doc(
-    val key: String,
-    val title :String,
-    val first_publish_year :String
-)
+    val key: String? = null, // Provide default values (null in this case)
+    val title: String? = null,
+    val first_publish_year: String? =null
+) {
+    constructor() : this(null, null, null) // No-argument constructor
+}

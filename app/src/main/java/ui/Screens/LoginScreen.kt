@@ -65,6 +65,7 @@ import com.google.relay.compose.BoxScopeInstance.rowWeight
 import data.Routes.Routes
 import ui.ViewModel.BookDatabaseViewModel
 import ui.ViewModel.LoginViewModel
+import ui.ViewModel.PostsGroupsViewmodel
 import ui.ViewModel.UserInteractionViewmodel
 
 /**
@@ -73,7 +74,7 @@ import ui.ViewModel.UserInteractionViewmodel
  *   @param navController controller that allows navigation between screens
  */
 @Composable
-fun LoginScreen(UserInteractionViewmodel: UserInteractionViewmodel,loginViewModel: LoginViewModel,navController: NavController,bookDatabaseViewModel: BookDatabaseViewModel){
+fun LoginScreen(postsGroupsViewmodel: PostsGroupsViewmodel,UserInteractionViewmodel: UserInteractionViewmodel,loginViewModel: LoginViewModel,navController: NavController,bookDatabaseViewModel: BookDatabaseViewModel){
     val errorMessage by loginViewModel.errorMessage.collectAsState()
     val errorMessageBool by loginViewModel.displayErrorMessage.collectAsState()
     Column(
@@ -111,10 +112,12 @@ fun LoginScreen(UserInteractionViewmodel: UserInteractionViewmodel,loginViewMode
         AccountButtons(
             buttonPressed = {
 
-                            bookDatabaseViewModel.fetchBooks()
                             loginViewModel.login {
+
+                                bookDatabaseViewModel.fetchBooks()
                                 navController.navigate(Routes.HomeScreen.route)
                                 UserInteractionViewmodel.getUsersInfo()
+                                postsGroupsViewmodel.getPosts()
                             }
             },
             buttonName = "   Login",

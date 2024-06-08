@@ -60,25 +60,25 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(navController = navController , startDestination = startDestination ){
                         composable(Routes.LoginScreen.route){
-                            LoginScreen(userInteractionViewmodel,loginViewModel,navController,bookDatabaseViewModel)
+                            LoginScreen(postsGroupsViewmodel,userInteractionViewmodel,loginViewModel,navController,bookDatabaseViewModel)
                         }
                         composable(Routes.HomeScreen.route){
-                            HomeScreen(bookViewModel,navController,bookDatabaseViewModel,userInteractionViewmodel)
+                            HomeScreen(postsGroupsViewmodel,bookViewModel,navController,bookDatabaseViewModel,userInteractionViewmodel)
                         }
                         composable(Routes.RegisterScreen.route){
                             RegisterScreen(loginViewModel,navController)
                         }
                         composable(Routes.SearchScreen.route){
-                            SearchScreen(bookDatabaseViewModel,bookViewModel,navController,userInteractionViewmodel)
+                            SearchScreen(postsGroupsViewmodel,bookDatabaseViewModel,bookViewModel,navController,userInteractionViewmodel)
                         }
                         composable(Routes.BookDescriptionScreen.route){
                             BooKDescriptionScreen(bookDatabaseViewModel,bookViewModel, navController)
                         }
                         composable(Routes.SavedScreen.route){
-                            SavedScreen(userInteractionViewmodel,bookDatabaseViewModel,bookViewModel, navController)
+                            SavedScreen(postsGroupsViewmodel,userInteractionViewmodel,bookDatabaseViewModel,bookViewModel, navController)
                         }
                         composable(Routes.FriendsScreen.route){
-                            FriendsScreen(bookViewModel,navController,bookDatabaseViewModel,userInteractionViewmodel)
+                            FriendsScreen(postsGroupsViewmodel,bookViewModel,navController,bookDatabaseViewModel,userInteractionViewmodel)
                         }
                         composable(Routes.UsersProfileScreen.route){
                             UsersProfileScreen(bookDatabaseViewModel,bookViewModel, navController,userInteractionViewmodel)

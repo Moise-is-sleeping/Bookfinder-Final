@@ -62,6 +62,7 @@ import data.Models.Doc
 import data.Routes.Routes
 import ui.ViewModel.BookDatabaseViewModel
 import ui.ViewModel.BookViewModel
+import ui.ViewModel.PostsGroupsViewmodel
 import ui.ViewModel.UserInteractionViewmodel
 
 /**
@@ -73,7 +74,7 @@ import ui.ViewModel.UserInteractionViewmodel
  */
 
 @Composable
-fun SearchScreen(bookDatabaseViewModel: BookDatabaseViewModel,bookViewModel: BookViewModel,navController: NavController,userInteractionViewmodel:UserInteractionViewmodel)   {
+fun SearchScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookDatabaseViewModel: BookDatabaseViewModel,bookViewModel: BookViewModel,navController: NavController,userInteractionViewmodel:UserInteractionViewmodel)   {
     val searchValue by bookViewModel.searchValue.collectAsState()
     val hasSearched by bookViewModel.hasSearched.collectAsState()
     var moreButton by remember { mutableStateOf(false) }
@@ -147,7 +148,9 @@ fun SearchScreen(bookDatabaseViewModel: BookDatabaseViewModel,bookViewModel: Boo
             ) {
                 MoreButtons(
                     groupsButton = {},
-                    postsButton = {navController.navigate(Routes.PostScreen.route)},
+                    postsButton = {
+                        navController.navigate(Routes.PostScreen.route)
+                        postsGroupsViewmodel.getUsersInfo()},
                     friendsButton = {
                         navController.navigate(Routes.FriendsScreen.route)
                         userInteractionViewmodel.getUsernames()
@@ -191,14 +194,14 @@ fun Searchresults(number:Int, book: (Doc)->Unit, bookDatabaseViewModel: BookData
             items(searchResults) {
                 ListItem(
                     headlineContent = {
-                        Text(text = it!!.title)
+                        it!!.title?.let { it1 -> Text(text = it1) }
                     },
                     supportingContent = { Text(bookViewModel.nullDates(it?.first_publish_year ?:"")) },
                     modifier = Modifier.clickable {
                         if (number == 1){
-                            bookViewModel.getBooks(it!!.key.substring(7))
+                            bookViewModel.getBooks(it!!.key!!.substring(7))
                             navController.navigate(Routes.BookDescriptionScreen.route)
-                            bookDatabaseViewModel.hasSavedDefaultValue(it.key.substring(7))
+                            bookDatabaseViewModel.hasSavedDefaultValue(it.key!!.substring(7))
                         }
                         else{
                             if (it != null) {

@@ -78,10 +78,11 @@ import com.google.relay.compose.relayDropShadow
 import data.Routes.Routes
 import ui.ViewModel.BookDatabaseViewModel
 import ui.ViewModel.BookViewModel
+import ui.ViewModel.PostsGroupsViewmodel
 import ui.ViewModel.UserInteractionViewmodel
 
 @Composable
-fun FriendsScreen(bookViewModel: BookViewModel, navController: NavController, bookDatabaseViewModel: BookDatabaseViewModel,userInteractionViewmodel: UserInteractionViewmodel){
+fun FriendsScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: BookViewModel, navController: NavController, bookDatabaseViewModel: BookDatabaseViewModel,userInteractionViewmodel: UserInteractionViewmodel){
     var forcedRefresh by remember { mutableIntStateOf(0) }
     var moreButton by remember { mutableStateOf(false) }
     val currentScreen by userInteractionViewmodel.currentFriendsButton.collectAsState()
@@ -185,7 +186,10 @@ fun FriendsScreen(bookViewModel: BookViewModel, navController: NavController, bo
                 bookDatabaseViewModel.fetchBooks()
                 navController.navigate(Routes.SavedScreen.route)
             },
-            moreButton = {moreButton=true},
+            moreButton = {
+                moreButton=true
+                postsGroupsViewmodel.getUsersInfo()
+                         },
             modifier = Modifier
                 .rowWeight(1.0f)
                 .columnWeight(1.0f)

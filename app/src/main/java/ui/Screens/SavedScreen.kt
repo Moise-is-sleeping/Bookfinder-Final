@@ -51,6 +51,7 @@ import com.google.relay.compose.relayDropShadow
 import data.Routes.Routes
 import ui.ViewModel.BookDatabaseViewModel
 import ui.ViewModel.BookViewModel
+import ui.ViewModel.PostsGroupsViewmodel
 import ui.ViewModel.UserInteractionViewmodel
 
 /**
@@ -61,7 +62,7 @@ import ui.ViewModel.UserInteractionViewmodel
  * @param navController Controller for navigation between screens
  */
 @Composable
-fun SavedScreen(userInteractionViewmodel: UserInteractionViewmodel, bookDatabaseViewModel: BookDatabaseViewModel, bookViewModel: BookViewModel, navController: NavController){
+fun SavedScreen( postsGroupsViewmodel: PostsGroupsViewmodel, userInteractionViewmodel: UserInteractionViewmodel, bookDatabaseViewModel: BookDatabaseViewModel, bookViewModel: BookViewModel, navController: NavController){
     val bookDetailsList by bookDatabaseViewModel.bookDetailsList.collectAsState()
     var moreButton by remember { mutableStateOf(false) }
     Column (modifier= Modifier
@@ -157,6 +158,7 @@ fun SavedScreen(userInteractionViewmodel: UserInteractionViewmodel, bookDatabase
                     groupsButton = {},
                     postsButton = {
                         navController.navigate(Routes.PostScreen.route)
+                        postsGroupsViewmodel.getUsersInfo()
                     },
                     friendsButton = {
                         navController.navigate(Routes.FriendsScreen.route)
