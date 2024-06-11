@@ -57,9 +57,15 @@ android {
 
 dependencies {
 
+    implementation("androidx.compose.ui:ui:1.7.0-beta02")
+
+    implementation("io.coil-kt:coil-compose:2.5.0")
+    implementation("io.coil-kt:coil-gif:2.5.0")
+
     implementation(platform("androidx.compose:compose-bom:2024.05.00"))
     implementation("androidx.activity:activity-compose:1.9.0")
     implementation("androidx.compose.material3:material3")
+    implementation ("androidx.compose.material:material-icons-extended:1.6.7")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.core:core-ktx:1.13.1")
@@ -69,7 +75,7 @@ dependencies {
     // Retrofit
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("io.coil-kt:coil-compose:2.4.0")
+
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
     implementation("androidx.compose.material3:material3-android:1.2.1")
 

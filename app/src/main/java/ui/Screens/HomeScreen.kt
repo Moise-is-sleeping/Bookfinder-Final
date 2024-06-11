@@ -23,15 +23,32 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text2.BasicTextField2
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.material.icons.filled.Gif
+import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.icons.outlined.Star
+import androidx.compose.material3.BottomSheetScaffold
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuDefaults.textFieldColors
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,22 +58,27 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.calculator.bookfinder.accountbuttons.lindenHill
 import com.calculator.bookfinder.header.Header
 import com.calculator.bookfinder.header.lancelot
 import com.calculator.bookfinder.homepagebooks.BookTitle
 
 import com.calculator.bookfinder.homepagebooks.Books
 import com.calculator.bookfinder.homepagebooks.ByAuthor
+import com.calculator.bookfinder.icons.Icons
 import com.calculator.bookfinder.morebuttons.MoreButtons
 import com.calculator.bookfinder.naviagtionbar.NaviagtionBar
 
 import com.calculator.bookfinder.ratings.Property1
 import com.calculator.bookfinder.ratings.Ratings
+import com.calculator.bookfinder.reviewpost.HomepageBooks
+import com.google.relay.compose.BoxScopeInstance.boxAlign
 
 import com.google.relay.compose.BoxScopeInstance.columnWeight
 import com.google.relay.compose.BoxScopeInstance.rowWeight
 import data.Routes.Routes
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ui.ViewModel.BookDatabaseViewModel
 import ui.ViewModel.BookViewModel
 import ui.ViewModel.PostsGroupsViewmodel
@@ -69,125 +91,262 @@ import ui.ViewModel.UserInteractionViewmodel
  *   @param bookViewModel view-model that contains the logic behind certain functions in the screen
  *   @param navController controller that allows navigation between screens
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: BookViewModel,navController:NavController,bookDatabaseViewModel: BookDatabaseViewModel,userInteractionViewmodel: UserInteractionViewmodel){
     var moreButton by remember { mutableStateOf(false) }
     var counter by remember { mutableIntStateOf(0) }
     val currentScreen by userInteractionViewmodel.currentFriendsButton.collectAsState()
+    val scope = rememberCoroutineScope()
+    val scaffoldState = rememberBottomSheetScaffoldState()
+    var typedComment by remember { mutableStateOf("") }
+    var myUsername by remember { mutableStateOf("") }
+    var currentPostID by remember {
+        mutableStateOf("")
+    }
+    var userCommentsList by remember {
+        mutableStateOf((listOf<Map<String,String>>()))
+    }
+    val feedRefresh by remember {
+        mutableStateOf(0)
+    }
+
     LaunchedEffect(Unit){
         bookDatabaseViewModel.fetchBooks()
         postsGroupsViewmodel.getPosts()
     }
-    Text(text = counter.toString())
-    Column (modifier= Modifier
-        .fillMaxSize()
-        .background(color = Color(0xFFE5DBD0)),
-        horizontalAlignment = Alignment.CenterHorizontally){
-        Header(modifier = Modifier
-            .fillMaxWidth()
-            .height(60.dp),
-            userAccountButton = {
-                navController.navigate(Routes.SettingsScreen.route)
-            })
-        Row(
-            Modifier
-                .padding(top = 15.dp)
-                .fillMaxWidth()
-                .height(62.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
-            Spacer(modifier = Modifier.fillMaxWidth(0.05f))
-            FriendButtonEdit(
-                buttonName = "Your Feed",
-                modifier = Modifier
-                    .rowWeight(1.0f)
-                    .columnWeight(1.0f)
-                    .fillMaxHeight(0.6f)
-                    .weight(1f)
-                    .clickable {
-                        userInteractionViewmodel.currentButton(1)
-                        counter += 1
-                    }, color = userInteractionViewmodel.buttonColor(1)
-            )
-            Spacer(modifier = Modifier.fillMaxWidth(0.05f))
-            FriendButtonEdit(
-                buttonName = "Discover",
-                modifier = Modifier
-                    .rowWeight(1.0f)
-                    .columnWeight(1.0f)
-                    .fillMaxHeight(0.6f)
-                    .weight(1f)
-                    .clickable {
-                        userInteractionViewmodel.currentButton(2)
-                        counter += 1
-                    }, color = userInteractionViewmodel.buttonColor(2)
-            )
-            Spacer(modifier = Modifier.fillMaxWidth(0.05f))
-        }
-        //if the list is empty, it shows the loading icon
-        when(currentScreen){
-            1->{
-                YourFeed(postsGroupsViewmodel)
+    BottomSheetScaffold(
+        modifier = Modifier.background(Color.White),
+        scaffoldState = scaffoldState,
+        sheetPeekHeight = 0.dp,
+        sheetContent = {
+            Column(
+                Modifier
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Top
+            ) {
+
+                Text(text = "Comments", modifier = Modifier.padding(bottom = 20.dp))
+                Row (modifier = Modifier
+                    .fillMaxWidth(0.98f)
+                    .height(1.dp)
+                    .background(Color.LightGray)
+
+                ){}
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(60.dp)
+                        .padding(start = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically) {
+
+                    HomepageBooks() {
+                        if (myUsername.isNotEmpty()){
+                            LoadPfp(userInteractionViewmodel , myUsername )
+                        }
+                    }
+
+
+                    TextField(
+                        modifier = Modifier
+                            .fillMaxWidth(0.85f)
+                        ,
+                        value = typedComment,
+                        onValueChange = {typedComment = it},
+                        colors = textFieldColors(
+                            focusedContainerColor = Color.Transparent,
+                            unfocusedContainerColor = Color.Transparent,
+                            cursorColor = Color.Black,
+                            focusedIndicatorColor = Color.Transparent,
+                            unfocusedIndicatorColor = Color.Transparent
+                        ),
+                        placeholder = {
+                            Text(text = "Add a comment...",fontFamily = lindenHill,modifier = Modifier)
+                        },
+                        singleLine = true,
+                    )
+
+                    IconButton(onClick = {
+                        postsGroupsViewmodel.addComments(typedComment,currentPostID)
+                        typedComment = ""
+                    }) {
+                        if (typedComment != ""){
+                            Icon(
+                                modifier = Modifier
+                                    .size(24.dp),
+                                imageVector = Icons.AutoMirrored.Filled.Send ,
+                                contentDescription = "Localized description",
+
+                                )
+                        }else{
+                            Icon(
+                                modifier = Modifier
+                                    .size(48.dp),
+                                imageVector = Icons.Filled.Gif ,
+                                contentDescription = "Localized description",
+
+                                )
+                        }
+
+
+                    }
+                }
+                if (currentPostID != ""){
+                    LaunchedEffect(key1 = feedRefresh) {
+                        while (true) {
+                            delay(2000)
+                            postsGroupsViewmodel.getComments(currentPostID, comments = {
+                                userCommentsList = it
+                            })
+                        }
+                    }
+                }
+                if (userCommentsList.isNotEmpty()){
+                    LazyColumn() {
+                        items(userCommentsList) {
+                            Row(modifier = Modifier
+                                .fillMaxWidth()
+                                .height(60.dp)
+                                .padding(start = 10.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Start)  {
+                                HomepageBooks() {
+                                    LoadPfp(userInteractionViewmodel, userName = it.keys.first())
+                                }
+                                Text(text = it.values.first(), modifier = Modifier.padding(start = 10.dp))
+                            }
+
+                        }
+                    }
+                }
+
             }
-            2->{
-
-                Discover(bookViewModel,navController,bookDatabaseViewModel)
-            }
-        }
-
-        NaviagtionBar(
-            homebutton = {},
-            searchButton = { navController.navigate(Routes.SearchScreen.route)},
-            savedButton = {
-                bookDatabaseViewModel.fetchBooks()
-                navController.navigate(Routes.SavedScreen.route)
-                          },
-            moreButton = {moreButton=true},
-            modifier = Modifier
-                .rowWeight(1.0f)
-                .columnWeight(1.0f)
+        }) { innerPadding ->
+        Text(text = counter.toString())
+        Column (modifier= Modifier
+            .fillMaxSize()
+            .background(color = Color(0xFFE5DBD0)),
+            horizontalAlignment = Alignment.CenterHorizontally){
+            Header(modifier = Modifier
                 .fillMaxWidth()
-        )
-
-
-        }
-
-
-
-    if (moreButton){
-        Box(modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.BottomEnd
-            ){
-            Box(
-                modifier = Modifier
-                    .width(205.dp)
-                    .height(190.dp)
-
-                    .background(
-                        shape = RoundedCornerShape(topStart = 200.dp),
-                        color = Color(0xFFE5DBD0)
-                    ),
-                ) {
-                MoreButtons(
-                    groupsButton = {},
-                    postsButton = {
-                        navController.navigate(Routes.PostScreen.route)
-                        postsGroupsViewmodel.getUsersInfo()
-                    },
-                    friendsButton = {
-                        navController.navigate(Routes.FriendsScreen.route)
-                        userInteractionViewmodel.getUsernames()
-                                    },
-                    closeButton = {moreButton=false},
+                .height(60.dp),
+                userAccountButton = {
+                    navController.navigate(Routes.SettingsScreen.route)
+                })
+            Row(
+                Modifier
+                    .padding(top = 15.dp)
+                    .fillMaxWidth()
+                    .height(62.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
+                Spacer(modifier = Modifier.fillMaxWidth(0.05f))
+                FriendButtonEdit(
+                    buttonName = "Your Feed",
                     modifier = Modifier
                         .rowWeight(1.0f)
                         .columnWeight(1.0f)
-                        .height(193.dp)
-                        .width(193.dp)
-
+                        .fillMaxHeight(0.6f)
+                        .weight(1f)
+                        .clickable {
+                            userInteractionViewmodel.currentButton(1)
+                            counter += 1
+                        }, color = userInteractionViewmodel.buttonColor(1)
                 )
+                Spacer(modifier = Modifier.fillMaxWidth(0.05f))
+                FriendButtonEdit(
+                    buttonName = "Discover",
+                    modifier = Modifier
+                        .rowWeight(1.0f)
+                        .columnWeight(1.0f)
+                        .fillMaxHeight(0.6f)
+                        .weight(1f)
+                        .clickable {
+                            userInteractionViewmodel.currentButton(2)
+                            counter += 1
+                        }, color = userInteractionViewmodel.buttonColor(2)
+                )
+                Spacer(modifier = Modifier.fillMaxWidth(0.05f))
             }
+            //if the list is empty, it shows the loading icon
+            when(currentScreen){
+                1->{
+                    YourFeed(postsGroupsViewmodel,userInteractionViewmodel,bookDatabaseViewModel,bookViewModel,navController,
+                        comments = {
+                            scope.launch { scaffoldState.bottomSheetState.expand()  }
+                            postsGroupsViewmodel.myUsername { myUsername = it }
+                            currentPostID = it
+                            postsGroupsViewmodel.getComments(it, comments = {
+                                userCommentsList = it
+                            } )
+
+                        })
+                }
+                2->{
+
+                    Discover(bookViewModel,navController,bookDatabaseViewModel)
+                }
+            }
+
+            NaviagtionBar(
+                homebutton = {},
+                searchButton = { navController.navigate(Routes.SearchScreen.route)},
+                savedButton = {
+                    bookDatabaseViewModel.fetchBooks()
+                    navController.navigate(Routes.SavedScreen.route)
+                },
+                moreButton = {moreButton=true},
+                modifier = Modifier
+                    .rowWeight(1.0f)
+                    .columnWeight(1.0f)
+                    .fillMaxWidth()
+            )
+
+
         }
 
+
+
+        if (moreButton){
+            Box(modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.BottomEnd
+            ){
+                Box(
+                    modifier = Modifier
+                        .width(205.dp)
+                        .height(190.dp)
+
+                        .background(
+                            shape = RoundedCornerShape(topStart = 200.dp),
+                            color = Color(0xFFE5DBD0)
+                        ),
+                ) {
+                    MoreButtons(
+                        groupsButton = {},
+                        postsButton = {
+                            navController.navigate(Routes.PostScreen.route)
+                            postsGroupsViewmodel.getUsersInfo()
+                        },
+                        friendsButton = {
+                            navController.navigate(Routes.FriendsScreen.route)
+                            userInteractionViewmodel.getUsernames()
+                        },
+                        closeButton = {moreButton=false},
+                        modifier = Modifier
+                            .rowWeight(1.0f)
+                            .columnWeight(1.0f)
+                            .height(193.dp)
+                            .width(193.dp)
+
+                    )
+                }
+            }
+
+        }
+
+
     }
+
+
 
 
 }
@@ -224,7 +383,7 @@ fun Discover(bookViewModel: BookViewModel,navController: NavController,bookDatab
 
 
 @Composable
-fun YourFeed(postsGroupsViewmodel: PostsGroupsViewmodel){
+fun YourFeed(postsGroupsViewmodel: PostsGroupsViewmodel,userInteractionViewmodel: UserInteractionViewmodel,bookDatabaseViewModel: BookDatabaseViewModel,bookViewModel: BookViewModel,navController: NavController,comments:(String)->Unit){
     val postlist by postsGroupsViewmodel.postsList.collectAsState()
     if (postlist.isEmpty()){
         Loading(120,90)
@@ -248,7 +407,7 @@ fun YourFeed(postsGroupsViewmodel: PostsGroupsViewmodel){
 
         ,horizontalAlignment = Alignment.CenterHorizontally){
         items(postlist){post ->
-            UserPost(post.userName,post.date,post.title,post.description,post.ratings,0,0)
+            UserPost(post, userInteractionViewmodel, bookDatabaseViewModel ,postsGroupsViewmodel,bookViewModel, navController, comments = {comments(it)} )
             Spacer(modifier = Modifier.height(25.dp))
         }
 

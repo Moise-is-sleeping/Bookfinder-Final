@@ -2,11 +2,18 @@ package ui.Screens
 
 import android.net.Uri
 import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandIn
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -30,10 +37,28 @@ import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardControlKey
 import androidx.compose.material.icons.filled.ModeComment
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.ChatBubbleOutline
+import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.ModeComment
 import androidx.compose.material.icons.outlined.Star
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material3.BottomSheetScaffold
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.material3.rememberBottomSheetScaffoldState
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.unit.dp
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuDefaults.textFieldColors
@@ -45,6 +70,7 @@ import androidx.compose.material3.InputChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -56,11 +82,13 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.calculator.bookfinder.R
@@ -88,9 +116,16 @@ import com.google.relay.compose.BoxScopeInstance.columnWeight
 import com.google.relay.compose.BoxScopeInstance.rowWeight
 import com.google.relay.compose.RelayContainer
 import com.google.relay.compose.RelayContainerScope
+import data.Routes.Routes
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import okhttp3.MediaType
 import ui.ViewModel.BookDatabaseViewModel
 import ui.ViewModel.BookViewModel
 import ui.ViewModel.PostsGroupsViewmodel
+import ui.ViewModel.UserInteractionViewmodel
+import ui.state.BookState
+import ui.state.PostSate
 
 @OptIn(ExperimentalMaterial3Api::class)
 
@@ -292,117 +327,220 @@ fun PostScreen(bookDatabaseViewModel: BookDatabaseViewModel, navController: NavC
 
 
 @Composable
-fun UserPost(name:String, date:String, title:String, description:String, rating:Int,likes:Int, comments:Int){
+fun UserPost(post: PostSate,userInteractionViewmodel: UserInteractionViewmodel,bookDatabaseViewModel: BookDatabaseViewModel,postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: BookViewModel,navController: NavController,comments:(String)->Unit){
     var icontype by remember {
         mutableStateOf(false)
     }
+    var book by remember {
+        mutableStateOf(BookState())
+    }
+    var author by remember {
+        mutableStateOf("")
+    }
+    var animation by remember {
+        mutableStateOf(false)
+    }
 
-    Column(modifier = Modifier
-        .background(Color.White)
-        .padding(start = 10.dp, end = 10.dp)
-        .fillMaxWidth()){
-        UserPostHeader(name,date)
-        Row (modifier = Modifier
-            .background(Color.Black)
-            .height(1.dp)
-            .fillMaxWidth()){
-        }
-        Text(text = title, fontFamily = lindenHill, fontSize = 25.sp,
-            color = Color(
-                alpha = 255,
-                red = 0,
-                green = 0,
-                blue = 0
-            ),modifier = Modifier.padding(top = 15.dp,bottom = 15.dp, start = 5.dp))
-        Text(text = description, fontFamily = lindenHill, fontSize = 18.sp,
-            color = Color(
-                alpha = 255,
-                red = 0,
-                green = 0,
-                blue = 0
-            ),modifier = Modifier.padding(top = 5.dp,bottom = 15.dp, start = 5.dp))
-        Row(modifier = Modifier.fillMaxWidth()) {
-            Text(text = "Rating", fontFamily = lindenHill, fontSize = 20.sp,
+    postsGroupsViewmodel.getAuthor(postsGroupsViewmodel.extractId(post.book.key!!),author = {author = it
+
+    })
+    postsGroupsViewmodel.getBookInfo(postsGroupsViewmodel.extractId(post.book.key!!)){
+        book = it
+    }
+
+    Box(Modifier.fillMaxSize(),contentAlignment = Alignment.Center) {
+        Column(modifier = Modifier
+            .background(Color.White)
+            .padding(start = 10.dp, end = 10.dp)
+            .fillMaxWidth()
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onDoubleTap = {
+                        postsGroupsViewmodel.likeOrUnlikePost(post.id, animate = {
+                            if (it) {
+                                animation = true
+                            }
+                        })
+
+                    }
+                )
+            }){
+            UserPostHeader(post.userName,post.date, userInteractionViewmodel )
+            Row (modifier = Modifier
+                .background(Color.Black)
+                .height(1.dp)
+                .fillMaxWidth()){
+            }
+            Text(text = post.title, fontFamily = lindenHill, fontSize = 25.sp,
                 color = Color(
                     alpha = 255,
                     red = 0,
                     green = 0,
                     blue = 0
-                ),modifier = Modifier.padding(start = 5.dp,top = 7.dp, end = 10.dp))
-            Row(modifier = Modifier.fillMaxWidth(0.8f)) {
-                for (i in 1..rating){
-                    Icon(
-                        modifier = Modifier
-                            .size(40.dp),
-                        imageVector = Icons.Outlined.Star,
-                        contentDescription = "Localized description",
-                        tint = Color(0xFFF7F772)
-                    )
-                }
-            }
-            DropDownInfo( buttonPressed = {
-                icontype = !icontype
-            })
-        }
-        if (icontype){
-            Row (modifier = Modifier.padding(bottom = 27.dp)){
-                BooksEdit(
-                    modifier = Modifier
-                        .height(95.dp)
-                        .width(70.dp)
-                        .padding(start = 7.dp)
-                        .offset(y = 7.dp)
-                ) {
-                    //if the function returns empty, the place holder for the cover photo is left
-/*                    if (bookDatabaseViewModel.gotCovers(it) != "empty"){
-                        AsyncImage(
-                            model = "https://covers.openlibrary.org/b/id/${it.covers?.get(0)}-M.jpg",
-                            contentDescription = "test",
-                            modifier = Modifier.fillMaxSize()
+                ),modifier = Modifier.padding(top = 15.dp,bottom = 15.dp, start = 5.dp))
+            Text(text = post.description, fontFamily = lindenHill, fontSize = 18.sp,
+                color = Color(
+                    alpha = 255,
+                    red = 0,
+                    green = 0,
+                    blue = 0
+                ),modifier = Modifier.padding(top = 5.dp,bottom = 15.dp, start = 5.dp))
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Text(text = "Rating", fontFamily = lindenHill, fontSize = 20.sp,
+                    color = Color(
+                        alpha = 255,
+                        red = 0,
+                        green = 0,
+                        blue = 0
+                    ),modifier = Modifier.padding(start = 5.dp,top = 7.dp, end = 10.dp))
+                Row(modifier = Modifier.fillMaxWidth(0.8f)) {
+                    for (i in 1..post.ratings){
+                        Icon(
+                            modifier = Modifier
+                                .size(40.dp),
+                            imageVector = Icons.Outlined.Star,
+                            contentDescription = "Localized description",
+                            tint = Color(0xFFF7F772)
                         )
-                    }*/
+                    }
+                }
+                DropDownInfo( buttonPressed = {
+                    icontype = !icontype
+                })
+            }
+            if (icontype){
+                Row (modifier = Modifier
+                    .padding(bottom = 27.dp)
+                    .clickable {
+                        bookViewModel.getBooks(postsGroupsViewmodel.extractId(post.book.key!!))
+                        navController.navigate(Routes.BookDescriptionScreen.route)
+                        bookDatabaseViewModel.hasSavedDefaultValue(postsGroupsViewmodel.extractId(post.book.key!!))
+                    }){
+                    BooksEdit(
+                        modifier = Modifier
+                            .height(95.dp)
+                            .width(70.dp)
+                            .padding(start = 7.dp)
+                            .offset(y = 7.dp)
+                    ) {
+                        //if the function returns empty, the place holder for the cover photo is left
+                        if (bookDatabaseViewModel.gotCovers(book) != "empty"){
+                            AsyncImage(
+                                model = "https://covers.openlibrary.org/b/id/${book.covers?.get(0)}-M.jpg",
+                                contentDescription = "test",
+                                modifier = Modifier.fillMaxSize()
+                            )
+                        }
+                    }
+                    Column {
+                        Text(text = post.book.title.toString()+" ("+post.book.first_publish_year.toString()+")", modifier = Modifier.padding(start =15.dp),fontSize = 20.0.sp,
+                            fontFamily = com.calculator.bookfinder.frame8.lindenHill,)
+                        Text(text =author, modifier = Modifier
+                            .padding(start = 15.dp), fontSize = 15.0.sp,
+                            fontFamily = com.calculator.bookfinder.frame8.lindenHill,)
+                    }
                 }
             }
-        }
-        Row (modifier = Modifier
-            .background(Color.Black)
-            .height(1.dp)
-            .fillMaxWidth()){
-        }
-        Row {
-            Column(modifier = Modifier
-                .padding(end = 5.dp)) {
-                IconButton(onClick = {
+            Row (modifier = Modifier
+                .background(Color.Black)
+                .height(1.dp)
+                .fillMaxWidth()){
+            }
+            Row {
+                Column(modifier = Modifier
+                    .padding(end = 5.dp)) {
+                    LikeIcon(postsGroupsViewmodel,post.id)
+                }
+                Column (modifier = Modifier
+                    .padding(start = 5.dp)){
+                    IconButton(onClick = {
+                        comments(post.id)
+                    }) {
+                        Image(modifier = Modifier.size(34.dp), painter = painterResource(id = R.drawable.postcomments), contentDescription ="" )
+                    }
+                }
+            }
 
-                }) {
+        }
+        if (animation){
+            AnimatedVisibility(
+                visible = animation,
+                enter = fadeIn(animationSpec = tween(150))+ expandIn(expandFrom = Alignment.Center, animationSpec = tween(300)),
+                exit = fadeOut(animationSpec = tween(150))
+            ) {
+                Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                     Icon(
                         Icons.Filled.Favorite,
                         contentDescription = "Localized description",
-                        Modifier.size(42.dp)
+                        Modifier.size(150.dp),
+                        tint = Color(Color.Red.value)
                     )
-                }
-            }
-            Column (modifier = Modifier
-                .padding(start = 5.dp)){
-                IconButton(onClick = {
+                    LaunchedEffect(key1 = animation) {
+                        while (animation) {
+                            delay(300)
+                            animation = false
 
-                }) {
-                    Image(modifier = Modifier.size(34.dp), painter = painterResource(id = R.drawable.postcomments), contentDescription ="" )
+                        }
+                    }
                 }
             }
+
         }
-
     }
 
 
 
+
+
+}
+@Composable
+fun LikeIcon(postsGroupsViewmodel: PostsGroupsViewmodel,id:String){
+    var icon by remember {
+        mutableStateOf( Icons.Outlined.FavoriteBorder)
+    }
+    var color by remember {
+        mutableStateOf(Color(Color.Black.value))
+    }
+
+
+    postsGroupsViewmodel.checkPostLike(id,liked = {
+        if (it){
+            icon = Icons.Filled.Favorite
+            color = Color(Color.Red.value)
+        }else{
+            icon = Icons.Outlined.FavoriteBorder
+            color = Color(Color.Black.value)
+        }
+        Log.d("liked", it.toString())
+    })
+
+
+    IconButton(onClick = {
+
+        postsGroupsViewmodel.likeOrUnlikePost(id, animate = {
+            if (!it) {
+                icon =  Icons.Outlined.FavoriteBorder
+                color = Color(Color.Black.value)
+            }else{
+                icon = Icons.Filled.Favorite
+                color = Color(Color.Red.value)
+            }
+        })
+    }) {
+        Icon(
+            icon,
+            contentDescription = "Localized description",
+            Modifier.size(42.dp),
+            tint = color
+        )
+    }
 }
 
 
-@Composable
-fun UserPostHeader(name:String, date: String){
-    Row(modifier = Modifier
 
+@Composable
+fun UserPostHeader(name:String, date: String,userInteractionViewmodel: UserInteractionViewmodel){
+    Row(modifier = Modifier
         .fillMaxWidth()
         ) {
         HeaderContainer(
@@ -468,15 +606,7 @@ fun UserPostHeader(name:String, date: String){
                     )
                 )
             ) {
-                com.calculator.bookfinder.reviewpostvariant2.Deadpool1(
-                    modifier = Modifier.boxAlign(
-                        alignment = Alignment.TopStart,
-                        offset = DpOffset(
-                            x = 3.0.dp,
-                            y = 0.0.dp
-                        )
-                    )
-                )
+                LoadPfp(userInteractionViewmodel,name)
             }
         }
     }
@@ -525,3 +655,78 @@ fun DropDownInfo(buttonPressed:()->Unit){
         )
     }
 }
+
+@Preview
+@Composable
+fun HeartAnimation(){
+    var dialog by remember {
+        mutableStateOf(false)
+
+    }
+
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .pointerInput(Unit) {
+            detectTapGestures(
+                onDoubleTap = {
+                    dialog = true
+                }
+            )
+        }
+
+
+    ){
+        Text(text = "hello")
+    }
+
+    if (dialog){
+        AnimatedVisibility(
+            visible = dialog,
+            enter = fadeIn(animationSpec = tween(150))+ expandIn(expandFrom = Alignment.Center, animationSpec = tween(300)),
+            exit = fadeOut(animationSpec = tween(150))
+        ) {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                Icon(
+                    Icons.Filled.Favorite,
+                    contentDescription = "Localized description",
+                    Modifier.size(150.dp),
+                    tint = Color(Color.Red.value)
+                )
+                LaunchedEffect(key1 = dialog) {
+                    while (dialog) {
+                        delay(300)
+                        dialog = false
+
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+
+
+/*@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun GifInput() {
+    var gifUri by remember { mutableStateOf<Uri?>(null) }
+
+    BasicTextField(
+        value = "", // You might not need to store text if only handling GIFs
+        onValueChange = {},
+        modifier = Modifier
+            .fillMaxWidth()
+            .receiveContent(setOf(MediaType.Image)) { content ->
+                gifUri = content.platformTransferableContent?.linkUri
+            }
+    )
+
+    gifUri?.let {
+        AsyncImage(
+            model = it,
+            contentDescription = "User GIF",
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
+}*/

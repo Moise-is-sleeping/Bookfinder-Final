@@ -322,7 +322,7 @@ fun FriendListItemEdit(
             )
         ) {
             LoadPfp(userInteractionViewmodel,username)
-            Log.d("username",username)
+
         }
     }
 }

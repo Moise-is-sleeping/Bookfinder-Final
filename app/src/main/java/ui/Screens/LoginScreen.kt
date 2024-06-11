@@ -1,6 +1,7 @@
 package ui.Screens
 
 import android.widget.Toast
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,8 +11,11 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text2.BasicTextField2
+import androidx.compose.foundation.text2.input.rememberTextFieldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
@@ -63,6 +67,7 @@ import com.google.relay.compose.BoxScopeInstance.boxAlign
 import com.google.relay.compose.BoxScopeInstance.columnWeight
 import com.google.relay.compose.BoxScopeInstance.rowWeight
 import data.Routes.Routes
+import okhttp3.MediaType
 import ui.ViewModel.BookDatabaseViewModel
 import ui.ViewModel.LoginViewModel
 import ui.ViewModel.PostsGroupsViewmodel
@@ -139,9 +144,11 @@ fun LoginScreen(postsGroupsViewmodel: PostsGroupsViewmodel,UserInteractionViewmo
                     loginViewModel.reset()
                     navController.navigate(Routes.RegisterScreen.route)
                 },
-                modifier = Modifier.rowWeight(1.0f)
+                modifier = Modifier
+                    .rowWeight(1.0f)
                     .columnWeight(1.0f)
-                    .height(39.dp).width(232.dp)
+                    .height(39.dp)
+                    .width(232.dp)
             )
         }
 
@@ -294,6 +301,7 @@ fun SignInPasswordSection(modifier: Modifier = Modifier, loginViewModel: LoginVi
         }
     }
 }
+
 
 
 
