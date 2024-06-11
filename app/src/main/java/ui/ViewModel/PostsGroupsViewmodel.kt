@@ -66,10 +66,7 @@ class PostsGroupsViewmodel : ViewModel() {
     private var bookRepository = BookRepository(bookApiService)
 
     init {
-        if (auth.currentUser != null){
-            getUsersInfo()
-        }
-
+        getUsersInfo()
     }
 
     fun starRatings(num: Int) {
@@ -110,6 +107,7 @@ class PostsGroupsViewmodel : ViewModel() {
      */
     fun getUsersInfo() {
         /// Querythe Firestore collection "Users" to find the document that matches the current user's email
+        Log.d("Currentuser", auth.currentUser!!.email.toString())
         firestore.collection("Users")
             .whereEqualTo("email", auth.currentUser!!.email)
             .get()
@@ -125,6 +123,7 @@ class PostsGroupsViewmodel : ViewModel() {
                     tempList.add(friend.toString())
                 }
                 _friendsList = tempList
+                Log.d("friendsss", _friendsList.toString())
             }
     }
 
