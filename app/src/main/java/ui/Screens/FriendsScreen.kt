@@ -180,9 +180,14 @@ fun FriendsScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: Book
 
         NaviagtionBar(
 
-            homebutton = {navController.navigate(Routes.HomeScreen.route)},
-            searchButton = {navController.navigate(Routes.SearchScreen.route)},
+            homebutton = {
+                userInteractionViewmodel.resetCurrentScreen()
+                navController.navigate(Routes.HomeScreen.route)},
+            searchButton = {
+                userInteractionViewmodel.resetCurrentScreen()
+                navController.navigate(Routes.SearchScreen.route)},
             savedButton = {
+                userInteractionViewmodel.resetCurrentScreen()
                 bookDatabaseViewModel.fetchBooks()
                 navController.navigate(Routes.SavedScreen.route)
             },
@@ -214,9 +219,11 @@ fun FriendsScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: Book
                 MoreButtons(
                     groupsButton = {},
                     postsButton = {
+                        userInteractionViewmodel.resetCurrentScreen()
                         navController.navigate(Routes.PostScreen.route)
                     },
                     friendsButton = {
+                        userInteractionViewmodel.resetCurrentScreen()
                         navController.navigate(Routes.FriendsScreen.route)
                         userInteractionViewmodel.getUsernames()
                     },
@@ -269,7 +276,7 @@ fun CurrentFriendsScreen(userInteractionViewmodel: UserInteractionViewmodel,navC
                     friendName = name
                     friendUsername = it
                 },
-                it)
+                it,navController)
         }
     }
 
@@ -293,7 +300,8 @@ fun FriendListItemEdit(
     name: String = "",
     selectFriend: () -> Unit = {},
     removeFriendButton: () -> Unit = {},
-    username: String){
+    username: String,
+    navController: NavController){
     TopLevelProperty1Variant2(modifier = modifier) {
         JulioFernandezProperty1Variant2(
             selectFriend = selectFriend,
@@ -321,7 +329,7 @@ fun FriendListItemEdit(
                 )
             )
         ) {
-            LoadPfp(userInteractionViewmodel,username)
+            LoadPfp(userInteractionViewmodel,username, navController)
 
         }
     }
