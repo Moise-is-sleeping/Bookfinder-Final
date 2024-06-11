@@ -20,6 +20,7 @@ import ui.state.SearchBySubjectState
  * @param bookapi The instance of BookApiService used for making API calls.
  */
 class BookRepository(private val bookapi : BookApiService) {
+    var error = false
 
     /**
      * Searches for books by name and returns the result as a SearchByNameState.
@@ -28,10 +29,12 @@ class BookRepository(private val bookapi : BookApiService) {
      */
     suspend fun searchByNameState(search:String): SearchByNameState {
         val response = bookapi.searchBooksByName(search)
-        return if (response.isSuccessful){
-            response.body()?.toSearchByNameState()?: SearchByNameState()
+        if (response != null && response.isSuccessful){
+            return  response.body()?.toSearchByNameState()?: SearchByNameState()
         }else{
-            SearchByNameState()
+            error = true
+            return  SearchByNameState()
+
         }
     }
 
@@ -42,10 +45,11 @@ class BookRepository(private val bookapi : BookApiService) {
      */
     suspend fun getAuthor(id:String): AuthorState {
         val response = bookapi.getAuthor(id)
-        return if (response.isSuccessful){
+        return if (response != null &&  response.isSuccessful){
             response.body()?.toAuthorState()?:AuthorState()
         }
         else{
+            error = true
             AuthorState()
         }
     }
@@ -57,9 +61,10 @@ class BookRepository(private val bookapi : BookApiService) {
      */
     suspend fun searchBySubjectState(subject:String): SearchBySubjectState {
         val response1 = bookapi.searchBooksBySubject(subject)
-        if (response1.isSuccessful){
+        if (response1 != null && response1.isSuccessful){
             return response1.body()?.toSearchBySubjectState()?:SearchBySubjectState() }
         else{
+            error = true
                 return SearchBySubjectState()
         }
 
@@ -73,9 +78,10 @@ class BookRepository(private val bookapi : BookApiService) {
      */
     suspend fun getBookState(id:String): BookState {
         val response = bookapi.getBook(id)
-        return if(response.isSuccessful){
+        return if(response != null && response.isSuccessful){
             response.body()?.toBookSate()?: BookState()
         }else{
+            error = true
             BookState()
         }
     }
@@ -86,9 +92,10 @@ class BookRepository(private val bookapi : BookApiService) {
      */
     suspend fun getRatings(id:String): RatingsState {
         val response = bookapi.getRatings(id)
-        return if(response.isSuccessful){
+        return if(response != null && response.isSuccessful){
             response.body()?.toRatingsSate()?: RatingsState()
         }else{
+            error = true
             RatingsState()
         }
     }

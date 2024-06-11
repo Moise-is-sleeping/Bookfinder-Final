@@ -112,6 +112,7 @@ import com.calculator.bookfinder.reviewpostvariant2.Description
 import com.calculator.bookfinder.reviewpostvariant2.Title
 import com.calculator.bookfinder.reviewpostvariant2.Username
 import com.calculator.bookfinder.tagbook.TagBook
+import com.google.relay.compose.BoxScopeInstance.boxAlign
 import com.google.relay.compose.BoxScopeInstance.columnWeight
 import com.google.relay.compose.BoxScopeInstance.rowWeight
 import com.google.relay.compose.RelayContainer
@@ -365,7 +366,7 @@ fun UserPost(post: PostSate,userInteractionViewmodel: UserInteractionViewmodel,b
                     }
                 )
             }){
-            UserPostHeader(post.userName,post.date, userInteractionViewmodel )
+            UserPostHeader(post.userName,post.date, userInteractionViewmodel,navController )
             Row (modifier = Modifier
                 .background(Color.Black)
                 .height(1.dp)
@@ -448,16 +449,22 @@ fun UserPost(post: PostSate,userInteractionViewmodel: UserInteractionViewmodel,b
             }
             Row {
                 Column(modifier = Modifier
-                    .padding(end = 5.dp)) {
+                    .padding(end = 5.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Top) {
                     LikeIcon(postsGroupsViewmodel,post.id)
+                    Text(text = post.likes.size.toString(),fontSize = 12.sp,modifier = Modifier.boxAlign(alignment = Alignment.TopCenter, offset = DpOffset(x = 0.dp, y = (-9).dp)))
                 }
                 Column (modifier = Modifier
-                    .padding(start = 5.dp)){
+                    .padding(start = 5.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Top){
                     IconButton(onClick = {
                         comments(post.id)
                     }) {
                         Image(modifier = Modifier.size(34.dp), painter = painterResource(id = R.drawable.postcomments), contentDescription ="" )
                     }
+                    Text(text = post.comments.size.toString(), fontSize = 12.sp, modifier = Modifier.boxAlign(alignment = Alignment.TopCenter, offset = DpOffset(x = 0.dp, y = (-9).dp)))
                 }
             }
 
@@ -539,7 +546,7 @@ fun LikeIcon(postsGroupsViewmodel: PostsGroupsViewmodel,id:String){
 
 
 @Composable
-fun UserPostHeader(name:String, date: String,userInteractionViewmodel: UserInteractionViewmodel){
+fun UserPostHeader(name:String, date: String,userInteractionViewmodel: UserInteractionViewmodel,navController: NavController){
     Row(modifier = Modifier
         .fillMaxWidth()
         ) {
@@ -606,7 +613,7 @@ fun UserPostHeader(name:String, date: String,userInteractionViewmodel: UserInter
                     )
                 )
             ) {
-                LoadPfp(userInteractionViewmodel,name)
+                LoadPfp(userInteractionViewmodel,name, navController )
             }
         }
     }

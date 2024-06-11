@@ -1,5 +1,8 @@
 package data.Util
 
+import android.app.AlertDialog
+import android.content.Context
+import android.util.Log
 import com.google.gson.GsonBuilder
 import data.Models.Author
 import data.Models.Book
@@ -13,6 +16,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import java.io.IOException
+
 
 
 /**
@@ -74,55 +79,60 @@ class BookApiService() {
         .setLenient()
         .create()
 
-    /**
-     * Retrofit object used for making API calls.
-     */
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://openlibrary.org/")
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
 
+    private val api = retrofit.create(RetrofitApi::class.java)
 
-    /**
-     * Retrieves information about a specific book.
-     * @param id The identifier of the book.
-     * @return the information received from the api containing information about the book.
-     */
-    suspend fun getBook(id :String) : Response<Book>{
-        return retrofit.create(RetrofitApi::class.java).getBooksApi(id)
-    }
-    /**
-     * Retrieves ratings for a specific book.
-     * @param id The identifier of the book.
-     * @return the information received from the api containing ratings information for the book.
-     */
-    suspend fun getRatings(id :String) : Response<Ratings>{
-        return retrofit.create(RetrofitApi::class.java).getRatings(id)
-    }
-    /**
-     * Retrieves information about the author of a specific book.
-     * @param id The identifier of the author.
-     * @return the information received from the api containing information about the author.
-     */
-    suspend fun getAuthor(id :String) : Response<Author>{
-        return retrofit.create(RetrofitApi::class.java).getAuthor(id)
-    }
-    /**
-     * Searches for books based on a specified subject.
-     * @param subject The subject to search for.
-     * @return the information received from the api containing a list of books related to the specified subject.
-     */
-    suspend fun searchBooksBySubject(subject:String):Response<SearchBySubject>{
-        return retrofit.create(RetrofitApi::class.java).searchBooksbySubjectApi(subject)
+    private fun showErrorDialog(message: String) {
+        Log.d("ERROR",message)
     }
 
-    /**
-     * Searches for books based on a specified title.
-     * @param search The title to search for.
-     * @return the information received from the api containing a list of books related to the specified title.
-     */
-    suspend fun searchBooksByName(search :String) : Response<SearchByName> {
-        return retrofit.create(RetrofitApi::class.java).searchBooksbyNameApi(search)
+    suspend fun getBook(id: String): Response<Book>? {
+        return try {
+            api.getBooksApi(id)
+        } catch (e: IOException) {
+            showErrorDialog("No connection or timeout error. Please try again.")
+            null
+        }
+    }
+
+    suspend fun getRatings(id: String): Response<Ratings>? {
+        return try {
+            api.getRatings(id)
+        } catch (e: IOException) {
+            showErrorDialog("No connection or timeout error. Please try again.")
+            null
+        }
+    }
+
+    suspend fun getAuthor(id: String): Response<Author>? {
+        return try {
+            api.getAuthor(id)
+        } catch (e: IOException) {
+            showErrorDialog("No connection or timeout error. Please try again.")
+            null
+        }
+    }
+
+    suspend fun searchBooksBySubject(subject: String): Response<SearchBySubject>? {
+        return try {
+            api.searchBooksbySubjectApi(subject)
+        } catch (e: IOException) {
+            showErrorDialog("No connection or timeout error. Please try again.")
+            null
+        }
+    }
+
+    suspend fun searchBooksByName(search: String): Response<SearchByName>? {
+        return try {
+            api.searchBooksbyNameApi(search)
+        } catch (e: IOException) {
+            showErrorDialog("No connection or timeout error. Please try again.")
+            null
+        }
     }
 }
 

@@ -41,6 +41,9 @@ class UserInteractionViewmodel : ViewModel(){
     private var  _hasSearched = MutableStateFlow(false)
     var hasSearched: StateFlow<Boolean> = _hasSearched.asStateFlow()
 
+    private var  _resetPfp = MutableStateFlow(false)
+    var resetPfp: StateFlow<Boolean> = _resetPfp.asStateFlow()
+
     private var  _currentFriendsButton = MutableStateFlow(1)
     var currentFriendsButton: StateFlow<Int> = _currentFriendsButton.asStateFlow()
 
@@ -58,6 +61,12 @@ class UserInteractionViewmodel : ViewModel(){
 
     private var  _currentSelectedAccount = MutableStateFlow("")
     var currentSelectedAccount: StateFlow<String> = _currentSelectedAccount.asStateFlow()
+
+    private var newIMmgeUri: Uri? = null
+
+    fun resetCurrentScreen(){
+        _currentFriendsButton.value = 1
+    }
 
     /**
      * Returns the color of the button based on whether it is the current selected button.
@@ -456,11 +465,35 @@ class UserInteractionViewmodel : ViewModel(){
 
             /// Download the profile picture and pass it to the imageUri lambda expression
             imageRef.downloadUrl.addOnSuccessListener {
+
                 imageUri(it)
+
                 Log.d("image",it.toString())
             }
 
+
         })
+    }
+    fun checkUri(currntUri:Uri?){
+
+
+
+        if (newIMmgeUri != null && currntUri != null){
+            val new = newIMmgeUri.toString().substring(newIMmgeUri.toString().indexOf("photopicker")+18)
+            val old = currntUri.toString().substring(84,currntUri.toString().indexOf("?alt"))
+            if (new == old){
+                resetPfpValue()
+                newIMmgeUri = null
+            }
+        }
+
+
+
+    }
+
+
+    fun resetPfpValue(){
+        _resetPfp.value = !_resetPfp.value
     }
 
     /**
@@ -470,10 +503,11 @@ class UserInteractionViewmodel : ViewModel(){
      */fun uploadImageToFirebase(imageUri: Uri?){
         /// Check if the imageUri is not null
         if(imageUri!=null){
+
             /// Get the name of the image file
             val fileName = File(imageUri!!.path).name
-            Log.d("UserProfilePicture", "UserProfilePicture: $fileName")
 
+            newIMmgeUri = imageUri
             /// Get a reference to the Firebase Storage bucket
             val storageRef = FirebaseStorage.getInstance().reference
 
@@ -482,12 +516,20 @@ class UserInteractionViewmodel : ViewModel(){
 
             /// Upload the image file to Firebase Storage
             imageRef.putFile(imageUri!!)
+                .addOnProgressListener { taskSnapshot ->
+                    val progress = (100.0 * taskSnapshot.bytesTransferred) / taskSnapshot.totalByteCount
+
+                    Log.d("Upload Progress", "$progress%")
+                    // Update UI withprogress if needed
+                }
                 .addOnSuccessListener {
                     /// Update the user's profile picture name in Firestore
                     updatePfpName(fileName)
-                    Log.d("upload","uploaded")
+
                 }
-                .addOnFailureListener {Log.d("error",it.toString())
+                .addOnFailureListener {
+                    Log.d("error",it.toString())
+
                 }
         }
     }
@@ -580,6 +622,38 @@ class UserInteractionViewmodel : ViewModel(){
             }
             .addOnFailureListener{
                 Log.d("error",it.toString())
+            }
+    }
+
+    fun getUserStats(friends: (Int) -> Unit, posts: (Int) -> Unit){
+        getPostNumber {
+            posts(it)
+        }
+        getFriendNumber {
+            friends(it)
+        }
+    }
+
+    fun getPostNumber(posts: (Int) -> Unit){
+        firestore.collection("Posts")
+            .whereEqualTo("userName",myUsername)
+            .get()
+            .addOnSuccessListener {
+                var number = it.documents.size
+                posts(number)
+
+            }
+    }
+
+    fun getFriendNumber(friends: (Int) -> Unit){
+        firestore.collection("Users")
+            .whereEqualTo("username",myUsername)
+            .get()
+            .addOnSuccessListener {
+                val doc = it.documents[0]
+                val list = doc.data!!.get("addedFriends") as List<*>
+                val number = list.size
+                friends(number)
             }
     }
 }

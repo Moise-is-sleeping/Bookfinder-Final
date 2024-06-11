@@ -2,8 +2,10 @@ package ui.Screens
 
 
 
+import android.content.Context
 import android.util.Log
 import android.content.res.Resources
+import android.view.inputmethod.InputMethodManager
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -53,6 +55,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -111,6 +115,10 @@ fun HomeScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: BookVie
         mutableStateOf(0)
     }
 
+
+
+
+
     LaunchedEffect(Unit){
         bookDatabaseViewModel.fetchBooks()
         postsGroupsViewmodel.getPosts()
@@ -138,15 +146,19 @@ fun HomeScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: BookVie
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(60.dp)
-                        .padding(start = 10.dp),
+                        .padding(start = 10.dp, bottom = 10.dp),
                     verticalAlignment = Alignment.CenterVertically) {
 
                     HomepageBooks() {
                         if (myUsername.isNotEmpty()){
-                            LoadPfp(userInteractionViewmodel , myUsername )
+                            LoadPfp(userInteractionViewmodel , myUsername ,navController)
                         }
                     }
 
+                    if (scaffoldState.bottomSheetState.currentValue.toString() == "PartiallyExpanded" ){
+                        CloseKeyboard()
+                    }
+                    Log.d("scaffold",scaffoldState.bottomSheetState.currentValue.toString())
 
                     TextField(
                         modifier = Modifier
@@ -184,12 +196,8 @@ fun HomeScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: BookVie
                                 modifier = Modifier
                                     .size(48.dp),
                                 imageVector = Icons.Filled.Gif ,
-                                contentDescription = "Localized description",
-
-                                )
+                                contentDescription = "Localized description")
                         }
-
-
                     }
                 }
                 if (currentPostID != ""){
@@ -208,13 +216,17 @@ fun HomeScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: BookVie
                             Row(modifier = Modifier
                                 .fillMaxWidth()
                                 .height(60.dp)
-                                .padding(start = 10.dp),
+                                .padding(start = 10.dp, bottom = 10.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.Start)  {
                                 HomepageBooks() {
-                                    LoadPfp(userInteractionViewmodel, userName = it.keys.first())
+                                    LoadPfp(userInteractionViewmodel, userName = it.keys.first(),navController)
                                 }
-                                Text(text = it.values.first(), modifier = Modifier.padding(start = 10.dp))
+                                Column {
+                                    Text(text = it.keys.first(), modifier = Modifier.padding(start = 10.dp),fontFamily = lindenHill, fontSize = 16.sp)
+                                    Text(text = it.values.first(), modifier = Modifier.padding(start = 10.dp),fontFamily = lindenHill, fontSize = 19.sp)
+                                }
+
                             }
 
                         }
@@ -285,6 +297,7 @@ fun HomeScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: BookVie
 
                     Discover(bookViewModel,navController,bookDatabaseViewModel)
                 }
+
             }
 
             NaviagtionBar(
@@ -352,66 +365,94 @@ fun HomeScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: BookVie
 }
 
 @Composable
+fun CloseKeyboard() {
+    val context = LocalContext.current
+    val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    val view = LocalView.current
+    inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+}
+
+@Composable
 fun Discover(bookViewModel: BookViewModel,navController: NavController,bookDatabaseViewModel:BookDatabaseViewModel){
     val list by bookViewModel.homeBookList.collectAsState()
     val ratingList by bookViewModel.ratingList.collectAsState()
+
     if (list.isEmpty()){
-        Loading(120,90)
-    }
-    LazyColumn(modifier= Modifier
-        .fillMaxWidth()
-        .fillMaxHeight(0.915f),horizontalAlignment = Alignment.CenterHorizontally){
-        items(list){book ->
-                        HomescreenBooks(title = book.title,
-                            author = book.authors[0].name ,
-                            picId = book.cover_id,
-                            modifier = Modifier
-                                .rowWeight(1.0f)
-                                .columnWeight(1.0f)
-                                .height(225.dp)
-                                .width(390.dp)
-                                .padding(top = 15.dp, bottom = 15.dp)
-                                .clickable {
-                                    bookViewModel.getBooks(book.key.substring(7))
-                                    navController.navigate(Routes.BookDescriptionScreen.route)
-                                    bookDatabaseViewModel.hasSavedDefaultValue(book.key.substring(7))
-                                },
-                            rating = ratingloader(ratingList,list.indexOf(book)) )
+        Column(modifier = Modifier
+            .fillMaxWidth(0.9f)
+            .fillMaxHeight(0.915f),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center){
+            Loading(120,90)
+        }
+
+    }else{
+        LazyColumn(modifier= Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(0.915f),horizontalAlignment = Alignment.CenterHorizontally){
+            items(list){book ->
+                HomescreenBooks(title = book.title,
+                    author = book.authors[0].name ,
+                    picId = book.cover_id,
+                    modifier = Modifier
+                        .rowWeight(1.0f)
+                        .columnWeight(1.0f)
+                        .height(225.dp)
+                        .width(390.dp)
+                        .padding(top = 15.dp, bottom = 15.dp)
+                        .clickable {
+                            bookViewModel.getBooks(book.key.substring(7))
+                            navController.navigate(Routes.BookDescriptionScreen.route)
+                            bookDatabaseViewModel.hasSavedDefaultValue(book.key.substring(7))
+                        },
+                    rating = ratingloader(ratingList,list.indexOf(book)) )
+            }
         }
     }
+
 }
 
 
 @Composable
 fun YourFeed(postsGroupsViewmodel: PostsGroupsViewmodel,userInteractionViewmodel: UserInteractionViewmodel,bookDatabaseViewModel: BookDatabaseViewModel,bookViewModel: BookViewModel,navController: NavController,comments:(String)->Unit){
     val postlist by postsGroupsViewmodel.postsList.collectAsState()
-    if (postlist.isEmpty()){
-        Loading(120,90)
-    }
+
     var feedRefresh by remember {
         mutableStateOf(0)
     }
 
     LaunchedEffect(key1 = feedRefresh) {
         while (true) {
-            delay(3000)
+            delay(2000)
+            postsGroupsViewmodel.getUsersInfo()
             postsGroupsViewmodel.getPosts()
         }
     }
 
     Text(text = feedRefresh.toString(),Modifier.size(0.1.dp))
-
-    LazyColumn(modifier= Modifier
-        .fillMaxWidth(0.9f)
-        .fillMaxHeight(0.915f)
-
-        ,horizontalAlignment = Alignment.CenterHorizontally){
-        items(postlist){post ->
-            UserPost(post, userInteractionViewmodel, bookDatabaseViewModel ,postsGroupsViewmodel,bookViewModel, navController, comments = {comments(it)} )
-            Spacer(modifier = Modifier.height(25.dp))
+    if (postlist.isEmpty()){
+        Column(modifier = Modifier
+            .fillMaxWidth(0.9f)
+            .fillMaxHeight(0.915f),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center){
+            Text(text = "No posts to show",fontFamily = lindenHill, fontSize = 28.sp)
         }
 
     }
+    else{
+        LazyColumn(modifier= Modifier
+            .fillMaxWidth(0.9f)
+            .fillMaxHeight(0.915f)
+            ,horizontalAlignment = Alignment.CenterHorizontally){
+            items(postlist){post ->
+                UserPost(post, userInteractionViewmodel, bookDatabaseViewModel ,postsGroupsViewmodel,bookViewModel, navController, comments = {comments(it)} )
+                Spacer(modifier = Modifier.height(25.dp))
+            }
+
+        }
+    }
+
 }
 
 /**
