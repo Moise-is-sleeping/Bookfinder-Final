@@ -1,13 +1,11 @@
 package ui.Screens
 
 import android.net.Uri
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -74,19 +72,7 @@ fun SettingsScreen(userInteractionViewmodel: UserInteractionViewmodel, loginView
     var oldDescription by remember { mutableStateOf("") }
     var dialogOpen by remember { mutableStateOf(false) }
     var displayMessage by remember { mutableStateOf(false) }
-    var infoPlaceholder by remember {
-        mutableStateOf(mutableListOf<String>())
-    }
-    var friendNumber by remember {
-        mutableIntStateOf(0)
-    }
-    var postNumber by remember {
-        mutableIntStateOf(0)
-    }
 
-    userInteractionViewmodel.getSelectedUserInfo(userName,name={
-        infoPlaceholder.add(it)
-    },friends={},pfp={})
 
     Text(text = forcedRefresh.toString())
     Column (modifier= Modifier
@@ -115,18 +101,8 @@ fun SettingsScreen(userInteractionViewmodel: UserInteractionViewmodel, loginView
                     .fillMaxWidth(),horizontalArrangement = Arrangement.Center) {
                 UserProfilePicture(modifier = Modifier
                     .height(147.dp)
-                    .width(147.dp), changePfpButton = {}, userInteractionViewmodel = userInteractionViewmodel,userName,navController)
+                    .width(147.dp), changePfpButton = {}, userInteractionViewmodel = userInteractionViewmodel,userName)
             }
-
-            userInteractionViewmodel.getUserStats(
-                friends = {
-                    friendNumber = it
-                },
-                posts = {
-                    postNumber = it
-                }
-            )
-
             Row(modifier = Modifier
                 .padding(top = 30.dp)
                 .fillMaxWidth(),
@@ -134,12 +110,12 @@ fun SettingsScreen(userInteractionViewmodel: UserInteractionViewmodel, loginView
                 Spacer(modifier = Modifier.fillMaxWidth(0.05f))
                 Column(horizontalAlignment = Alignment.CenterHorizontally){
                     Text(text = "Posts",fontFamily = lindenHill, fontSize = 23.sp)
-                    Text(text = postNumber.toString(),fontFamily = lindenHill, fontSize = 23.sp)
+                    Text(text = "0",fontFamily = lindenHill, fontSize = 23.sp)
                 }
                 Spacer(modifier = Modifier.fillMaxWidth(0.3f))
                 Column(horizontalAlignment = Alignment.CenterHorizontally){
                     Text(text = "Friends",fontFamily = lindenHill, fontSize = 23.sp)
-                    Text(text = friendNumber.toString(),fontFamily = lindenHill, fontSize = 23.sp)
+                    Text(text = "0",fontFamily = lindenHill, fontSize = 23.sp)
                 }
                 Spacer(modifier = Modifier.fillMaxWidth(0.47f))
                 Column(horizontalAlignment = Alignment.CenterHorizontally){
@@ -147,8 +123,6 @@ fun SettingsScreen(userInteractionViewmodel: UserInteractionViewmodel, loginView
                     Text(text = "0",fontFamily = lindenHill, fontSize = 23.sp)
                 }
             }
-
-
             Row(modifier = Modifier.fillMaxWidth(),){
                 Spacer(modifier = Modifier.fillMaxWidth(0.05f))
                 Column (
@@ -161,15 +135,9 @@ fun SettingsScreen(userInteractionViewmodel: UserInteractionViewmodel, loginView
                     TextField(
                         modifier = Modifier.fillMaxWidth(0.94f),
                         value = oldFullName ,
-
                         onValueChange ={
                             oldFullName = it
-                        } ,
-                        placeholder = {
-                            if (infoPlaceholder.isNotEmpty()){
-                                Text(text = infoPlaceholder[0],fontFamily = lindenHill,modifier = Modifier)
-                            }
-                        })
+                        } )
                 }
             }
             Row(modifier = Modifier.fillMaxWidth(),){
@@ -182,9 +150,7 @@ fun SettingsScreen(userInteractionViewmodel: UserInteractionViewmodel, loginView
 
                     Text(text = "About",fontFamily = lindenHill, fontSize = 23.sp)
                     TextField(
-                        modifier = Modifier
-                            .fillMaxWidth(0.94f)
-                            .fillMaxHeight(0.4f),
+                        modifier = Modifier.fillMaxWidth(0.94f).fillMaxHeight(0.4f),
                         value = oldDescription ,
                         onValueChange ={
                             oldDescription = it
@@ -192,8 +158,7 @@ fun SettingsScreen(userInteractionViewmodel: UserInteractionViewmodel, loginView
                 }
             }
             Row(modifier = Modifier
-                .padding(top = 60.dp)
-                .fillMaxWidth(),
+                .padding(top = 60.dp).fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center){
                 AccountButtons(
                     buttonPressed = {
@@ -234,29 +199,18 @@ fun SettingsScreen(userInteractionViewmodel: UserInteractionViewmodel, loginView
 }
 
 @Composable
-fun LoadPfp(userInteractionViewmodel: UserInteractionViewmodel, userName:String,navController: NavController){
-    val resetPfp by  userInteractionViewmodel.resetPfp.collectAsState()
+fun LoadPfp(userInteractionViewmodel: UserInteractionViewmodel, userName:String){
     var oldImageUri by remember { mutableStateOf<Uri?>(null) }
-    userInteractionViewmodel.getImageFromFirebase(imageUri = {
-        oldImageUri = it
-        userInteractionViewmodel.checkUri(it)
-
-                                                             },userName)
-    Log.d("imageres",oldImageUri.toString())
-    if (oldImageUri == null || resetPfp){
+    userInteractionViewmodel.getImageFromFirebase(imageUri = { oldImageUri = it },userName)
+    if (oldImageUri == null){
         Column (modifier= Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center){
             Loading(height = 50, width = 50)
         }
 
-    }else{
-        AsyncImage(model =oldImageUri , contentDescription ="test" ,modifier= Modifier.fillMaxSize(),contentScale = ContentScale.Crop)
     }
-
-
-
-
+    AsyncImage(model =oldImageUri , contentDescription ="test" ,modifier= Modifier.fillMaxSize(),contentScale = ContentScale.Crop)
 
 }
 @Composable
@@ -265,11 +219,10 @@ fun Message(text:String){
 }
 
 @Composable
-fun UserProfilePicture(modifier: Modifier, changePfpButton:()->Unit, userInteractionViewmodel: UserInteractionViewmodel, userName:String,navController: NavController){
+fun UserProfilePicture(modifier: Modifier, changePfpButton:()->Unit, userInteractionViewmodel: UserInteractionViewmodel, userName:String){
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = {
-            userInteractionViewmodel.resetPfpValue()
             userInteractionViewmodel.uploadImageToFirebase(it)
         })
     TopLevelProperty1Variant2(modifier = modifier) {
@@ -281,7 +234,7 @@ fun UserProfilePicture(modifier: Modifier, changePfpButton:()->Unit, userInterac
                     Color(0x0AFFFFFF)
                 )
         ) {
-            LoadPfp(userInteractionViewmodel, userName, navController )
+            LoadPfp(userInteractionViewmodel, userName)
         }
         AddProfilePictureButtonProperty1Variant2(
             changePfpButton = {
@@ -289,9 +242,7 @@ fun UserProfilePicture(modifier: Modifier, changePfpButton:()->Unit, userInterac
                 changePfpButton()
                 launcher.launch(
                     PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-
                 )
-
             },
             modifier = Modifier
                 .rowWeight(1.0f)
@@ -327,9 +278,7 @@ fun SignOutDialog(dialogClose:()->Unit,navController: NavController,loginViewMod
             cancelButton = {
                 dialogClose()
             },
-            modifier = Modifier
-                .height(184.dp)
-                .width(330.dp),
+            modifier = Modifier.height(184.dp).width(330.dp),
             text = "Sign Out"
         )
     }

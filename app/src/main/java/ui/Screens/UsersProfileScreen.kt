@@ -102,7 +102,7 @@ fun UsersProfileScreen(bookDatabaseViewModel: BookDatabaseViewModel, bookViewMod
                         modifier = Modifier
                             .height(70.dp)
                             .width(70.dp)){
-                        LoadPfp(userInteractionViewmodel,selectedUserName,navController)
+                        LoadPfp(userInteractionViewmodel,selectedUserName)
                     }
 
 
