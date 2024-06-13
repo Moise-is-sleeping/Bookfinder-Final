@@ -13,6 +13,8 @@ sealed class Routes(val route :String) {
     object UsersProfileScreen:Routes("UsersProfileScreen")
     object SettingsScreen:Routes("SettingsScreen")
     object PostScreen:Routes("PostScreen")
+    object GroupsScreen:Routes("GroupsScreen")
+    object MessagesScreen:Routes("MessagesScreen")
 
 
 }

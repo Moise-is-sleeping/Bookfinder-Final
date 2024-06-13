@@ -1,7 +1,6 @@
 package ui.ViewModel
 
 
-import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,11 +24,10 @@ import com.google.firebase.firestore.Query
 import com.google.gson.Gson
 import data.Util.BookApiService
 import data.Util.BookRepository
-import ui.state.AuthorState
 import ui.state.BookState
+import ui.state.GroupState
+import ui.state.Message
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.util.Date
 import java.util.Locale
 
 class PostsGroupsViewmodel : ViewModel() {
@@ -49,9 +47,14 @@ class PostsGroupsViewmodel : ViewModel() {
     private var _book = MutableStateFlow(Doc("", "", ""))
     var book: StateFlow<Doc> = _book.asStateFlow()
 
+    private var _currentGroupId = MutableStateFlow(GroupState("", "", "", mutableListOf(), mutableListOf(), ""))
+    var currentGroupId: StateFlow<GroupState> = _currentGroupId.asStateFlow()
 
     private var _postsList = MutableStateFlow(listOf<PostSate>())
     var postsList: StateFlow<List<PostSate>> = _postsList.asStateFlow()
+
+    private var _groupsList = MutableStateFlow(listOf<GroupState>())
+    var groupsList: StateFlow<List<GroupState>> = _groupsList.asStateFlow()
 
 
     private var _starColor =
@@ -70,6 +73,11 @@ class PostsGroupsViewmodel : ViewModel() {
             getUsersInfo()
         }
 
+    }
+
+
+    fun changeCurrentGroup(group: GroupState){
+        _currentGroupId.value = group
     }
 
     fun starRatings(num: Int) {
@@ -358,8 +366,6 @@ class PostsGroupsViewmodel : ViewModel() {
                     var commentMap = mapOf(Pair(_myUsername,comment))
                     info.update("comments", FieldValue.arrayUnion(commentMap))
                 }
-
-
             }
     }
 
@@ -396,11 +402,134 @@ class PostsGroupsViewmodel : ViewModel() {
     fun myUsername(username:(String)->Unit){
         username(_myUsername)
     }
+    fun userNamegroups(): String {
+        return _myUsername
+    }
+
+    //Working on this
+    fun createGroup(groupName:String,description:String,groupMembers:List<String>, succes:()->Unit,pfpName:String){
+        viewModelScope.launch(Dispatchers.IO) {
+            var groupID = ""
+            val members = updateList(groupMembers,_myUsername,2).toMutableList()
+            getGroupId {
+                groupID = it
+
+                if (groupName.isNotEmpty() && groupID != "") {
+                    val group = GroupState(
+                        groupName = groupName,
+                        messages = mutableListOf(mapOf(Pair(_myUsername, Message(date = Timestamp.now().toString(), text = "")))),
+                        groupID = groupID,
+                        groupDescription = description,
+                        members = members,
+                        pfpName = pfpName
+                    )
+                    firestore.collection("Groups")
+                        .add(group)
+                        .addOnSuccessListener {
+                            succes()
+                            Log.d(
+                                "GUARDAR OK",
+                                "Se guardó el usuario correctamente en Firestore"
+                            )
+                        }
+                        .addOnFailureListener {
+                            Log.d(
+                                "ERROR AL GUARDAR",
+                                "ERROR al guardar en Firestore"
+                            )
+                        }
+                }
+            }
+
+            Log.d("groups",groupID)
+
+        }
+    }
+
+    fun getGroupId(groupID: (String) -> Unit) {
+        var postCounter = 0
+        firestore.collection("Groups")
+            .get()
+            .addOnSuccessListener {
+                for (item in it.documents) {
+                        postCounter += 1
+                }
+                groupID(postCounter.toString())
+
+            }
+    }
+
+    fun getGroups(){
+        firestore.collection("Groups")
+            .get()
+            .addOnSuccessListener {
+                val tempList = mutableListOf<GroupState>()
+                for (item in it.documents) {
+                    val members = item.get("members") as List<String>
+                    if (members.contains(_myUsername)) {
+                        tempList.add(groupState(item))
+                    }
+                }
+                _groupsList.value = tempList
+            }
+    }
+
+    fun groupState(item: DocumentSnapshot): GroupState {
+        val groupState = GroupState(
+            groupName = item.getString("groupName")!!,
+            messages = item.get("messages") as MutableList<Map<String,Message>>,
+            groupID = item.getString("groupID")!!,
+            groupDescription = item.getString("groupDescription")!!,
+            members = item.get("members") as MutableList<String>,
+            pfpName = item.getString("pfpName")!!)
+        return groupState
+    }
+
+    fun getMessages(id:String,messages:(List<Map<String,Map<String,String>>>)->Unit){
+        firestore.collection("Groups")
+            .whereEqualTo("groupID",id)
+            .get()
+            .addOnSuccessListener {
+                val doc = it.documents[0]
+                val messages = doc.get("messages") as List<Map<String,Map<String,String>>>
+                messages(messages)
+                Log.d("messages",messages.toString())
+            }
+    }
 
 
 
+    fun updateList(list: List<String>,name: String,numb:Int): List<String> {
+        val templist = list.toMutableList()
+        if (numb == 1){
+            templist.remove(name)
+        }
+        else{
+            templist.add(name)
+        }
+        return templist.toList()
+    }
+
+
+    fun SendMessage(username:String,message:Message,groupId:String){
+        val db = FirebaseFirestore.getInstance()
+        /// Query the Firestore collection "Posts" to find the document that matches the given username
+        firestore.collection("Groups")
+            .whereEqualTo("groupID",groupId)
+            .get()
+            .addOnSuccessListener {
+                val doc = it.documents[0]
+                /// Get a reference to the sender's document
+                var info = db.collection("Groups").document(doc.id)
+
+                var messageMap = mapOf(Pair(username,message))
+                info.update("messages", FieldValue.arrayUnion(messageMap))
+
+            }
+    }
 
 
 
 
 }
+

@@ -613,7 +613,7 @@ fun UserPostHeader(name:String, date: String,userInteractionViewmodel: UserInter
                     )
                 )
             ) {
-                LoadPfp(userInteractionViewmodel,name, navController )
+                LoadPfp(userInteractionViewmodel,name )
             }
         }
     }

@@ -17,8 +17,10 @@ import com.calculator.bookfinder.ui.theme.BookFinderTheme
 import data.Routes.Routes
 import ui.Screens.BooKDescriptionScreen
 import ui.Screens.FriendsScreen
+import ui.Screens.GroupsScreen
 import ui.Screens.HomeScreen
 import ui.Screens.LoginScreen
+import ui.Screens.MessagesScreen
 
 import ui.Screens.PostScreen
 import ui.Screens.RegisterScreen
@@ -52,7 +54,7 @@ class MainActivity : ComponentActivity() {
 
                     val startDestination = if(loginViewModel.userIsLoggedIn()){
                         userInteractionViewmodel.getUsersInfo()
-                        Routes.HomeScreen.route
+                        Routes.GroupsScreen.route
                         }else{
                             Routes.LoginScreen.route
                     }
@@ -89,6 +91,13 @@ class MainActivity : ComponentActivity() {
                         composable(Routes.PostScreen.route){
                             PostScreen(bookDatabaseViewModel, navController,postsGroupsViewmodel,bookViewModel)
                         }
+                        composable(Routes.GroupsScreen.route){
+                            GroupsScreen(navController,userInteractionViewmodel,postsGroupsViewmodel,bookDatabaseViewModel)
+                        }
+                        composable(Routes.MessagesScreen.route){
+                            MessagesScreen(/*userInteractionViewmodel,*/postsGroupsViewmodel,/*,bookDatabaseViewModel*/navController)
+                        }
+
 
                     }
                 }

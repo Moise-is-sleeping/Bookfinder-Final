@@ -147,7 +147,9 @@ fun SearchScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookDatabaseViewMode
                     ),
             ) {
                 MoreButtons(
-                    groupsButton = {},
+                    groupsButton = {
+                        navController.navigate(Routes.GroupsScreen.route)
+                    },
                     postsButton = {
                         navController.navigate(Routes.PostScreen.route)
                         postsGroupsViewmodel.getUsersInfo()},

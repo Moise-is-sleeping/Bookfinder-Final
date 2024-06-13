@@ -151,14 +151,14 @@ fun HomeScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: BookVie
 
                     HomepageBooks() {
                         if (myUsername.isNotEmpty()){
-                            LoadPfp(userInteractionViewmodel , myUsername ,navController)
+                            LoadPfp(userInteractionViewmodel , myUsername )
                         }
                     }
 
                     if (scaffoldState.bottomSheetState.currentValue.toString() == "PartiallyExpanded" ){
                         CloseKeyboard()
                     }
-                    Log.d("scaffold",scaffoldState.bottomSheetState.currentValue.toString())
+
 
                     TextField(
                         modifier = Modifier
@@ -220,7 +220,7 @@ fun HomeScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: BookVie
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.Start)  {
                                 HomepageBooks() {
-                                    LoadPfp(userInteractionViewmodel, userName = it.keys.first(),navController)
+                                    LoadPfp(userInteractionViewmodel, userName = it.keys.first())
                                 }
                                 Column {
                                     Text(text = it.keys.first(), modifier = Modifier.padding(start = 10.dp),fontFamily = lindenHill, fontSize = 16.sp)
@@ -334,7 +334,9 @@ fun HomeScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: BookVie
                         ),
                 ) {
                     MoreButtons(
-                        groupsButton = {},
+                        groupsButton = {
+                            navController.navigate(Routes.GroupsScreen.route)
+                        },
                         postsButton = {
                             navController.navigate(Routes.PostScreen.route)
                             postsGroupsViewmodel.getUsersInfo()

@@ -491,6 +491,18 @@ class UserInteractionViewmodel : ViewModel(){
 
     }
 
+    fun getGroupImageFromFirebase(imageName:String,imageUri:(Uri)->Unit){
+        val storageRef = FirebaseStorage.getInstance().reference
+        val imageRef = storageRef.child("images/$imageName")
+
+        /// Download the profile picture and pass it to the imageUri lambda expression
+        imageRef.downloadUrl.addOnSuccessListener {
+
+            imageUri(it)
+            Log.d("image",it.toString())
+        }
+    }
+
 
     fun resetPfpValue(){
         _resetPfp.value = !_resetPfp.value
@@ -500,14 +512,16 @@ class UserInteractionViewmodel : ViewModel(){
      * Uploads an image to Firebase Storage.
      *
      * @param imageUri The Uri of the image to upload.
-     */fun uploadImageToFirebase(imageUri: Uri?){
+     */fun uploadImageToFirebase(imageUri: Uri?, numbe:Int){
         /// Check if the imageUri is not null
         if(imageUri!=null){
 
             /// Get the name of the image file
             val fileName = File(imageUri!!.path).name
+            if (numbe == 1){
+                newIMmgeUri = imageUri
+            }
 
-            newIMmgeUri = imageUri
             /// Get a reference to the Firebase Storage bucket
             val storageRef = FirebaseStorage.getInstance().reference
 
@@ -524,7 +538,10 @@ class UserInteractionViewmodel : ViewModel(){
                 }
                 .addOnSuccessListener {
                     /// Update the user's profile picture name in Firestore
-                    updatePfpName(fileName)
+                    if (numbe == 1){
+                        updatePfpName(fileName)
+                    }
+
 
                 }
                 .addOnFailureListener {
@@ -655,5 +672,8 @@ class UserInteractionViewmodel : ViewModel(){
                 val number = list.size
                 friends(number)
             }
+    }
+    fun getImageNameFromUri(uri: String): String {
+        return Uri.parse(uri).lastPathSegment ?: "Unknown"
     }
 }

@@ -217,7 +217,9 @@ fun FriendsScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: Book
                     ),
             ) {
                 MoreButtons(
-                    groupsButton = {},
+                    groupsButton = {
+                        navController.navigate(Routes.GroupsScreen.route)
+                    },
                     postsButton = {
                         userInteractionViewmodel.resetCurrentScreen()
                         navController.navigate(Routes.PostScreen.route)
@@ -267,9 +269,9 @@ fun CurrentFriendsScreen(userInteractionViewmodel: UserInteractionViewmodel,navC
                     .height(65.dp),
                 name = name,
                 selectFriend = {
-                    userInteractionViewmodel.checkSentRequest(it)
+/*                    userInteractionViewmodel.checkSentRequest(it)
                     navController.navigate(Routes.UsersProfileScreen.route)
-                    userInteractionViewmodel.currentSelectedUser(it)
+                    userInteractionViewmodel.currentSelectedUser(it)*/
                 },
                 removeFriendButton = {
                     dialogOpen = true
@@ -329,7 +331,7 @@ fun FriendListItemEdit(
                 )
             )
         ) {
-            LoadPfp(userInteractionViewmodel,username, navController)
+            LoadPfp(userInteractionViewmodel,username)
 
         }
     }
@@ -570,7 +572,7 @@ fun FriendRequests(
         }
         Column(modifier = Modifier.fillMaxHeight().padding(start = 10.dp), verticalArrangement = Arrangement.Center){
             Frame20(modifier = Modifier) {
-
+                LoadPfp(userInteractionViewmodel,username)
             }
         }
 

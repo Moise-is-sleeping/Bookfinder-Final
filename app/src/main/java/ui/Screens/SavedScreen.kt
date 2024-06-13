@@ -155,7 +155,9 @@ fun SavedScreen( postsGroupsViewmodel: PostsGroupsViewmodel, userInteractionView
                     ),
             ) {
                 MoreButtons(
-                    groupsButton = {},
+                    groupsButton = {
+                        navController.navigate(Routes.GroupsScreen.route)
+                    },
                     postsButton = {
                         navController.navigate(Routes.PostScreen.route)
                         postsGroupsViewmodel.getUsersInfo()

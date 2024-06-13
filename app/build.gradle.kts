@@ -78,6 +78,7 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
     implementation("androidx.compose.material3:material3-android:1.2.1")
+    implementation("androidx.compose.ui:ui-test-android:1.6.8")
 
 
     testImplementation("junit:junit:4.13.2")

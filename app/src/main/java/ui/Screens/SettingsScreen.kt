@@ -234,15 +234,12 @@ fun SettingsScreen(userInteractionViewmodel: UserInteractionViewmodel, loginView
 }
 
 @Composable
-fun LoadPfp(userInteractionViewmodel: UserInteractionViewmodel, userName:String,navController: NavController){
+fun LoadPfp(userInteractionViewmodel: UserInteractionViewmodel, userName:String){
     val resetPfp by  userInteractionViewmodel.resetPfp.collectAsState()
     var oldImageUri by remember { mutableStateOf<Uri?>(null) }
     userInteractionViewmodel.getImageFromFirebase(imageUri = {
         oldImageUri = it
-        userInteractionViewmodel.checkUri(it)
-
-                                                             },userName)
-    Log.d("imageres",oldImageUri.toString())
+        userInteractionViewmodel.checkUri(it) },userName)
     if (oldImageUri == null || resetPfp){
         Column (modifier= Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -270,7 +267,7 @@ fun UserProfilePicture(modifier: Modifier, changePfpButton:()->Unit, userInterac
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = {
             userInteractionViewmodel.resetPfpValue()
-            userInteractionViewmodel.uploadImageToFirebase(it)
+            userInteractionViewmodel.uploadImageToFirebase(it,1)
         })
     TopLevelProperty1Variant2(modifier = modifier) {
         BlankPfpProperty1Variant2(
@@ -281,7 +278,7 @@ fun UserProfilePicture(modifier: Modifier, changePfpButton:()->Unit, userInterac
                     Color(0x0AFFFFFF)
                 )
         ) {
-            LoadPfp(userInteractionViewmodel, userName, navController )
+            LoadPfp(userInteractionViewmodel, userName )
         }
         AddProfilePictureButtonProperty1Variant2(
             changePfpButton = {
