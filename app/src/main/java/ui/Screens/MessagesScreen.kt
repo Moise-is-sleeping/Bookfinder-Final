@@ -94,7 +94,12 @@ import kotlinx.coroutines.launch
 import ui.ViewModel.PostsGroupsViewmodel
 import ui.state.GroupState
 
-
+/**
+ * Composable function that displays the screen for group messages.
+ *
+ * @param postsGroupsViewmodel ViewModel for handling post and group related actions and data.
+ * @param navController Navigation controller for navigating between screens.
+ */
 @Composable
 fun MessagesScreen(postsGroupsViewmodel:PostsGroupsViewmodel,navController: NavController){
     val group by postsGroupsViewmodel.currentGroupId.collectAsState()
@@ -102,119 +107,128 @@ fun MessagesScreen(postsGroupsViewmodel:PostsGroupsViewmodel,navController: NavC
     Column(modifier = Modifier
         .background(Color(0xFFE5DBD0))
         .fillMaxSize()) {
-
         GroupMessages(postsGroupsViewmodel,navController,group)
     }
 }
 
-
+/**
+ * Composable function that displays messages within a group chat.
+ *
+ * @param groupsViewmodel ViewModel for handling group-relatedactions and data.
+ * @param navController Navigation controller for navigating between screens.
+ * @param group The GroupState object representing the current group.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GroupMessages(groupsViewmodel: PostsGroupsViewmodel,navController: NavController,group:GroupState){
-    var messages by remember { mutableStateOf(listOf<Map<String,Map<String,String>>>()) }
+    var messages by remember { mutableStateOf(listOf<Map<String,Map<String,String>>>()) } // State for storing group messages
+    // Fetch group messages
     groupsViewmodel.getMessages(group.groupID,messages={
         messages = it
     })
-    var currentMessage by remember { mutableStateOf("") }
+    var currentMessage by remember { mutableStateOf("") } // State for the current message being typed
     var forcedUpdate by remember { mutableStateOf(0) }
-    var columnSize by remember { mutableStateOf(0.915f) }
-    val bool by keyboardAsState()
-    val scrollState = rememberLazyListState()
-    val coroutineScope = rememberCoroutineScope()
+    var columnSize by remember { mutableStateOf(0.915f) } // State for adjusting column height based on keyboard visibility
+    val bool by keyboardAsState() // State for keyboard visibility
+    val scrollState = rememberLazyListState() // State for LazyColumn scroll position
+    val coroutineScope = rememberCoroutineScope() // Coroutine scope for scrolling
 
-        Column {
-            if (bool){
-                Spacer(modifier = Modifier.height(220.dp))
-                columnSize = 0.88f
-            }else{
-                columnSize = 0.915f
-            }
-            PostHeaderEdit(
-                Modifier
+    Column {
+        if (bool){
+            Spacer(modifier = Modifier.height(220.dp))
+            columnSize = 0.88f
+        }else{
+            columnSize = 0.915f
+        }
+        PostHeaderEdit(
+            Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.07f),
+            backButton = {
+                navController.popBackStack()
+            },
+            text = group.groupName)
+        Spacer(modifier = Modifier.height(10.dp))
+        LazyColumn(
+            state = scrollState,
+            modifier = Modifier
+            .fillMaxHeight(columnSize),
+            verticalArrangement = Arrangement.Bottom){
+            items(messages) {
+                val contentAlign: Arrangement.Horizontal
+                //if the current user is the sender, align the message to the right
+                if(it.keys.first() == groupsViewmodel.userNamegroups()){
+                    contentAlign = Arrangement.End
+                }
+                //if the current user is not the sender, align the message to the left
+                else{
+                    contentAlign = Arrangement.Start
+                }
+                Row (modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.07f),
-                backButton = {
-                    navController.popBackStack()
-                },
-                text = group.groupName)
-            Spacer(modifier = Modifier.height(10.dp))
-            LazyColumn(
-                state = scrollState,
-                modifier = Modifier
-                .fillMaxHeight(columnSize),
-                verticalArrangement = Arrangement.Bottom){
-                items(messages) {
-                    val contentAlign: Arrangement.Horizontal
-                    if(it.keys.first() == groupsViewmodel.userNamegroups()){
-                        contentAlign = Arrangement.End
-                    }else{
-                        contentAlign = Arrangement.Start
-                    }
+                    .padding(top = 10.dp, end = 10.dp, start = 10.dp),
+                    horizontalArrangement = contentAlign){
                     Row (modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 10.dp, end = 10.dp, start = 10.dp),
-                        horizontalArrangement = contentAlign){
-                        Row (modifier = Modifier
-                            .widthIn(max = 280.dp)
-                            .background(Color.White, RoundedCornerShape(5.dp))){
-                            Column(modifier = Modifier.padding(5.dp)) {
-                                Text(text = it.keys.first(), fontSize = 12.sp)
-                                Text(text = it.values.first().values.elementAt(1).toString())
-                            }
+                        .widthIn(max = 280.dp)
+                        .background(Color.White, RoundedCornerShape(5.dp))){
+                        Column(modifier = Modifier.padding(5.dp)) {
+                            Text(text = it.keys.first(), fontSize = 12.sp)
+                            Text(text = it.values.first().values.elementAt(1).toString())
                         }
-
                     }
 
                 }
-            }
-            Spacer(modifier = Modifier.height(10.dp))
-            Row(modifier = Modifier
-                .height(60.dp)
-                .background(Color.White, RoundedCornerShape(5.dp))
-                .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically){
-                TextField(
-                    modifier = Modifier
-                        .fillMaxWidth(0.85f)
-                    ,
-                    value = currentMessage,
-                    onValueChange = {
-                        currentMessage = it
-                        coroutineScope.launch {
-                            scrollState.scrollToItem(messages.size-1,0)
-                        }
-                                    },
-                    colors = textFieldColors(
-                        focusedContainerColor = Color.Transparent,
-                        unfocusedContainerColor = Color.Transparent,
-                        cursorColor = Color.Black,
-                        focusedIndicatorColor = Color.Transparent,
-                        unfocusedIndicatorColor = Color.Transparent
-                    ),
-                    placeholder = {
-                        Text(text = "Start typing...",fontFamily = lindenHill,modifier = Modifier)
-                    }
-                )
-                IconButton(onClick = {
-                    val time = Timestamp.now().toString()
-                    if (currentMessage != ""){
-                        groupsViewmodel.SendMessage(groupsViewmodel.userNamegroups(),ui.state.Message(time,currentMessage),group.groupID)
-                        currentMessage = ""
-                    }
-                })
-                {
-                Icon(
-                    modifier = Modifier
-                        .size(24.dp),
-                    imageVector = Icons.AutoMirrored.Filled.Send ,
-                    contentDescription = "Localized description",
-                    )
-                }
-            }
-            if (bool){
-                Spacer(modifier = Modifier.height(20.dp))
+
             }
         }
+        Spacer(modifier = Modifier.height(10.dp))
+        Row(modifier = Modifier
+            .height(60.dp)
+            .background(Color.White, RoundedCornerShape(5.dp))
+            .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically){
+            TextField(
+                modifier = Modifier
+                    .fillMaxWidth(0.85f)
+                ,
+                value = currentMessage,
+                onValueChange = {
+                    currentMessage = it
+                    coroutineScope.launch {
+                        scrollState.scrollToItem(messages.size-1,0)
+                    }
+                                },
+                colors = textFieldColors(
+                    focusedContainerColor = Color.Transparent,
+                    unfocusedContainerColor = Color.Transparent,
+                    cursorColor = Color.Black,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent
+                ),
+                placeholder = {
+                    Text(text = "Start typing...",fontFamily = lindenHill,modifier = Modifier)
+                }
+            )
+            IconButton(onClick = {
+                val time = Timestamp.now().toString()
+                if (currentMessage != ""){
+                    groupsViewmodel.SendMessage(groupsViewmodel.userNamegroups(),ui.state.Message(time,currentMessage),group.groupID)
+                    currentMessage = ""
+                }
+            })
+            {
+            Icon(
+                modifier = Modifier
+                    .size(24.dp),
+                imageVector = Icons.AutoMirrored.Filled.Send ,
+                contentDescription = "Localized description",
+                )
+            }
+        }
+        if (bool){
+            Spacer(modifier = Modifier.height(20.dp))
+        }
+    }
     forcedUpdate += 1
     forcedUpdate -= 1
     Text(text = forcedUpdate.toString(), modifier = Modifier.size(0.1.dp))
@@ -223,6 +237,11 @@ fun GroupMessages(groupsViewmodel: PostsGroupsViewmodel,navController: NavContro
 
 
 
+/**
+ * Composable function that detects keyboard visibility.
+ *
+ * @return A State object representing the keyboard visibility (true if visible, false otherwise).
+ */
 @Composable
 fun keyboardAsState(): State<Boolean> {
     val view = LocalView.current
@@ -242,6 +261,14 @@ fun keyboardAsState(): State<Boolean> {
     return rememberUpdatedState(isImeVisible)
 }
 
+
+/**
+ * Composable function that displays a modified post header with a back button and text.
+ *
+ * @param modifier Modifier for the header layout.
+ * @param text The text to display in the header.
+ * @param backButton Callback function to be executed when the back button is clicked.
+ */
 @Composable
 fun PostHeaderEdit(
     modifier: Modifier = Modifier,
@@ -273,6 +300,13 @@ fun PostHeaderEdit(
     }
 }
 
+
+/**
+ * Composable function that displays text within the modified post header.
+ *
+ * @param text The text to display.
+ * @param modifier Modifier for the text layout.
+ */
 @Composable
 fun CreatePostProperty1DefaultEdit(
     text: String,

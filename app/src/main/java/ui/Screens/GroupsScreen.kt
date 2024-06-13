@@ -77,13 +77,19 @@ import ui.ViewModel.PostsGroupsViewmodel
 import ui.ViewModel.UserInteractionViewmodel
 
 
+
+/**
+ * Composable function that displays the "Groups" screen, showing the user's groups and allowing them to create new groups.*
+ * @param navController Navigation controller for navigating between screens.
+ * @param userInteractionViewmodel ViewModel for handling user interactions and data.
+ * @param postsGroupsViewmodel ViewModel for handling post and group related actions and data.
+ * @param bookDatabaseViewModel ViewModel for interacting with the book database.*/
 @Composable
 fun GroupsScreen(navController: NavController,userInteractionViewmodel: UserInteractionViewmodel,postsGroupsViewmodel: PostsGroupsViewmodel,bookDatabaseViewModel: BookDatabaseViewModel){
-    var counter by remember { mutableIntStateOf(0) }
-    val currentScreen by userInteractionViewmodel.currentFriendsButton.collectAsState()
-    var moreButton by remember { mutableStateOf(false) }
-    var createGroups by remember { mutableStateOf(false) }
+    var moreButton by remember { mutableStateOf(false) } // State for toggling the "More" button overlay
+    var createGroups by remember { mutableStateOf(false) } // State for toggling the "Create Group" screen
 
+// Display "Your Groups" screen
     if(!createGroups){
         Column(modifier = Modifier
             .fillMaxSize()
@@ -122,7 +128,7 @@ fun GroupsScreen(navController: NavController,userInteractionViewmodel: UserInte
                 Spacer(modifier = Modifier.fillMaxWidth(0.05f))
             }
 
-
+            // Fetch and display user's groups
             postsGroupsViewmodel.getGroups()
             MyGroups(postsGroupsViewmodel,userInteractionViewmodel,navController,createGroups = {
                 createGroups = true
@@ -194,12 +200,19 @@ fun GroupsScreen(navController: NavController,userInteractionViewmodel: UserInte
 
 }
 
-
+/**
+ * Composable function that displays a list of the user's groups, allowing navigation to group chats.
+ *
+ * @parampostsGroupsViewmodel ViewModel for handling post and group related actions and data.
+ * @param userInteractionViewmodel ViewModel for handling user interactions and image retrieval.
+ * @param navController Navigation controller for navigating between screens.
+ * @param createGroups Callback function to be executed when the "Create Group" button isclicked.
+ */
 @Composable
 fun MyGroups(postsGroupsViewmodel: PostsGroupsViewmodel,userInteractionViewmodel: UserInteractionViewmodel,navController: NavController,createGroups:()->Unit) {
     val list by postsGroupsViewmodel.groupsList.collectAsState()
 
-
+    // Display message if no groups are available
     if (list.isEmpty()) {
         Column(modifier = Modifier
             .fillMaxWidth()
@@ -209,7 +222,9 @@ fun MyGroups(postsGroupsViewmodel: PostsGroupsViewmodel,userInteractionViewmodel
             Text(text = "No groups to show",fontFamily = com.calculator.bookfinder.accountbuttons.lindenHill, fontSize = 28.sp)
         }
 
-    } else {
+    }
+    // Display group list
+    else {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -249,6 +264,7 @@ fun MyGroups(postsGroupsViewmodel: PostsGroupsViewmodel,userInteractionViewmodel
                     }
                 }
             }
+            // Floating action button to create a new group
             FloatingActionButton(
                 modifier = Modifier.padding(15.dp),
                 onClick = {
@@ -273,17 +289,24 @@ fun MyGroups(postsGroupsViewmodel: PostsGroupsViewmodel,userInteractionViewmodel
 
 
 
-
+/**
+ * Composable function that displays the screen for creating new groups, including adding members and setting group details.
+ *
+ * @param navController Navigation controller for navigating between screens.
+ * @param postsGroupsViewmodel ViewModel for handling post and group related actions.
+ * @param userInteractionViewmodel ViewModel for handling user interactions and data.
+ * @param back Callback function to be executed when the back button is clicked.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateGroups(navController: NavController,postsGroupsViewmodel: PostsGroupsViewmodel,userInteractionViewmodel: UserInteractionViewmodel,back:()->Unit){
-    var groupName by remember { mutableStateOf("") }
-    var groupDescription by remember { mutableStateOf("") }
-    var message by remember { mutableStateOf(false) }
-    var groupMembers by remember { mutableStateOf(listOf<String>()) }
+    var groupName by remember { mutableStateOf("") } // State for storing the group name
+    var groupDescription by remember { mutableStateOf("") } // State for storing the group description
+    var message by remember { mutableStateOf(false) } // State for displaying group creation success message
+    var groupMembers by remember { mutableStateOf(listOf<String>()) } // State forstoring the list of group members
     var forcedRefresh by remember { mutableStateOf(0) }
-    var addFriend by remember { mutableStateOf(false) }
-    var pfpName by remember { mutableStateOf("groups.png") }
+    var addFriend by remember { mutableStateOf(false) } // State for toggling the "Add Friend" section
+    var pfpName by remember { mutableStateOf("groups.png") } // State for storing the group profile picture name
 
     if (!addFriend){
         Column(modifier = Modifier.fillMaxSize(),
@@ -346,7 +369,7 @@ fun CreateGroups(navController: NavController,postsGroupsViewmodel: PostsGroupsV
                 .fillMaxWidth()){
                 AddMember(
                     tagButton = {
-                        addFriend = true
+                        addFriend = true // Show "Add Friend" section
                         userInteractionViewmodel.getUsernames()
                     },
                     modifier = Modifier
@@ -357,6 +380,7 @@ fun CreateGroups(navController: NavController,postsGroupsViewmodel: PostsGroupsV
                 )
             }
             Spacer(modifier = Modifier.height(10.dp))
+            // Display selected group members as chips
             LazyRow(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Start) {
@@ -374,6 +398,7 @@ fun CreateGroups(navController: NavController,postsGroupsViewmodel: PostsGroupsV
                             IconButton(
                                 modifier = Modifier.size(28.dp),
                                 onClick = {
+                                    // Remove member from the list
                                     groupMembers = postsGroupsViewmodel.updateList(groupMembers,member,1)
                                     Log.d("groupMembers",groupMembers.toString())
                                     forcedRefresh+=1
@@ -440,6 +465,11 @@ fun CreateGroups(navController: NavController,postsGroupsViewmodel: PostsGroupsV
 }
 
 
+/**
+ * Composable function that displays an "Add Member" button.
+ *
+ * @param modifier Modifier for the button layout.* @param tagButton Callback function to be executed when the button is clicked.
+ */
 @Composable
 fun AddMember(
     modifier: Modifier = Modifier,
@@ -472,6 +502,11 @@ fun AddMember(
 }
 
 
+/**
+ *  displays a list of usernames matching a search query, allowing the user to add them as friends.
+ ** @param userInteractionViewmodel ViewModel for handling user interactions and data.
+ * @param addFriend Callback function to be executed when a username is clicked, passing the username as a parameter.
+ */
 @Composable
 fun AddfriendsResults(userInteractionViewmodel: UserInteractionViewmodel,addFriend:(String)->Unit){
     val matchingUsernames by userInteractionViewmodel.matchingUserNamesList.collectAsState()
@@ -494,15 +529,27 @@ fun AddfriendsResults(userInteractionViewmodel: UserInteractionViewmodel,addFrie
     }
 }
 
+
+/**
+ * Composable function that displays a group's profile picture with an option to change it.
+ *
+ * @param modifier Modifierfor the overall layout.
+ * @param changePfpButton Callback function to be executed when the "Change Profile Picture" button is clicked.
+ * @param userInteractionViewmodel ViewModel for handling user interactions and image retrieval.
+ * @param pfpName The name of the group's profile picture file inFirebase Storage.
+ * @param navController Navigation controller
+ * @param getNewPfpName Callback function to update the group's profile picture name after a new image is selected.
+ */
 @Composable
 fun GroupProfilePicture(modifier: Modifier, changePfpButton:()->Unit, userInteractionViewmodel: UserInteractionViewmodel, pfpName:String,navController: NavController,getNewPfpName:(String)->Unit){
     var uri by remember { mutableStateOf(Uri.EMPTY) }
+    // Launcher for picking an image from the device
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = {
-            getNewPfpName(userInteractionViewmodel.getImageNameFromUri(it.toString()))
-            uri = it
-            userInteractionViewmodel.uploadImageToFirebase(it,2)
+            getNewPfpName(userInteractionViewmodel.getImageNameFromUri(it.toString())) // Update profile picture name
+            uri = it // Update URI state
+            userInteractionViewmodel.uploadImageToFirebase(it,2) // Upload image to Firebase Storage
         })
 
     TopLevelProperty1Variant2(modifier = modifier) {
@@ -547,6 +594,13 @@ fun GroupProfilePicture(modifier: Modifier, changePfpButton:()->Unit, userIntera
     }
 }
 
+
+/**
+ * Composable function that loads and displays a group's profile picture from Firebase Storage.
+ *
+ * @param userInteractionViewmodel ViewModel for handling user interactions and image retrieval.
+ * @param pfpName The name of the group's profile picture file in Firebase Storage.
+ */
 @Composable
 fun LoadGroupPfp(userInteractionViewmodel: UserInteractionViewmodel, pfpName:String){
     var oldImageUri by remember { mutableStateOf<Uri?>(null) }

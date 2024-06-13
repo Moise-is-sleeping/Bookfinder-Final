@@ -474,38 +474,49 @@ class UserInteractionViewmodel : ViewModel(){
 
         })
     }
-    fun checkUri(currntUri:Uri?){
+    /**
+     * Checks if the new image URI (`newIMmgeUri`) is the same as the current image URI (`currntUri`).* If they are the same, it resets the profile picture value and clears the `newIMmgeUri`
+     * This is so i can know how long to display the loading image for.
+     *
+     * @param currntUri The current image URI.
+     */
+    fun checkUri(currntUri: Uri?) {
 
+        if (newIMmgeUri != null &&currntUri != null) {
+            // Extract relevant substrings from the URIs for comparison
+            val new = newIMmgeUri.toString().substring(newIMmgeUri.toString().indexOf("photopicker") + 18) // Extract the unique identifier from the new image URI
+            val old = currntUri.toString().substring(84, currntUri.toString().indexOf("?alt")) // Extract the unique identifier from the current image URI
 
-
-        if (newIMmgeUri != null && currntUri != null){
-            val new = newIMmgeUri.toString().substring(newIMmgeUri.toString().indexOf("photopicker")+18)
-            val old = currntUri.toString().substring(84,currntUri.toString().indexOf("?alt"))
-            if (new == old){
-                resetPfpValue()
-                newIMmgeUri = null
+            if (new == old) { // Check if the extracted identifiers are the same
+                resetPfpValue() // Reset theprofile picture value
+                newIMmgeUri = null // Clear the new image URI
             }
         }
-
-
-
     }
 
-    fun getGroupImageFromFirebase(imageName:String,imageUri:(Uri)->Unit){
-        val storageRef = FirebaseStorage.getInstance().reference
-        val imageRef = storageRef.child("images/$imageName")
+    /**
+     * Retrieves an image from Firebase Storage based on the provided image name.
+     *
+     * @param imageName The name of the image filestored in Firebase Storage.
+     * @param imageUri A lambda expression that receives the downloaded image URI.
+     */
+    fun getGroupImageFromFirebase(imageName: String, imageUri: (Uri) -> Unit) {
+        val storageRef = FirebaseStorage.getInstance().reference // Get a reference to the Firebase Storageroot
+        val imageRef = storageRef.child("images/$imageName") // Create a reference to the specific image
 
-        /// Download the profile picture and pass it to the imageUri lambda expression
-        imageRef.downloadUrl.addOnSuccessListener {
+        // Download the image and pass its URI to the lambda expression
+        imageRef.downloadUrl.addOnSuccessListener { uri ->
+            imageUri(uri) // Invoke the lambda expression with the downloaded image URI
 
-            imageUri(it)
-            Log.d("image",it.toString())
         }
     }
 
 
-    fun resetPfpValue(){
-        _resetPfp.value = !_resetPfp.value
+    /**
+     * Toggles the value of the `_resetPfp` state variable.
+     */
+    fun resetPfpValue() {
+        _resetPfp.value = !_resetPfp.value // Toggle the value of the state variable
     }
 
     /**
@@ -616,64 +627,98 @@ class UserInteractionViewmodel : ViewModel(){
     }
 
 
-    fun updateUserInfo(fullname: String,about: String, succes:(Boolean)->Unit){
-        val db = FirebaseFirestore.getInstance()
-        /// Query the Firestore collection "Users" to find the document that matches the current user's username
+    /**
+     * Updates the user information in Firestore.
+     *
+     * @param fullname The new full name of the user
+     * @param succes A lambda expression that is called with a boolean indicating whether the update was successful.
+     */
+    fun updateUserInfo(fullname: String, about: String, succes: (Boolean) -> Unit) {
+        val db = FirebaseFirestore.getInstance() // Get an instance of Firestore
+
+        // Query Firestore to find the current user's document
         firestore.collection("Users")
-            .whereEqualTo("username",myUsername)
+            .whereEqualTo("username", myUsername)
             .get()
-            .addOnSuccessListener {
-                val doc = it.documents[0]
+            .addOnSuccessListener { querySnapshot ->
+                if (querySnapshot.documents.isNotEmpty()) {
+                    val doc = querySnapshot.documents[0] // Get the first document
 
-                /// Get a reference to the current user's document
-                val info = db.collection("Users").document(doc.id)
-                if (fullname.isNotEmpty()){
-                    info.update("fullname", fullname)
-                }
-                if (about.isNotEmpty()){
-                    info.update("bio",about)
-                }
-                if (fullname.isNotEmpty() || about.isNotEmpty()){
-                    succes(true)
+                    // Update the user's information
+                    val info = db.collection("Users").document(doc.id)
+                    if (fullname.isNotEmpty()) {
+                        info.update("fullname", fullname) // Update the full name if provided
+                    }
+                    if (about.isNotEmpty()) {
+                        info.update("bio", about) // Update the bio if provided
+                    }
+
+                    // Notify success if any updates were made
+                    if (fullname.isNotEmpty() || about.isNotEmpty()) {
+                        succes(true)
+                    }
                 }
             }
-            .addOnFailureListener{
-                Log.d("error",it.toString())
+            .addOnFailureListener { exception ->
+                Log.d("error", exception.toString()) // Log any errors during the update process
             }
     }
 
-    fun getUserStats(friends: (Int) -> Unit, posts: (Int) -> Unit){
-        getPostNumber {
-            posts(it)
+    /**
+     * Retrieves the user's statistics (number of friends and posts) and provides them through lambda expressions.
+     *
+     * @param friends A lambda expression that receives the number of friends.
+     * @param posts A lambda expression that receives the number of posts.
+     */
+    fun getUserStats(friends: (Int) -> Unit, posts: (Int) -> Unit) {
+        getPostNumber { postCount ->
+            posts(postCount) // Pass the post count to the 'posts' lambda
         }
-        getFriendNumber {
-            friends(it)
+        getFriendNumber { friendCount ->
+            friends(friendCount) // Pass the friend count to the 'friends' lambda
         }
     }
 
-    fun getPostNumber(posts: (Int) -> Unit){
+    /**
+     * Retrieves the number of posts made by the current user.
+     *
+     * @param posts A lambda expression that receives the number of posts.
+     */
+    fun getPostNumber(posts: (Int) -> Unit) {
         firestore.collection("Posts")
-            .whereEqualTo("userName",myUsername)
+            .whereEqualTo("userName", myUsername)
             .get()
-            .addOnSuccessListener {
-                var number = it.documents.size
-                posts(number)
-
+            .addOnSuccessListener { querySnapshot ->
+                val number = querySnapshot.documents.size // Get the number of posts
+                posts(number) // Pass the number of posts to the 'posts' lambda
             }
     }
 
-    fun getFriendNumber(friends: (Int) -> Unit){
+    /**
+     * Retrieves the number of friends the current user has.
+     *
+     * @param friends A lambda expression that receives the number of friends.
+     */
+    fun getFriendNumber(friends: (Int) -> Unit) {
         firestore.collection("Users")
-            .whereEqualTo("username",myUsername)
+            .whereEqualTo("username", myUsername)
             .get()
-            .addOnSuccessListener {
-                val doc = it.documents[0]
-                val list = doc.data!!.get("addedFriends") as List<*>
-                val number = list.size
-                friends(number)
+            .addOnSuccessListener { querySnapshot ->
+                if (querySnapshot.documents.isNotEmpty()) {
+                    val doc = querySnapshot.documents[0] // Get the first document
+                    val list = doc.data?.get("addedFriends") as? List<*> // Get the list of added friends (
+                    val number = list?.size ?: 0 // Get the number of friends or 0 if the list is null
+                    friends(number) // Pass the number of friends to the 'friends' lambda
+                }
             }
     }
+    /**
+     * Extracts the image name from a given URI string.
+     *
+     * @param uri The URI string of the image.
+     * @return The name of the image file or "Unknown" if it cannot be extracted.
+     */
     fun getImageNameFromUri(uri: String): String {
-        return Uri.parse(uri).lastPathSegment ?: "Unknown"
+        return Uri.parse(uri).lastPathSegment ?: "Unknown" // Extract the last path segment as the image name
     }
 }

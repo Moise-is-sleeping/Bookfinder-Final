@@ -1,11 +1,11 @@
 {
   "name": "header",
-  "version": 32,
+  "version": 33,
   "source-key": {
     "type": "figma",
     "file": "1Wdswe7lGrQnpNLE54B7NS",
     "node": "37:83",
-    "version": "5181012810",
+    "version": "5995922552",
     "component-id": "7510a1fd9dcfd3e276643a90191d081095b4b588"
   },
   "default": "Header",
@@ -17,16 +17,13 @@
         "root": "true"
       },
       {
-        "type": "vector",
-        "id": "userVector"
-      },
-      {
         "type": "text",
         "id": "BookFinders"
       },
       {
-        "type": "image",
-        "id": "alarm-bell 1"
+        "type": "adin_component",
+        "id": "User",
+        "key": "user"
       }
     ],
     "modes": {
@@ -34,11 +31,11 @@
         "rules": [
           {
             "id": "top_level",
-            "padding": "12.0",
+            "padding": 12.0,
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "proportional",
-                "value": "1.0"
+                "value": 1.0
               },
               "height-constraints": {
                 "sizing-mode": "shrink"
@@ -47,96 +44,62 @@
             "arrangement": "row",
             "main-axis-align": "space-between",
             "children": [
-              "userVector",
               "BookFinders",
-              "alarm-bell 1"
+              "User"
             ],
             "background-color": {
-              "alpha": "1.0",
-              "hue": "50.84745762711865",
-              "saturation": "0.23505976095617526",
-              "value": "0.984313725490196"
+              "alpha": 1.0,
+              "hue": 50.84745762711865,
+              "saturation": 0.23505976095617526,
+              "value": 0.984313725490196
             }
-          },
-          {
-            "id": "userVector",
-            "alignment": {
-              "horizontal": {
-                "attachment": "start",
-                "offset": "-4.0"
-              },
-              "vertical": {
-                "attachment": "start",
-                "offset": "0.0"
-              }
-            },
-            "tap-handler": "$userAccountButton",
-            "size-constraints": {
-              "width-constraints": {
-                "sizing-mode": "fixed",
-                "value": "41.30434799194336"
-              },
-              "height-constraints": {
-                "sizing-mode": "fixed",
-                "value": "37.71428298950195"
-              }
-            },
-            "vector-content": "user_vector.svg"
           },
           {
             "id": "BookFinders",
             "drop-shadow": {
               "color": {
-                "alpha": "0.24705882352941178",
-                "hue": "0.0",
-                "saturation": "0.0",
-                "value": "0.0"
+                "alpha": 0.24705882352941178,
+                "hue": 0.0,
+                "saturation": 0.0,
+                "value": 0.0
               },
-              "blur": "4.0",
-              "offset-x": "0.0",
-              "offset-y": "4.0",
-              "spread": "0.0",
+              "blur": 4.0,
+              "offset-x": 0.0,
+              "offset-y": 4.0,
+              "spread": 0.0,
               "blend-mode": "normal"
             },
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "fixed",
-                "value": "145.6521759033203"
+                "value": 145.6521759033203
               },
               "height-constraints": {
                 "sizing-mode": "fixed",
-                "value": "33.0"
+                "value": 33.0
               }
-            },
-            "color": {
-              "alpha": "1.0",
-              "hue": "0.0",
-              "saturation": "0.0",
-              "value": "0.0"
             },
             "text-content": "BookFinders",
             "overflow": "visible",
-            "max-lines": "-1",
+            "max-lines": -1,
             "text-align": "left",
-            "text-size": "30.0",
-            "line-height": "1.10498046875",
-            "typeface": "Lancelot"
+            "text-size": 30.0,
+            "line-height": 1.347900390625,
+            "typeface": "Linden Hill"
           },
           {
-            "id": "alarm-bell 1",
-            "tap-handler": "$notificationButton",
+            "id": "User",
+            "tap-handler": "$userAccountButton",
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "fixed",
-                "value": "41.30434799194336"
+                "value": 39.0
               },
               "height-constraints": {
                 "sizing-mode": "fixed",
-                "value": "41.79999923706055"
+                "value": 39.0
               }
-            },
-            "image-content": "alarm_bell_1.png",
-            "scale": "cover"
+            }
           }
         ]
       }
@@ -147,11 +110,6 @@
       "data-type": "void-callback",
       "required": false,
       "description": ""
-    },
-    "notificationButton": {
-      "data-type": "void-callback",
-      "required": false,
-      "description": ""
     }
   },
   "previews": [
@@ -159,7 +117,7 @@
       "design": "Header",
       "size": {
         "width": 350.2608642578125,
-        "height": 65.80000305175781
+        "height": 63.0
       }
     }
   ],

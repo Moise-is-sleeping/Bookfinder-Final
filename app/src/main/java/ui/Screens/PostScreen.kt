@@ -96,7 +96,7 @@ import com.calculator.bookfinder.accountbuttons.AccountButtons
 import com.calculator.bookfinder.accountbuttons.Property1
 import com.calculator.bookfinder.accountbuttons.lindenHill
 import com.calculator.bookfinder.addpicture.AddPicture
-import com.calculator.bookfinder.header.lancelot
+
 import com.calculator.bookfinder.postheader.PostHeader
 import com.calculator.bookfinder.reviewpost.Class10Jan2024
 import com.calculator.bookfinder.reviewpost.Deadpool1
@@ -128,24 +128,30 @@ import ui.ViewModel.UserInteractionViewmodel
 import ui.state.BookState
 import ui.state.PostSate
 
-@OptIn(ExperimentalMaterial3Api::class)
 
+/**
+ * Composable function that displays the screen for creating a new post, including options to tag a book.
+ *
+ * @parambookDatabaseViewModel ViewModel for interacting with the book database.
+ * @param navController Navigation controller for navigating between screens.
+ * @param postsGroupsViewmodel ViewModel for handling post and group related actions.
+ * @param bookViewModel ViewModel for handling book-related data and searches.
+ */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PostScreen(bookDatabaseViewModel: BookDatabaseViewModel, navController: NavController, postsGroupsViewmodel: PostsGroupsViewmodel, bookViewModel: BookViewModel){
     var postTitle by remember {
         mutableStateOf("")
-    }
+    } // State for storing the post title
     var postDescription by remember {
         mutableStateOf("")
-    }
-    val starColors by postsGroupsViewmodel.starColor.collectAsState()
-    var tagBook by remember { mutableStateOf(false)}
-    val searchValue by bookViewModel.searchValue.collectAsState()
-    val hasSearched by bookViewModel.hasSearched.collectAsState()
-    val book by postsGroupsViewmodel.book.collectAsState()
-    var message by remember {
-        mutableStateOf(false)
-    }
+    } // State for storing the post description
+    val starColors by postsGroupsViewmodel.starColor.collectAsState() // State for star rating colors
+    var tagBook by remember { mutableStateOf(false)} // State for toggling book tagging section
+    val searchValue by bookViewModel.searchValue.collectAsState() // Current search query
+    val hasSearched by bookViewModel.hasSearched.collectAsState() // Indicates if a search has been performed
+    val book by postsGroupsViewmodel.book.collectAsState() // Currently selected book for tagging
+    var message by remember { mutableStateOf(false) } // State for displaying post creation success message
 
 
 
@@ -201,7 +207,7 @@ fun PostScreen(bookDatabaseViewModel: BookDatabaseViewModel, navController: NavC
                 )
             )
             Column(modifier = Modifier.padding(start = 15.dp)) {
-                Text(text = "Rating", fontFamily = lancelot, fontSize = 23.sp,
+                Text(text = "Rating", fontFamily = lindenHill, fontSize = 23.sp,
                     color = Color(
                         alpha = 255,
                         red = 0,
@@ -249,7 +255,7 @@ fun PostScreen(bookDatabaseViewModel: BookDatabaseViewModel, navController: NavC
                             tagBook = !tagBook
                                   },
                         label = {
-                            Text(postsGroupsViewmodel.bookNameLength(book.title), fontFamily = lancelot, fontSize = 23.sp)
+                            Text(postsGroupsViewmodel.bookNameLength(book.title), fontFamily = lindenHill, fontSize = 23.sp)
                                 },
                         trailingIcon = {
                             Icon(
@@ -326,7 +332,16 @@ fun PostScreen(bookDatabaseViewModel: BookDatabaseViewModel, navController: NavC
 
 }
 
-
+/**
+ * Composable function that displays a user's post, including header, content, interactions (like, comment), and book information.*
+ * @param post The PostState object representing the post to be displayed.
+ * @param userInteractionViewmodel ViewModel for handling user interactions and image retrieval.
+ * @param bookDatabaseViewModel ViewModel for interacting with the book database.
+ * @param postsGroupsViewmodel ViewModel for handling post and grouprelated actions.
+ * @param bookViewModel ViewModel for handling book-related data.
+ * @param navController Navigation controller for navigating to other screens.
+ * @param comments Callback function to be executed when the comment icon is clicked, passing the post ID.
+ */
 @Composable
 fun UserPost(post: PostSate,userInteractionViewmodel: UserInteractionViewmodel,bookDatabaseViewModel: BookDatabaseViewModel,postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: BookViewModel,navController: NavController,comments:(String)->Unit){
     var icontype by remember {
@@ -341,10 +356,11 @@ fun UserPost(post: PostSate,userInteractionViewmodel: UserInteractionViewmodel,b
     var animation by remember {
         mutableStateOf(false)
     }
-
+    // Fetch author information
     postsGroupsViewmodel.getAuthor(postsGroupsViewmodel.extractId(post.book.key!!),author = {author = it
 
     })
+    // Fetch book information
     postsGroupsViewmodel.getBookInfo(postsGroupsViewmodel.extractId(post.book.key!!)){
         book = it
     }
@@ -409,10 +425,12 @@ fun UserPost(post: PostSate,userInteractionViewmodel: UserInteractionViewmodel,b
                     icontype = !icontype
                 })
             }
+            // Show book information if icontype is true
             if (icontype){
                 Row (modifier = Modifier
                     .padding(bottom = 27.dp)
                     .clickable {
+                        // Navigate to book description screen when clicked
                         bookViewModel.getBooks(postsGroupsViewmodel.extractId(post.book.key!!))
                         navController.navigate(Routes.BookDescriptionScreen.route)
                         bookDatabaseViewModel.hasSavedDefaultValue(postsGroupsViewmodel.extractId(post.book.key!!))
@@ -495,11 +513,14 @@ fun UserPost(post: PostSate,userInteractionViewmodel: UserInteractionViewmodel,b
         }
     }
 
-
-
-
-
 }
+
+/**
+ * Composable function that displays a like icon that can be toggled between liked and unliked states.
+ *
+ * @parampostsGroupsViewmodel ViewModel for handling post interactions, including liking and unliking.
+ * @param id The ID of the post associated with the like icon.
+ */
 @Composable
 fun LikeIcon(postsGroupsViewmodel: PostsGroupsViewmodel,id:String){
     var icon by remember {
@@ -509,7 +530,7 @@ fun LikeIcon(postsGroupsViewmodel: PostsGroupsViewmodel,id:String){
         mutableStateOf(Color(Color.Black.value))
     }
 
-
+// Check initial like status and update icon accordingly
     postsGroupsViewmodel.checkPostLike(id,liked = {
         if (it){
             icon = Icons.Filled.Favorite
@@ -544,7 +565,13 @@ fun LikeIcon(postsGroupsViewmodel: PostsGroupsViewmodel,id:String){
 }
 
 
-
+/**
+ * Composable function that displays the header for a user's post, including username, date, and profile picture.
+ ** @param name The username of the user who created the post.
+ * @param date The date the post was created.
+ * @param userInteractionViewmodel ViewModel for handling user interactions and image retrieval.
+ * @param navController Navigation controller
+ */
 @Composable
 fun UserPostHeader(name:String, date: String,userInteractionViewmodel: UserInteractionViewmodel,navController: NavController){
     Row(modifier = Modifier
@@ -619,6 +646,13 @@ fun UserPostHeader(name:String, date: String,userInteractionViewmodel: UserInter
     }
 }
 
+
+/**
+ * Composable function that provides a container for header elements.
+ *
+ * @param modifier Modifier for the container layout.
+ * @param content Content to be displayed within the container.
+ */
 @Composable
 fun HeaderContainer(
     modifier: Modifier = Modifier,
@@ -641,7 +675,11 @@ fun HeaderContainer(
     )
 }
 
-
+/**
+ * Composable function that displays a dropdown icon button with a toggleable arrow.
+ *
+ * @param buttonPressed Callback function to be executed when the button is clicked.
+ */
 @Composable
 fun DropDownInfo(buttonPressed:()->Unit){
     var icon by remember {
@@ -663,77 +701,7 @@ fun DropDownInfo(buttonPressed:()->Unit){
     }
 }
 
-@Preview
-@Composable
-fun HeartAnimation(){
-    var dialog by remember {
-        mutableStateOf(false)
-
-    }
-
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .pointerInput(Unit) {
-            detectTapGestures(
-                onDoubleTap = {
-                    dialog = true
-                }
-            )
-        }
-
-
-    ){
-        Text(text = "hello")
-    }
-
-    if (dialog){
-        AnimatedVisibility(
-            visible = dialog,
-            enter = fadeIn(animationSpec = tween(150))+ expandIn(expandFrom = Alignment.Center, animationSpec = tween(300)),
-            exit = fadeOut(animationSpec = tween(150))
-        ) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                Icon(
-                    Icons.Filled.Favorite,
-                    contentDescription = "Localized description",
-                    Modifier.size(150.dp),
-                    tint = Color(Color.Red.value)
-                )
-                LaunchedEffect(key1 = dialog) {
-                    while (dialog) {
-                        delay(300)
-                        dialog = false
-
-                    }
-                }
-            }
-        }
-
-    }
-}
 
 
 
-/*@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun GifInput() {
-    var gifUri by remember { mutableStateOf<Uri?>(null) }
 
-    BasicTextField(
-        value = "", // You might not need to store text if only handling GIFs
-        onValueChange = {},
-        modifier = Modifier
-            .fillMaxWidth()
-            .receiveContent(setOf(MediaType.Image)) { content ->
-                gifUri = content.platformTransferableContent?.linkUri
-            }
-    )
-
-    gifUri?.let {
-        AsyncImage(
-            model = it,
-            contentDescription = "User GIF",
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
-}*/

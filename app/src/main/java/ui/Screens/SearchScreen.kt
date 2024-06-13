@@ -46,7 +46,7 @@ import coil.compose.AsyncImage
 import com.calculator.bookfinder.R
 import com.calculator.bookfinder.accountbuttons.lindenHill
 import com.calculator.bookfinder.header.Header
-import com.calculator.bookfinder.header.lancelot
+
 import com.calculator.bookfinder.morebuttons.MoreButtons
 import com.calculator.bookfinder.naviagtionbar.NaviagtionBar
 import com.calculator.bookfinder.searchfield.TopLevel
@@ -237,7 +237,7 @@ fun SearchCategories(bookDatabaseViewModel: BookDatabaseViewModel, bookViewModel
         .fillMaxHeight(0.915f),horizontalAlignment = Alignment.CenterHorizontally){
         item{
             Column {
-                Text(text = categoryList[0], fontFamily = lancelot, fontSize = 23.sp,
+                Text(text = categoryList[0], fontFamily = lindenHill, fontSize = 23.sp,
                     color = Color(
                     alpha = 255,
                     red = 0,
@@ -260,7 +260,7 @@ fun SearchCategories(bookDatabaseViewModel: BookDatabaseViewModel, bookViewModel
         }
         item{
             Column {
-                Text(text = categoryList[1], fontFamily = lancelot, fontSize = 23.sp,
+                Text(text = categoryList[1], fontFamily = lindenHill, fontSize = 23.sp,
                     color = Color(
                         alpha = 255,
                         red = 0,
@@ -282,7 +282,7 @@ fun SearchCategories(bookDatabaseViewModel: BookDatabaseViewModel, bookViewModel
         }
         item{
             Column {
-                Text(text = categoryList[2], fontFamily = lancelot, fontSize = 23.sp,
+                Text(text = categoryList[2], fontFamily = lindenHill, fontSize = 23.sp,
                     color = Color(
                         alpha = 255,
                         red = 0,
@@ -304,7 +304,7 @@ fun SearchCategories(bookDatabaseViewModel: BookDatabaseViewModel, bookViewModel
         }
         item{
             Column {
-                Text(text = categoryList[3], fontFamily = lancelot, fontSize = 23.sp,
+                Text(text = categoryList[3], fontFamily = lindenHill, fontSize = 23.sp,
                     color = Color(
                         alpha = 255,
                         red = 0,
@@ -326,7 +326,7 @@ fun SearchCategories(bookDatabaseViewModel: BookDatabaseViewModel, bookViewModel
         }
         item{
             Column {
-                Text(text = categoryList[4], fontFamily = lancelot, fontSize = 23.sp,
+                Text(text = categoryList[4], fontFamily = lindenHill, fontSize = 23.sp,
                     color = Color(
                         alpha = 255,
                         red = 0,

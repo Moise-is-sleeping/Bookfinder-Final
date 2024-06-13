@@ -51,6 +51,14 @@ import ui.ViewModel.BookDatabaseViewModel
 import ui.ViewModel.BookViewModel
 import ui.ViewModel.UserInteractionViewmodel
 
+/**
+ * Composable function that displays the profile screen for a selected user.
+ *
+ * @param bookDatabaseViewModel ViewModel for interacting withthe book database.
+ * @param bookViewModel ViewModel for handling book-related data.
+ * @param navController Navigation controller for navigating between screens.
+ * @param userInteractionViewmodel ViewModel for handling user interactions.
+ */
 @Composable
 fun UsersProfileScreen(bookDatabaseViewModel: BookDatabaseViewModel, bookViewModel: BookViewModel, navController: NavController,userInteractionViewmodel:UserInteractionViewmodel) {
     var moreButton by remember { mutableStateOf(false) }
@@ -126,7 +134,7 @@ fun UsersProfileScreen(bookDatabaseViewModel: BookDatabaseViewModel, bookViewMod
 
             }
 
-            if (!(userInteractionViewmodel.myUserName() in friends)){
+            if (userInteractionViewmodel.myUserName() !in friends){
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()

@@ -54,7 +54,7 @@ class MainActivity : ComponentActivity() {
 
                     val startDestination = if(loginViewModel.userIsLoggedIn()){
                         userInteractionViewmodel.getUsersInfo()
-                        Routes.GroupsScreen.route
+                        Routes.HomeScreen.route
                         }else{
                             Routes.LoginScreen.route
                     }

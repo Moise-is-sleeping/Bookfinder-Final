@@ -38,8 +38,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.calculator.bookfinder.accountbuttons.lindenHill
 import com.calculator.bookfinder.books.Books
-import com.calculator.bookfinder.header.lancelot
+
 import com.calculator.bookfinder.morebuttons.MoreButtons
 import com.google.relay.compose.BorderAlignment
 import com.google.relay.compose.BoxScopeInstance.boxAlign
@@ -77,7 +78,7 @@ fun SavedScreen( postsGroupsViewmodel: PostsGroupsViewmodel, userInteractionView
                 navController.navigate(Routes.SettingsScreen.route)
             })
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
-            Text(text = "Favourites", fontFamily = lancelot, textAlign = TextAlign.Start, fontSize = 25.sp,
+            Text(text = "Favourites", fontFamily = lindenHill, textAlign = TextAlign.Start, fontSize = 25.sp,
                 color = Color(
                     alpha = 255,
                     red = 0,

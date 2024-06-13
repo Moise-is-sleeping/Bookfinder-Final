@@ -64,7 +64,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.calculator.bookfinder.accountbuttons.lindenHill
 import com.calculator.bookfinder.header.Header
-import com.calculator.bookfinder.header.lancelot
+
 import com.calculator.bookfinder.homepagebooks.BookTitle
 
 import com.calculator.bookfinder.homepagebooks.Books
@@ -90,27 +90,30 @@ import ui.ViewModel.UserInteractionViewmodel
 
 
 /**
- * Function that displays books in the home screen
- *   @param bookDatabaseViewModel view-model that contains the logic behind certain functions in the screen
- *   @param bookViewModel view-model that contains the logic behind certain functions in the screen
- *   @param navController controller that allows navigation between screens
+ * Composable function that displays the main HomeScreen, providing navigation to different sections of the app.
+ *
+ * @param postsGroupsViewmodel ViewModel for handling post and group related actions.
+ * @param bookViewModel ViewModel for handling book-related data and searches.
+ * @param navController Navigation controller for navigating between screens.
+ * @param bookDatabaseViewModel ViewModel for interacting with the book database.
+ * @param userInteractionViewmodel ViewModelfor handling user interactions and data.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: BookViewModel,navController:NavController,bookDatabaseViewModel: BookDatabaseViewModel,userInteractionViewmodel: UserInteractionViewmodel){
-    var moreButton by remember { mutableStateOf(false) }
-    var counter by remember { mutableIntStateOf(0) }
-    val currentScreen by userInteractionViewmodel.currentFriendsButton.collectAsState()
-    val scope = rememberCoroutineScope()
-    val scaffoldState = rememberBottomSheetScaffoldState()
-    var typedComment by remember { mutableStateOf("") }
-    var myUsername by remember { mutableStateOf("") }
+    var moreButton by remember { mutableStateOf(false) } // State for toggling the "More" button overlay
+    var counter by remember { mutableIntStateOf(0) } // Workaround for recomposition
+    val currentScreen by userInteractionViewmodel.currentFriendsButton.collectAsState() // Current screen state (Your Feedor Discover)
+    val scope = rememberCoroutineScope() // Coroutine scope for bottom sheet
+    val scaffoldState = rememberBottomSheetScaffoldState() // Bottom sheet state for comments
+    var typedComment by remember { mutableStateOf("") } // State for the current comment being typed
+    var myUsername by remember { mutableStateOf("") } // Current username
     var currentPostID by remember {
         mutableStateOf("")
-    }
+    } // ID of the post for which comments are being displayed
     var userCommentsList by remember {
         mutableStateOf((listOf<Map<String,String>>()))
-    }
+    } // List of comments for the current post
     val feedRefresh by remember {
         mutableStateOf(0)
     }
@@ -118,11 +121,12 @@ fun HomeScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: BookVie
 
 
 
-
+    // Fetch initial book and post data
     LaunchedEffect(Unit){
         bookDatabaseViewModel.fetchBooks()
         postsGroupsViewmodel.getPosts()
     }
+    // BottomSheetScaffold for displaying comments
     BottomSheetScaffold(
         modifier = Modifier.background(Color.White),
         scaffoldState = scaffoldState,
@@ -154,7 +158,7 @@ fun HomeScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: BookVie
                             LoadPfp(userInteractionViewmodel , myUsername )
                         }
                     }
-
+                    // Close keyboard when bottom sheet is closed
                     if (scaffoldState.bottomSheetState.currentValue.toString() == "PartiallyExpanded" ){
                         CloseKeyboard()
                     }
@@ -200,6 +204,7 @@ fun HomeScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: BookVie
                         }
                     }
                 }
+                // Fetch and display comments for the current post
                 if (currentPostID != ""){
                     LaunchedEffect(key1 = feedRefresh) {
                         while (true) {
@@ -366,6 +371,9 @@ fun HomeScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: BookVie
 
 }
 
+/**
+ * Composable function that closes the keyboard.
+ */
 @Composable
 fun CloseKeyboard() {
     val context = LocalContext.current
@@ -373,7 +381,13 @@ fun CloseKeyboard() {
     val view = LocalView.current
     inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }
-
+/**
+ * Composable function that displays a list of books in the "Discover" section.
+ *
+ * @param bookViewModel ViewModel for handling book-related data and searches.
+ * @param navController Navigation controller for navigating between screens.
+ * @param bookDatabaseViewModel ViewModel for interacting with the book database.
+ */
 @Composable
 fun Discover(bookViewModel: BookViewModel,navController: NavController,bookDatabaseViewModel:BookDatabaseViewModel){
     val list by bookViewModel.homeBookList.collectAsState()
@@ -414,7 +428,16 @@ fun Discover(bookViewModel: BookViewModel,navController: NavController,bookDatab
 
 }
 
-
+/**
+ * Composable function that displays the user's feed of posts.
+ *
+ * @param postsGroupsViewmodel ViewModel for handling post and group related actions.
+ * @param userInteractionViewmodel ViewModel for handling user interactions and image retrieval.
+ * @param bookDatabaseViewModel ViewModel for interacting with the book database.
+ * @param bookViewModel ViewModel for handling book-related data.
+ * @param navController Navigation controller for navigating between screens.
+ * @param comments Callback function to be executed when the comment icon is clicked, passing the post ID.
+ */
 @Composable
 fun YourFeed(postsGroupsViewmodel: PostsGroupsViewmodel,userInteractionViewmodel: UserInteractionViewmodel,bookDatabaseViewModel: BookDatabaseViewModel,bookViewModel: BookViewModel,navController: NavController,comments:(String)->Unit){
     val postlist by postsGroupsViewmodel.postsList.collectAsState()
@@ -422,7 +445,7 @@ fun YourFeed(postsGroupsViewmodel: PostsGroupsViewmodel,userInteractionViewmodel
     var feedRefresh by remember {
         mutableStateOf(0)
     }
-
+    // Periodically refresh user info and posts
     LaunchedEffect(key1 = feedRefresh) {
         while (true) {
             delay(2000)

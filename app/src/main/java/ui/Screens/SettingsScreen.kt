@@ -60,29 +60,29 @@ import ui.ViewModel.BookViewModel
 import ui.ViewModel.LoginViewModel
 import ui.ViewModel.UserInteractionViewmodel
 /**
- * Displays information for  the screen with the books that have been saved to favourites
+ * Composable function that displays the Settings screen, allowing users to update their profile information.
  *
- * @param bookDatabaseViewModel View model containing information about saved books
- * @param bookViewModel view-model that contains the logic behind certain functions in the screen
- * @param navController Controller for navigation between screens
+ * @param userInteractionViewmodel ViewModel for handling user interactions and data updates.
+ * @param loginViewModel ViewModel for handling login-related logic (used for sign-out).
+ * @param navController Navigation controller for navigating between screens.
  */
 @Composable
 fun SettingsScreen(userInteractionViewmodel: UserInteractionViewmodel, loginViewModel: LoginViewModel, navController: NavController){
     var forcedRefresh by remember { mutableIntStateOf(0) }
-    val userName by remember { mutableStateOf(userInteractionViewmodel.myUserName()) }
-    var oldFullName by remember { mutableStateOf("") }
-    var oldDescription by remember { mutableStateOf("") }
-    var dialogOpen by remember { mutableStateOf(false) }
-    var displayMessage by remember { mutableStateOf(false) }
+    val userName by remember { mutableStateOf(userInteractionViewmodel.myUserName()) } // Current username
+    var oldFullName by remember { mutableStateOf("") } // State for updating full name
+    var oldDescription by remember { mutableStateOf("") } // State for updating description
+    var dialogOpen by remember { mutableStateOf(false) } // State for sign-out dialog visibility
+    var displayMessage by remember { mutableStateOf(false) } // State for displaying update success message
     var infoPlaceholder by remember {
         mutableStateOf(mutableListOf<String>())
-    }
+    } // Placeholder for initial user info
     var friendNumber by remember {
         mutableIntStateOf(0)
-    }
+    } // Number of friends
     var postNumber by remember {
         mutableIntStateOf(0)
-    }
+    } // Number of posts
 
     userInteractionViewmodel.getSelectedUserInfo(userName,name={
         infoPlaceholder.add(it)
@@ -117,7 +117,7 @@ fun SettingsScreen(userInteractionViewmodel: UserInteractionViewmodel, loginView
                     .height(147.dp)
                     .width(147.dp), changePfpButton = {}, userInteractionViewmodel = userInteractionViewmodel,userName,navController)
             }
-
+            // Fetch user stats (friends and posts)
             userInteractionViewmodel.getUserStats(
                 friends = {
                     friendNumber = it
@@ -126,7 +126,7 @@ fun SettingsScreen(userInteractionViewmodel: UserInteractionViewmodel, loginView
                     postNumber = it
                 }
             )
-
+            // Display user stats (posts, friends, groups)
             Row(modifier = Modifier
                 .padding(top = 30.dp)
                 .fillMaxWidth(),
@@ -233,34 +233,56 @@ fun SettingsScreen(userInteractionViewmodel: UserInteractionViewmodel, loginView
     forcedRefresh -= 1
 }
 
+
+/**
+ * Composable function that loads and displays a user's profile picture from Firebase.
+ *
+ * @param userInteractionViewmodelViewModel for handling user interactions and image retrieval.
+ * @param userName The username of the user whose profile picture is to be loaded.
+ */
 @Composable
 fun LoadPfp(userInteractionViewmodel: UserInteractionViewmodel, userName:String){
-    val resetPfp by  userInteractionViewmodel.resetPfp.collectAsState()
-    var oldImageUri by remember { mutableStateOf<Uri?>(null) }
+    val resetPfp by  userInteractionViewmodel.resetPfp.collectAsState() // State for resetting the profile picture
+    var oldImageUri by remember { mutableStateOf<Uri?>(null) } // State for storing the image URI
+
+    // Fetch image URI from Firebase
     userInteractionViewmodel.getImageFromFirebase(imageUri = {
-        oldImageUri = it
-        userInteractionViewmodel.checkUri(it) },userName)
-    if (oldImageUri == null || resetPfp){
+        oldImageUri = it // Update image URI state
+        userInteractionViewmodel.checkUri(it) // Check if URI is valid
+    },userName)
+
+    // Conditionally display loading indicator or image
+    if (oldImageUri == null || resetPfp){ // Show loading indicatorwhile image is being fetched or reset
         Column (modifier= Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center){
             Loading(height = 50, width = 50)
         }
-
     }else{
-        AsyncImage(model =oldImageUri , contentDescription ="test" ,modifier= Modifier.fillMaxSize(),contentScale = ContentScale.Crop)
+        AsyncImage(model =oldImageUri , contentDescription ="test" ,modifier= Modifier.fillMaxSize(),contentScale = ContentScale.Crop) // Display image once loaded
     }
-
-
-
-
-
 }
+
+/**
+ * Composable function that displays a toast message.
+ *
+ * @param text The text message to display in the toast.
+ */
 @Composable
 fun Message(text:String){
     Toast.makeText(LocalContext.current,text, Toast.LENGTH_SHORT).show()
 }
 
+
+/**
+ * Composable function that displays the user's profile picture and a button to change it.
+ *
+ * @param modifier Modifierfor the overall layout.
+ * @param changePfpButton Callback function to trigger the profile picture change process.
+ * @param userInteractionViewmodel ViewModel for handling user interactions, including image uploads.
+ * @param userName The username of the user whose profile picture is displayed.
+ * @param navController Navigationcontroller (unused in this composable).
+ */
 @Composable
 fun UserProfilePicture(modifier: Modifier, changePfpButton:()->Unit, userInteractionViewmodel: UserInteractionViewmodel, userName:String,navController: NavController){
     val launcher = rememberLauncherForActivityResult(
@@ -304,6 +326,14 @@ fun UserProfilePicture(modifier: Modifier, changePfpButton:()->Unit, userInterac
 }
 
 
+
+/**
+ * Composable function that displays a confirmation dialog for signing out.
+ *
+ * @param dialogClose Callback function to close the dialog.
+ * @param navController Navigation controller for navigating to the Login screen.
+ * @param loginViewModel ViewModel for handling login-related logic (unused in this composable).
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignOutDialog(dialogClose:()->Unit,navController: NavController,loginViewModel: LoginViewModel){
@@ -335,24 +365,3 @@ fun SignOutDialog(dialogClose:()->Unit,navController: NavController,loginViewMod
 }
 
 
-@Composable
-fun CompressImage(uri: Uri) {
-    /*
-        val context = LocalContext.current
-        val inputfile = File(context.cacheDir,"uncompressedImage.jpg")
-        val imageName = File(uri.path).name
-        val outputfile = File(context.cacheDir,imageName)
-
-        context.contentResolver.openInputStream(uri)?.use { inputStream ->
-            FileOutputStream(inputfile).use { outputStream ->
-                inputStream.copyTo(outputStream)
-            }
-        }
-        val jpegTurboCompressor = JpegTurboCompressor()
-        val quality = 75
-        jpegTurboCompressor.compress(inputFile.absolutePath, outputFile.absolutePath, quality)
-
-
-    */
-
-}
