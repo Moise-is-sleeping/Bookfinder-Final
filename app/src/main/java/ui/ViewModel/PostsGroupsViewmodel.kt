@@ -246,10 +246,8 @@ class PostsGroupsViewmodel : ViewModel() {
             .addOnSuccessListener {
                 val tempList = mutableListOf<PostSate>()
                 for (item in it.documents) {
-                    if (_friendsList.contains(item.getString("userName"))) { // Filter posts by friends
+                    if (_friendsList.contains(item.getString("userName")) || item.getString("userName") == _myUsername) { // Filter posts by friends
                         var post = postState(item)
-                        Log.d("posts", post.toString())
-                        Log.d("posts", item.getString("userName").toString())
                         tempList.add(post) // Add post to temporary list
                     }
                 }

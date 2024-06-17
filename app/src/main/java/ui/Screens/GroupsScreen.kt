@@ -212,32 +212,40 @@ fun GroupsScreen(navController: NavController,userInteractionViewmodel: UserInte
 fun MyGroups(postsGroupsViewmodel: PostsGroupsViewmodel,userInteractionViewmodel: UserInteractionViewmodel,navController: NavController,createGroups:()->Unit) {
     val list by postsGroupsViewmodel.groupsList.collectAsState()
 
-    // Display message if no groups are available
-    if (list.isEmpty()) {
-        Column(modifier = Modifier
+
+    Box(
+        modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight(0.915f),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center){
-            Text(text = "No groups to show",fontFamily = com.calculator.bookfinder.accountbuttons.lindenHill, fontSize = 28.sp)
-        }
-
-    }
-    // Display group list
-    else {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.915f),
-            contentAlignment = Alignment.BottomEnd
-        ) {
-            Box(contentAlignment = Alignment.TopCenter,
-                    modifier = Modifier
-                    .fillMaxSize()) {
+        contentAlignment = Alignment.BottomEnd
+    ) {
+        // Display message if no groups are available
+        if (list.isEmpty()) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.915f),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = "No groups to show",
+                    fontFamily = com.calculator.bookfinder.accountbuttons.lindenHill,
+                    fontSize = 28.sp
+                )
+            }
+        } else {
+            // Display group list
+            Box(
+                modifier = Modifier
+                    .fillMaxSize(),
+                contentAlignment = Alignment.TopCenter
+            ) {
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .fillMaxHeight(0.915f), horizontalAlignment = Alignment.CenterHorizontally
+                        .fillMaxHeight(0.915f),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     items(list) { group ->
                         Box(modifier = Modifier
@@ -258,32 +266,36 @@ fun MyGroups(postsGroupsViewmodel: PostsGroupsViewmodel,userInteractionViewmodel
                                 HomepageBooks() {
                                     LoadGroupPfp(userInteractionViewmodel, group.pfpName)
                                 }
-                                Text(text = group.groupName, modifier = Modifier.padding(start = 15.dp))
+                                Text(
+                                    text = group.groupName,
+                                    modifier = Modifier.padding(start = 15.dp)
+                                )
                             }
                         }
                     }
                 }
-            }
-            // Floating action button to create a new group
-            FloatingActionButton(
-                modifier = Modifier.padding(15.dp),
-                onClick = {
-                    createGroups()
-                },
-                containerColor = Color(
-                    alpha = 255,
-                    red = 251,
-                    green = 242,
-                    blue = 192
-                ) ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "",
-                )
+
             }
         }
+        // Floating action button to create a new group
+        FloatingActionButton(
+            modifier = Modifier.padding(15.dp),
+            onClick = {
+                createGroups()
+            },
+            containerColor = Color(
+                alpha = 255,
+                red = 251,
+                green = 242,
+                blue = 192
+            )
+        ) {
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = "",
+            )
+        }
     }
-
 }
 
 

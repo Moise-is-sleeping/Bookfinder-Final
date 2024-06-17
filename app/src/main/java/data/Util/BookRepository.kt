@@ -65,7 +65,7 @@ class BookRepository(private val bookapi : BookApiService) {
             return response1.body()?.toSearchBySubjectState()?:SearchBySubjectState() }
         else{
             error = true
-                return SearchBySubjectState()
+            return SearchBySubjectState()
         }
 
 

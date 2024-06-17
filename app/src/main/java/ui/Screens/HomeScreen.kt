@@ -187,21 +187,13 @@ fun HomeScreen(postsGroupsViewmodel: PostsGroupsViewmodel,bookViewModel: BookVie
                         postsGroupsViewmodel.addComments(typedComment,currentPostID)
                         typedComment = ""
                     }) {
-                        if (typedComment != ""){
-                            Icon(
-                                modifier = Modifier
-                                    .size(24.dp),
-                                imageVector = Icons.AutoMirrored.Filled.Send ,
-                                contentDescription = "Localized description",
+                        Icon(
+                            modifier = Modifier
+                                .size(24.dp),
+                            imageVector = Icons.AutoMirrored.Filled.Send ,
+                            contentDescription = "Localized description",
 
-                                )
-                        }else{
-                            Icon(
-                                modifier = Modifier
-                                    .size(48.dp),
-                                imageVector = Icons.Filled.Gif ,
-                                contentDescription = "Localized description")
-                        }
+                            )
                     }
                 }
                 // Fetch and display comments for the current post

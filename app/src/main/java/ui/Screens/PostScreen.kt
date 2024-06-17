@@ -236,7 +236,7 @@ fun PostScreen(bookDatabaseViewModel: BookDatabaseViewModel, navController: NavC
             Row (modifier = Modifier
                 .fillMaxWidth()
                 .padding()
-                ,horizontalArrangement = Arrangement.Center){
+                ,horizontalArrangement = Arrangement.Start){
                 if(book.title == ""){
                     TagBook(
                         tagButton = {
@@ -247,6 +247,7 @@ fun PostScreen(bookDatabaseViewModel: BookDatabaseViewModel, navController: NavC
                             .columnWeight(1.0f)
                             .height(42.dp)
                             .width(167.dp)
+                            .padding(start = 17.dp)
                     )
                 }else{
                     InputChip(
@@ -266,15 +267,6 @@ fun PostScreen(bookDatabaseViewModel: BookDatabaseViewModel, navController: NavC
                         }
                     )
                 }
-                Spacer(modifier = Modifier.fillMaxWidth(0.6f))
-                AddPicture(
-                    addPicture = {},
-                    modifier = Modifier
-                        .rowWeight(1.0f)
-                        .columnWeight(1.0f)
-                        .height(42.dp)
-                        .width(48.dp)
-                )
 
             }
             Spacer(modifier = Modifier.fillMaxHeight(0.15f))
